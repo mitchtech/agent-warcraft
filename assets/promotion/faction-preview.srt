@@ -1,0 +1,18 @@
+1
+00:00:00,000 --> 00:00:05,000
+Pick a faction
+Orc peons by default.
+Human peasants on request.
+Configuration preview - event coverage varies by host
+
+2
+00:00:05,000 --> 00:00:10,000
+Job's done.
+The same events, voiced by the Alliance.
+Configuration preview - event coverage varies by host
+
+3
+00:00:10,000 --> 00:00:15,000
+More gold is required.
+Usage alarms speak both languages.
+Configuration preview - event coverage varies by host

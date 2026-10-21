@@ -1,0 +1,700 @@
+{
+  "description": "Provenance and processing for the bundled clips. The committed WAV files are canonical; scripts/build-audio.py rebuilds them from these sources.",
+  "format": {
+    "sampleRate": 32000,
+    "channels": 1,
+    "sampleWidth": 2,
+    "loudness": -16
+  },
+  "clips": [
+    {
+      "id": "orc-ready",
+      "line": "Ready to work.",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonReady1.wav",
+          "sha256": "c821c124004af55b1d1bc97261e4f4521e234b78748addd585b3f03711f64584"
+        }
+      ],
+      "output": "e41af27ba43644f90e43b52588dc4487ff11815ab7f870f9fb81965c27bd2e49"
+    },
+    {
+      "id": "orc-something-need-doing",
+      "line": "Something need doing?",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonWhat4.wav",
+          "sha256": "6ee4f9d9f9d2fede1f953a196de8875dba2ffefa0c5c732adad3de45bbaf090e"
+        }
+      ],
+      "output": "d4674323da517be33de3be599dc50a0b7d12e1b235fd88415db4717624ba6c87"
+    },
+    {
+      "id": "orc-yes",
+      "line": "Yes?",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonWhat1.wav",
+          "sha256": "d4f5696d9db6875c80c8dccf95f6d8047a4564b214be90792b8a766e313106a3"
+        }
+      ],
+      "output": "a55d387da623c6159119d027eb5d9042eab64e478075e46ca230e95d5d2d282a"
+    },
+    {
+      "id": "orc-hmm",
+      "line": "Hmmm?",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonWhat2.wav",
+          "sha256": "51d3de60bbb1973f291b7059dc1a8c0d44ff7f524d31881c4ab790c5a2922ef2"
+        }
+      ],
+      "output": "87100ece35b976bf18218ae97062aa7669cd9d75ada9f990e7399133b640d51c"
+    },
+    {
+      "id": "orc-what-you-want",
+      "line": "What you want?",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonWhat3.wav",
+          "sha256": "4e8197030f01cbaef968ddb9566f19bfd68b3af622748238a3049d218bb64eed"
+        }
+      ],
+      "output": "ae44c0c5e464152fb915e51491f53512ee8eab0c536491e7a469a42255322a0a"
+    },
+    {
+      "id": "orc-i-can-do-that",
+      "line": "I can do that.",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonYes1.wav",
+          "sha256": "a644ec5632e566df6c057e124319884b5123eea5d5f54b04280b097c2231cc0b"
+        }
+      ],
+      "output": "5285cebdd946cbbdb55a4ac74a01d8f9bfaf2ba827544c31a296db4bf6366e33"
+    },
+    {
+      "id": "orc-be-happy-to",
+      "line": "Be happy to.",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonYes2.wav",
+          "sha256": "1aaee40174ef4f6109dadc1d28edcbcd63eae27bd9e0b520c40c17e988a365d6"
+        }
+      ],
+      "output": "87695241816a8bbd169cbc1da015b19583de4467f292325352f21330578a9228"
+    },
+    {
+      "id": "orc-work-work",
+      "line": "Work, work.",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonYes3.wav",
+          "sha256": "18669847b60fc5b1bb41327dc075412aeb2a823d5a9d84476ddc2960baffa959"
+        }
+      ],
+      "output": "4d7c8f4b86bc386cbda8338008e718de0aace2380a25311a6ad2ead46cdd922a"
+    },
+    {
+      "id": "orc-okie-dokie",
+      "line": "Okey dokey.",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonYes4.wav",
+          "sha256": "89b9f19fec29fde3b513cc98bcf1614a6d264850f65e6816a4483ac49dc34cc2"
+        }
+      ],
+      "output": "d5241b7e4b195b771916d923ab327678fa2319b368b6ca0c2e83ea2f58c9f0ec"
+    },
+    {
+      "id": "orc-whaaat",
+      "line": "Whaaat?",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonPissed1.wav",
+          "sha256": "12383949b2a8241fd6f5a6edc03c0655f9765d0744a7aecc709d6026bb8f4698"
+        }
+      ],
+      "output": "3cab12e9cc4d16d4de29935e3619b3b96772246a965edb2cf66227c8f9d6e144"
+    },
+    {
+      "id": "orc-me-busy",
+      "line": "Me busy. Leave me alone!",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonPissed2.wav",
+          "sha256": "bbf910617a548e55a45d2a7ebc74e45fa18e8bc6a3004f84e6e1af94434b146d"
+        }
+      ],
+      "output": "9e76cb27c34c238b67742206eedcea044ba0be66cf231e1bf49e3eb7d374e29f"
+    },
+    {
+      "id": "orc-no-time-for-play",
+      "line": "No time for play.",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonPissed3.wav",
+          "sha256": "cf68875ec1600020d304c4b3c23a0116509acbf8e61d67d30c6d6ffcb9f13b69"
+        }
+      ],
+      "output": "9cfd74bd5887cc1b9024bb281fad2d4ba3221ccba234b3c97ed0c81d1538c8e3"
+    },
+    {
+      "id": "orc-not-that-kind-of-orc",
+      "line": "Me not that kind of orc!",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonPissed4.wav",
+          "sha256": "39493727ee0dc6f134ee1c666c63240c6c9df77bceb8b529b549aa980d3849df"
+        }
+      ],
+      "output": "f5061eb88cffead1a923d3dc56141e1cb2f4741cb43d070ff5607e6195ed49e0"
+    },
+    {
+      "id": "orc-work-complete",
+      "line": "Work complete!",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonJobDone.wav",
+          "sha256": "2fcbfe09401afd3ae43c62c9a3c47e49676422cc20e28f744d62ce386759e078"
+        }
+      ],
+      "output": "f8197d0c24ee1dca148b9b8caeef4eb3702583945f0ce99a9ecf0de7301989cd"
+    },
+    {
+      "id": "orc-need-more-gold",
+      "line": "We need more gold!",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Orc/GruntNoGold1.wav"
+        }
+      ],
+      "output": "99907629afec5d220fc2a731ceee2a0ec52e38a648e6f61b62e3cddb1f3895b9"
+    },
+    {
+      "id": "orc-need-more-lumber",
+      "line": "We need more lumber.",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Orc/GruntNoLumber1.wav"
+        }
+      ],
+      "output": "3743e933400aa5a058a79f8e0f80206c8ae931f2cd2330992642cbb8e324ea19"
+    },
+    {
+      "id": "orc-gold-mine-low",
+      "line": "Our gold mine is running low.",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Orc/GruntGoldMineLow1.wav"
+        }
+      ],
+      "output": "bf4aae97c64d7cc84fb74838266020c3276034d372816748e090465e37472d60"
+    },
+    {
+      "id": "orc-under-attack",
+      "line": "We're under attack!",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Orc/GruntUnitAttack1.wav"
+        }
+      ],
+      "output": "df3e11f027d843700ad4a7714205efd693b8bd72065acb4f232c557448da54e8"
+    },
+    {
+      "id": "orc-town-under-attack",
+      "line": "Our town is under attack!",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Orc/GruntTownAttack1.wav"
+        }
+      ],
+      "output": "e20296a0faf7ea22a106032cba73ec5d1bb98747b10b855fe81136860a82d015"
+    },
+    {
+      "id": "orc-inventory-full",
+      "line": "Inventory is full.",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Orc/GruntInventoryFull1.wav"
+        }
+      ],
+      "output": "233989d4d32a434b50961d996c06c5f66ef51813f532442d751f17ab2f481241"
+    },
+    {
+      "id": "orc-hero-slain",
+      "line": "Our hero has been slain!",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Orc/GruntHeroDies1.wav"
+        }
+      ],
+      "output": "d5f66ea51e929233b6b8c90c3714dc7412c70d132bf75e54568f655da5a89901"
+    },
+    {
+      "id": "orc-cant-build-there",
+      "line": "Can't build there.",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Orc/PeonCannotBuildThere1.wav"
+        }
+      ],
+      "output": "f974fb4db2e3e284a52f7cb22fd893ce02c969974f0e418a9b6e7e4d2367d4a4"
+    },
+    {
+      "id": "orc-zug-zug",
+      "line": "Zug zug.",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/GruntYes4.wav",
+          "sha256": "6062522501ddc53bd7397b034a31aa344b83552fe2d624f1f91b5d44356f5861"
+        }
+      ],
+      "output": "2ca3f61d3eba4df55b1d66ca7ab06d0b8249f0060562f24562c75f09bd428311"
+    },
+    {
+      "id": "orc-dabu",
+      "line": "Dabu.",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/GruntYes1.wav",
+          "sha256": "61d3f291c6428faf0aa1a31c180ac8a8d91401f722c09e30274045a79969fc73"
+        }
+      ],
+      "output": "424bdadb7a0dad759325e6132bfd742ca06d97ef9a65c41bb28515dd48fe2a7a"
+    },
+    {
+      "id": "orc-loktar",
+      "line": "Lok'tar.",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/GruntYes2.wav",
+          "sha256": "f1742031c8de9c8b8da96a9ec0015a9df28314f9158dbd04ff6e7f9a39ff1437"
+        }
+      ],
+      "output": "38081b37d3e305b15438b597be13d3e32123796b050a6a5adc520879b6bb8a7b"
+    },
+    {
+      "id": "orc-death",
+      "line": "(peon death)",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425494.zip",
+          "sha256": "df87fee926afeb1825c495a493fe513f988c3d8de2a4cb13cc286e949043e638",
+          "member": "Orc/Peon/PeonDeath.wav"
+        }
+      ],
+      "output": "2bb19511bb4635e08df1627acaa5d21d81432ae69c458a6fbf53338ccaa44846"
+    },
+    {
+      "id": "orc-for-the-horde",
+      "line": "For the Horde!",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/GruntWarcry1.wav",
+          "sha256": "3eadbf03a8dc0672f2c73d2f8ab422d91cecfe277a937dc1d7b0ddcc6a395162"
+        }
+      ],
+      "output": "45c6efb56a99b6105c2e648df8b991b19d26d7c241196ce662a61f29f2f7b896"
+    },
+    {
+      "id": "orc-my-life-for-the-horde",
+      "line": "My life for the Horde!",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/GruntReady1.wav",
+          "sha256": "f14fccc937ef1e355a3c5881c473c595ee5a22ec2be78314486a1af2b5041952"
+        }
+      ],
+      "output": "51da702eadadbc4dd114a50472f71db07e654771ee247f62464605c4bc69586f"
+    },
+    {
+      "id": "orc-why-not",
+      "line": "Why not?",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeonWarcry1.wav",
+          "sha256": "a8405dccabe1de88a421e77526cc9f89acb6e1c0eb43011e31a63305d2a9c310"
+        }
+      ],
+      "output": "7e8bd631e1ac0a985945f134c7978469f280a4308af335c5766c9e54a583f70c"
+    },
+    {
+      "id": "human-ready",
+      "line": "Ready to work.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantReady1.wav",
+          "sha256": "3552d38023d8043f1ebe0089101a42bdb0d93c7fb370f536cb52758a3a7c1dce"
+        }
+      ],
+      "output": "51bb020a7074e1dae7af4c805d1038c4bbe6aba7b2377fc4d2a2c5e93be4ae53"
+    },
+    {
+      "id": "human-yes-milord",
+      "line": "Yes, milord?",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantWhat1.wav",
+          "sha256": "b45ecae17fc94a8c70b0a79d72ba158dcaa6097cd1e0b2927b52014306fb4485"
+        }
+      ],
+      "output": "aa318ccbeeeef7a4b2b2eff7f79aa035c348cdcc5590031a9cbf2e1556bd6a59"
+    },
+    {
+      "id": "human-what",
+      "line": "What?",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantWhat4.wav",
+          "sha256": "1049f19363f780c4817e3956ce14ef09898820b7a966f3f7a518ef66226cbabc"
+        }
+      ],
+      "output": "572a9dd6bdc05472c206e93c50388cbdd91e08cfd64b0415c2031c8eca469f96"
+    },
+    {
+      "id": "human-more-work",
+      "line": "More work?",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantWhat3.wav",
+          "sha256": "a9eac51f905373f31385a8fdd9547f0e1612ebdbf50b67258138b7cf98440cd8"
+        }
+      ],
+      "output": "d1f59c9d4cedbecbcbfc08125815d6466361a5a663a6fffee23876c5f38a3023"
+    },
+    {
+      "id": "human-righto",
+      "line": "Right-o.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantYes1.wav",
+          "sha256": "5eeab0c5f61f68564f00df9dd57b9e752d5c7fc849995eb71e4d8b530648a6f4"
+        }
+      ],
+      "output": "5135c854468a693ecf59b37c2630df38e42a3c3bac0b9cde9213c11db793df20"
+    },
+    {
+      "id": "human-yes-me-lord",
+      "line": "Yes, me lord.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantYes2.wav",
+          "sha256": "5876e9b8d80e5ec2b854efff516f2e47523dfe1de9fcdf1d75a9b71fca5d6b5c"
+        }
+      ],
+      "output": "4371eb999bd90fe786f80626a8c46de11a09560ec5007d396d7e27afabc328bb"
+    },
+    {
+      "id": "human-alright",
+      "line": "All right.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantYes3.wav",
+          "sha256": "49732e8cb9d5ca181e9c33b23534b886f754c86744bf8e2cf5dddb64df5a156c"
+        }
+      ],
+      "output": "0ea4eff77934b7fd4f7655fe43912c8e2e80ff14285a6c13658511221d250db5"
+    },
+    {
+      "id": "human-off-i-go",
+      "line": "Off I go, then!",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantYes4.wav",
+          "sha256": "251a56cc98801e4319dd78e0f9afd982c786a2282a22d4166684119827168f66"
+        }
+      ],
+      "output": "88ad09a1527f15b6096b09e18e84090ca9ac9fe10302ff5c093aa8edf183e9f7"
+    },
+    {
+      "id": "human-didnt-vote",
+      "line": "You're the king? Well, I didn't vote for you.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantPissed1.wav",
+          "sha256": "87836ffc0120a3d76630ad23568fef76542ab376ddbba194a20eb18a583a9882"
+        }
+      ],
+      "output": "25a30471580c2a0df05f31bec6d3b5f182fc01201bf5b2709ca9c1b2641d1a61"
+    },
+    {
+      "id": "human-witch",
+      "line": "We found a witch! May we burn her?",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantPissed2.wav",
+          "sha256": "a30240d4d1d9bf0bbb2a74b6f4a5f360fbd844747f6bacbff4cb21e3f0cf3971"
+        }
+      ],
+      "output": "a7b296529f03d3af2bbbcac5cc84690ba4c642d4b90a01953f5837a0fd63c568"
+    },
+    {
+      "id": "human-repressed",
+      "line": "Help! Help! I'm being repressed!",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantPissed3.wav",
+          "sha256": "95aad252de84c153b4ea5fc8014ff3c5265590c45dbd70b7116849501fea0d53"
+        }
+      ],
+      "output": "4ac74a224ff5c1fa550270ce81ef30f154a624bff70c4febc19eaa9dc0beff2f"
+    },
+    {
+      "id": "human-horse-kicked",
+      "line": "A horse kicked me once. It hurt.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantPissed4.wav",
+          "sha256": "3704110ac28cdad58a06568cd08301fe0a019833a8e0f8ffd0492727076c86f0"
+        }
+      ],
+      "output": "ab13a13b1d9997b433e51ea357da02413c32c310e6bd7700a24b7b6b7a607e33"
+    },
+    {
+      "id": "human-jobs-done",
+      "line": "Job's done!",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantBuildingComplete1.wav",
+          "sha256": "86335aefc8f5054bccde0e5eaf7d580a02a1fe69f0eb118a3821302fef029dd8"
+        }
+      ],
+      "output": "abfc9b653432c2228d3ec70e779134dcb0df0bcb43bc26bd54109028b5afb355"
+    },
+    {
+      "id": "human-more-gold",
+      "line": "More gold is required.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Human/KnightNoGold1.wav"
+        }
+      ],
+      "output": "60ce8356c5f4503c63e2b0bbb2641269541eba62671ea4b4312e99056f49c24c"
+    },
+    {
+      "id": "human-more-lumber",
+      "line": "More lumber is required.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Human/KnightNoLumber1.wav"
+        }
+      ],
+      "output": "99b76eeee973a3a9a7396e40c22ffd65180b0cf982e70e16a1bde53350246e9d"
+    },
+    {
+      "id": "human-gold-mine-low",
+      "line": "Our gold mine is running low.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Human/KnightGoldMineLow1.wav"
+        }
+      ],
+      "output": "84ec79a1c70cb73710be793c86fb97e208ce6c7f99641f4a912902cd3155f6d3"
+    },
+    {
+      "id": "human-forces-under-attack",
+      "line": "Our forces are under attack!",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Human/KnightUnitAttack1.wav"
+        }
+      ],
+      "output": "2a3cfb435751b985b96726de9516806dca97760bf7031bf013d1eecbaf13131a"
+    },
+    {
+      "id": "human-town-under-siege",
+      "line": "Our town is under siege.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Human/KnightTownAttack1.wav"
+        }
+      ],
+      "output": "7492e54f6db580d3411ec25a043a89eafffcbca1c9a1d1376bb2a8e82743f50c"
+    },
+    {
+      "id": "human-inventory-full",
+      "line": "Inventory is full.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Human/KnightInventoryFull1.wav"
+        }
+      ],
+      "output": "6227572a56bc965fa6a17e5cd1309c5f54d42bab2a1c6a714f7a682c0388762f"
+    },
+    {
+      "id": "human-hero-fallen",
+      "line": "Our hero has fallen.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Human/KnightHeroDies1.wav"
+        }
+      ],
+      "output": "d413cb35c092c1a3dd6d56e70ec4bf9d493343315e476cb982b6e4ff1b46ca39"
+    },
+    {
+      "id": "human-cant-build-there",
+      "line": "I can't build there.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Human/PeasantCannotBuildThere1.wav"
+        }
+      ],
+      "output": "80ec819212f95e608d79548869f9f28f86779787815eac8fa18c4cee7a86e418"
+    },
+    {
+      "id": "human-aye-my-lord",
+      "line": "Aye, my lord.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/FootmanYes1.wav",
+          "sha256": "54ce202365fc093d9a78448b9b10e146a963d01d417829c931777f37098f0564"
+        }
+      ],
+      "output": "8ec64ebdcf9416ce08dfac9ece341a00183400f5560850a2145dfe614823b33f"
+    },
+    {
+      "id": "human-on-my-way",
+      "line": "On my way.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/FootmanYes2.wav",
+          "sha256": "24fdaa55b01fda5f1403326c5bf9c1eb6afe075c4cb94455cf19441313816f64"
+        }
+      ],
+      "output": "d1c7a0e23780b7d8bef2dcff3c1dd0c2363a2ab903bb929c20dec827c50dde98"
+    },
+    {
+      "id": "human-of-course",
+      "line": "Of course.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/FootmanYes4.wav",
+          "sha256": "c0192cffcf7c6962dee7f0f6c524967fcc1762820e5a44f23270d1606e3e1a2d"
+        }
+      ],
+      "output": "42445478089d77edc59b32b07e8814089a4ced201da7d683390fe04a3e742110"
+    },
+    {
+      "id": "human-for-lordaeron",
+      "line": "For Lordaeron!",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/FootmanWarcry1.wav",
+          "sha256": "0178e32941ff1ec213c8196881c29c6ba7e73f5a7e9dd29cfe6cad9605d25707"
+        }
+      ],
+      "output": "d3722efb2e11ba4c7fa1de0621a37b6f449a47e65cf006f3277c69f01be34436"
+    },
+    {
+      "id": "human-ready-for-action",
+      "line": "Ready for action.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/FootmanReady1.wav",
+          "sha256": "7bc0c86a54c25ba8dd53096d8d141e09901c625caad00b5720ad20a157e445bf"
+        }
+      ],
+      "output": "8ee3ea0797641fb4dc081292b22b168b029cf4570c3a18cf0222d5218d031f2a"
+    },
+    {
+      "id": "human-groan",
+      "line": "(weary peasant groan)",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://warcraft.wiki.gg/images/PeasantWarcry1.wav",
+          "sha256": "33e337a698f94b9b90b4a1624f96ac51c32712e44005adac69456377a98f51a5"
+        }
+      ],
+      "output": "885dcc984138af44bdf7fa5985f1b01d185700f7c778eaa77dcba7024f8203cc"
+    }
+  ]
+}

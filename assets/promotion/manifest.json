@@ -1,0 +1,107 @@
+{
+  "kind": "illustrated-previews",
+  "dimensions": [
+    1080,
+    1080
+  ],
+  "fps": 15,
+  "sources": [
+    {
+      "path": "audio/human-jobs-done.wav",
+      "bytes": 42686,
+      "sha256": "abfc9b653432c2228d3ec70e779134dcb0df0bcb43bc26bd54109028b5afb355"
+    },
+    {
+      "path": "audio/human-more-gold.wav",
+      "bytes": 83664,
+      "sha256": "60ce8356c5f4503c63e2b0bbb2641269541eba62671ea4b4312e99056f49c24c"
+    },
+    {
+      "path": "audio/human-ready.wav",
+      "bytes": 67546,
+      "sha256": "51bb020a7074e1dae7af4c805d1038c4bbe6aba7b2377fc4d2a2c5e93be4ae53"
+    },
+    {
+      "path": "audio/orc-need-more-gold.wav",
+      "bytes": 87544,
+      "sha256": "99907629afec5d220fc2a731ceee2a0ec52e38a648e6f61b62e3cddb1f3895b9"
+    },
+    {
+      "path": "audio/orc-ready.wav",
+      "bytes": 53788,
+      "sha256": "e41af27ba43644f90e43b52588dc4487ff11815ab7f870f9fb81965c27bd2e49"
+    },
+    {
+      "path": "audio/orc-town-under-attack.wav",
+      "bytes": 116264,
+      "sha256": "e20296a0faf7ea22a106032cba73ec5d1bb98747b10b855fe81136860a82d015"
+    },
+    {
+      "path": "audio/orc-what-you-want.wav",
+      "bytes": 50034,
+      "sha256": "ae44c0c5e464152fb915e51491f53512ee8eab0c536491e7a469a42255322a0a"
+    },
+    {
+      "path": "audio/orc-work-complete.wav",
+      "bytes": 56600,
+      "sha256": "f8197d0c24ee1dca148b9b8caeef4eb3702583945f0ce99a9ecf0de7301989cd"
+    },
+    {
+      "path": "site/fonts/marcellus-latin-400-normal.woff2",
+      "bytes": 14552,
+      "sha256": "8a539799d12e3a144273288055490f57e1eee84da7a9145f085bc522e80719c3"
+    },
+    {
+      "path": "site/fonts/source-sans-3-latin-400-normal.woff2",
+      "bytes": 15696,
+      "sha256": "0f73f35e08cde0a2f10c109c6e01d71459d97e4099ecd9a50f1b6c0209e4de2b"
+    },
+    {
+      "path": "site/fonts/source-sans-3-latin-700-normal.woff2",
+      "bytes": 15596,
+      "sha256": "ae35266f2ab0d5314ff9a04127931eb26c793e4f1269bb240046d4d2db4b7bb1"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "assets/promotion/faction-preview.mp4",
+      "bytes": 176973,
+      "sha256": "73a7e404811c9ca42059cf723eb644df6a7fa6ade02dccf1a6f8254c27ed07f5"
+    },
+    {
+      "path": "assets/promotion/faction-preview.png",
+      "bytes": 91545,
+      "sha256": "f77e548c35c7d64c50ecce0dabe14fba1c1e7242e1963842101394859af8168f"
+    },
+    {
+      "path": "assets/promotion/faction-preview.srt",
+      "bytes": 435,
+      "sha256": "b89d88f50c12c695a74a6a379a0a6cf83ca25340c839eb76db5568f1145357d8"
+    },
+    {
+      "path": "assets/promotion/sound-preview.mp4",
+      "bytes": 339320,
+      "sha256": "1fada13970cbb7c275ebed5b878e14d3ab1bd7c6d37f2a9de1c0e38ddc8bc52c"
+    },
+    {
+      "path": "assets/promotion/sound-preview.png",
+      "bytes": 91846,
+      "sha256": "98094cc306ce444b484ea9d61f2a51f110964526f43293aaeb5c18696f35f94a"
+    },
+    {
+      "path": "assets/promotion/sound-preview.srt",
+      "bytes": 784,
+      "sha256": "7079250cd7d090e0161cd6dabccfed522ad73834caff4fc3219058f033b0c0f0"
+    }
+  ],
+  "tools": {
+    "Pillow": "12.3.0",
+    "ffmpeg": "ffmpeg version 9.0.2 Copyright (c) 2000-2026 the FFmpeg developers"
+  },
+  "credentials_used": [],
+  "limitations": [
+    "Not a live host or physical audio recording.",
+    "No claim of hook execution in these videos.",
+    "Audio is assembled from the bundled, separately noticed Warcraft III clips."
+  ]
+}

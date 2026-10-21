@@ -1,0 +1,16 @@
+# Peon pet artwork
+
+The Peon Codex pet is not bundled yet. This directory holds the manifest only,
+so the installer, validation, and release packaging are ready for it.
+
+Until the art ships, `agent-warcraft pet install` reports that the pet is not
+bundled and changes nothing. Codex's native pet feature can create a pet in the
+meantime.
+
+When the art lands, add `spritesheet.webp` (8 x 11 atlas of 192 x 208 cells,
+Codex sprite version 2), `LICENSE.txt` for the artwork, and its provenance here.
+Validation and packaging enable themselves once the sprite sheet exists. The
+art must be original: no sprites, portraits, or models extracted from Blizzard games.
+
+Warcraft and the peon belong to Blizzard Entertainment. This project is not
+affiliated with or endorsed by Blizzard.

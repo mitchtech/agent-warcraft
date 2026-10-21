@@ -1,0 +1,15 @@
+{
+  "name": "agent-warcraft",
+  "description": "Warcraft peon sound notifications for coding agents: Work complete!",
+  "owner": {
+    "name": "mitchtech",
+    "url": "https://github.com/mitchtech"
+  },
+  "plugins": [
+    {
+      "name": "warcraft",
+      "source": "./",
+      "description": "Warcraft peon sound notifications for coding agents: Work complete!"
+    }
+  ]
+}

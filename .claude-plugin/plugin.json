@@ -1,0 +1,14 @@
+{
+  "name": "warcraft",
+  "version": "0.1.0",
+  "description": "Warcraft peon sound notifications for coding agents: Work complete!",
+  "author": {
+    "name": "Michael J. Mitchell",
+    "email": "michael@mitchtech.net",
+    "url": "https://github.com/mitchtech"
+  },
+  "homepage": "https://mitchtech.github.io/agent-warcraft/",
+  "repository": "https://github.com/mitchtech/agent-warcraft",
+  "license": "MIT",
+  "hooks": "./hooks/claude.json"
+}

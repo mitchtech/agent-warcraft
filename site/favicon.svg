@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs><radialGradient id="coin" cx=".38" cy=".34" r=".72"><stop offset="0" stop-color="#fff1b8"/><stop offset=".35" stop-color="#f2c94c"/><stop offset=".8" stop-color="#a87a18"/><stop offset="1" stop-color="#5c4410"/></radialGradient></defs>
+  <circle cx="32" cy="32" r="29" fill="url(#coin)" stroke="#3a2a08" stroke-width="2.5"/>
+  <path d="M19 48 43 21" stroke="#5a3a1c" stroke-width="6" stroke-linecap="round"/>
+  <path d="M15 25C25 12 42 10 53 18 43 15 31 17 22 29Z" fill="#3b3f45" stroke="#14110d" stroke-width="2" stroke-linejoin="round"/>
+</svg>

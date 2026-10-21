@@ -1,0 +1,7 @@
+{
+  "id": "peon",
+  "displayName": "Peon",
+  "description": "A hunched green orc laborer with a pickaxe and a bundle of lumber.",
+  "spriteVersionNumber": 2,
+  "spritesheetPath": "spritesheet.webp"
+}
