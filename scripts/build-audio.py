@@ -21,7 +21,7 @@ digest = lambda data: hashlib.sha256(data).hexdigest()
 
 
 def runtime_clips():
-    source = (ROOT / "scripts" / "warcraft.mjs").read_text()
+    source = (ROOT / "scripts" / "warcraft.mjs").read_text(encoding="utf-8")
     return re.findall(r"'([a-z0-9-]+)'", re.search(r"const CLIPS = \[(.*?)\];", source, re.S).group(1))
 
 
@@ -107,7 +107,7 @@ def main():
     parser.add_argument("--check", action="store_true", help="Verify committed clips without downloading")
     parser.add_argument("--cache", type=Path, help="Directory for downloaded sources (default: a temporary directory)")
     args = parser.parse_args()
-    manifest = json.loads(MANIFEST.read_text())
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     if not args.check:
         with tempfile.TemporaryDirectory() as temporary:
             cache = args.cache or Path(temporary)
@@ -115,7 +115,7 @@ def main():
             for clip in manifest["clips"]:
                 target = render(clip, cache, Path(temporary), manifest["format"]["loudness"], manifest["format"]["sampleRate"])
                 clip["output"] = digest(target.read_bytes())
-        MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n")
+        MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(verify(manifest), indent=2))
 
 
