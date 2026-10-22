@@ -22,6 +22,9 @@ def main():
     version = json.loads((ROOT / "package.json").read_text())["version"]
     if archive:
         shutil.copyfile(archive, OUT / "agent-warcraft-pet.zip")
+    peasant_archive = pet.package(OUT, pet_id="peasant")
+    if peasant_archive:
+        shutil.copyfile(peasant_archive, OUT / "agent-warcraft-peasant-pet.zip")
     shutil.copyfile(OUT / f"agent-warcraft-{version}.tgz", OUT / "agent-warcraft.tgz")
     subprocess.run(["node", "scripts/build-gemini.mjs"], cwd=ROOT, check=True)
     extension = ROOT / "dist" / "gemini"
@@ -42,9 +45,10 @@ def main():
     # All three contain identical portable Node code, rather than native binaries.
     for platform in ["linux", "win32"]:
         shutil.copyfile(archive, OUT / f"{platform}.agent-warcraft.zip")
-    web = ROOT / "assets" / "exports" / "agent-warcraft-pet-web.webp"
-    if web.exists():
-        shutil.copyfile(web, OUT / web.name)
+    for name in ["agent-warcraft-pet-web.webp", "agent-warcraft-peasant-pet-web.webp"]:
+        web = ROOT / "assets" / "exports" / name
+        if web.exists():
+            shutil.copyfile(web, OUT / web.name)
     artifacts = sorted(path for path in OUT.iterdir() if path.name != "SHA256SUMS")
     (OUT / "SHA256SUMS").write_text("".join(f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.name}\n" for path in artifacts))
     changelog = (ROOT / "CHANGELOG.md").read_text()

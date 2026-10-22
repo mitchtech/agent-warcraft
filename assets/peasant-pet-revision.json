@@ -1,0 +1,18 @@
+{
+  "method": "Pillow lossless PNG-to-WebP encoding with exact RGBA preservation; no visual changes",
+  "source": {
+    "file": "assets/original/peasant/spritesheet.png",
+    "sha256": "5c74965da31b1459a4f1401001533dfc427e9ea5c957587ffefdc23408963c24"
+  },
+  "active": {
+    "pet.json": "afff559f046afa650c6f8728e032c57cabca57e4931983bb1f6ca876bc06f554",
+    "spritesheet.webp": "5d6a5d6f406ed081a5897641c66abcc27279d7bd8cf29b8ad38bee524ae9f6bc"
+  },
+  "decodedPixelsIdentical": true,
+  "occupiedCells": 73,
+  "transparentCells": 15,
+  "web": {
+    "file": "assets/exports/agent-warcraft-peasant-pet-web.webp",
+    "sha256": "874866223380dcd28e752d7b9bb7e8dacf1197bfed155e7cf4ad0a70875ad085"
+  }
+}

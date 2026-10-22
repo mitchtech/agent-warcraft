@@ -42,7 +42,7 @@ python3 scripts/package-release.py
 
 Release assets include the versioned npm tarball, a stable `agent-warcraft.tgz`
 alias, three identically encoded platform-prefixed Gemini ZIPs, and versioned
-and stable Peon pet ZIPs.
+and stable Peon and Peasant pet ZIPs.
 `SHA256SUMS` covers every attached artifact. ZIP order, timestamps, permissions,
 and extracted source bytes are checked.
 
@@ -131,3 +131,13 @@ Use authenticated GitHub traffic and release-download counts
 (`docs/promotion/capture-metrics.py`) for aggregate visibility checks. Those
 counts include development checks and are not reliable measurements of unique
 users. Keep the website free of analytics.
+
+## Peasant assets
+
+`agent-warcraft-peasant-pet.zip` is the human counterpart's local bundle;
+`agent-warcraft-peasant-pet-web.webp` is its nine-row web export. Both join
+the release checksums automatically. Run `scripts/check-pet.py` to validate
+both characters before packaging. Preserve the source PNG in
+`assets/original/peasant` and update `assets/peasant-pet-revision.json` when
+replacing Peasant artwork. The default runtime CLI pet installer targets Peon;
+the [Peasant guide](peasant.md) describes manual installation.

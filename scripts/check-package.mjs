@@ -34,6 +34,9 @@ try {
     cli(['mute', 'all']); assert.equal(JSON.parse(cli(['status', '--json'])).config.muted, true);
     cli(['unmute', 'all']); cli(['preset', 'attention']);
     assert.equal(JSON.parse(cli(['config', '--effective'])).events.prompt_submitted.enabled, false);
+    for (const name of ['pet.json', 'spritesheet.webp', 'LICENSE.txt', 'NOTICE.md']) {
+      assert.deepEqual(readFileSync(join(bundle, 'pets', 'peasant', name)), readFileSync(join(root, 'pets', 'peasant', name)));
+    }
     // Exercise bundled art while preserving support for packages without a sprite sheet.
     if (existsSync(join(bundle, 'pets', 'peon', 'spritesheet.webp'))) { cli(['pet', 'install']); cli(['doctor', '--pet']); cli(['pet', 'uninstall']); }
     else assert.equal(JSON.parse(cli(['pet', 'status', '--json'])).state, 'not-bundled');
