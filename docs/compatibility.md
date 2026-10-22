@@ -100,8 +100,8 @@ audio to your local speakers. This plugin does not deploy a relay or service.
 ## Native pet compatibility
 
 Sounds and pets install independently. The `warcraft` plugin registers sound
-hooks only. The bundled Peon pet installs through the pet CLI or ZIP as a
-local custom pet without hook registration or avatar selection changes.
+hooks only. The bundled Peon and Peasant pets install through the pet CLI or
+ZIPs as local custom pets without hook registration or avatar selection changes.
 The host drives its activity and animation.
 
 | Surface | Sounds | Native pet |
@@ -114,10 +114,10 @@ The host drives its activity and animation.
 | Other agents and scripts | Generic event interface | Depends on host; no adapter provided |
 | Headless or remote environments | Requires local audio access | No local display is implied |
 
-Asset validation checks the manifest now and the atlas format, transparency,
-and cell occupancy once art exists. Installer tests run against a fixture
+Asset validation checks both manifests and each atlas's format, transparency,
+and cell occupancy. Installer tests run against the real bundles and a fixture
 bundle and check filesystem behavior rather than native rendering on every OS.
-See [pets](pets.md).
+See the [Peon](pets.md) and [Peasant](peasant.md) guides.
 
 ## Validation and support baseline
 

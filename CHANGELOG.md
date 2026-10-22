@@ -1,9 +1,15 @@
 # Changelog
 
-## Unreleased
+## 0.3.0 - 2026-10-22
+
+Meet the Peasant: the Alliance counterpart to the Peon, as a second native Codex pet.
 
 - Add the human Peasant v2 pet with nine animations, sixteen look directions, original source art, lossless local and web atlases, and CC BY 4.0 contributor licensing.
 - Package a dedicated Peasant ZIP, validate both pets and web exports, and derive Peasant previews from the active atlas.
+- Attach `agent-warcraft-peasant-pet.zip` and `agent-warcraft-peasant-pet-web.webp` to releases.
+- Add `agent-warcraft pet install peasant`. `pet status`, `pet uninstall`, and `doctor --pet` take the same optional pet name; without one they target the Peon, as before. Both pets install side by side.
+- Show the Peasant on the site: the Alliance hero portrait acts out each cue with his animations, the pet section switches between the Peon and the Peasant (following the faction toggle), and the install commands and web atlases follow the chosen pet.
+- Add Peasant previews to the README, Peasant scenes to `pet-preview.mp4` and `faction-preview.mp4`, and both workers to the banner and social card.
 
 ## 0.2.0 - 2026-10-21
 

@@ -83,6 +83,40 @@ test('the real bundled artwork installs byte-for-byte and passes pet diagnostics
   assert.equal(uninstallPet(env).changed, true);
 });
 
+test('the real Peasant installs beside the Peon and each is managed separately', t => {
+  const { env, target } = fixture(t);
+  const peasant = petPath(env, 'peasant');
+  assert.equal(petStatus(env, 'peasant').state, 'not-installed');
+  installPet(env);
+  assert.equal(installPet(env, false, 'peasant').changed, true);
+  for (const name of ['pet.json', 'spritesheet.webp', 'LICENSE.txt', 'NOTICE.md']) {
+    assert.deepEqual(readFileSync(join(peasant, name)), readFileSync(join(ROOT, 'pets', 'peasant', name)));
+  }
+  assert.deepEqual(readdirSync(dirname(target)).sort(), ['peasant', 'peon']);
+  const run = args => spawnSync(process.execPath, [SCRIPT, ...args], { env, encoding: 'utf8', timeout: 5000 });
+  const doctor = run(['doctor', '--pet', 'peasant']);
+  assert.equal(doctor.status, 0, doctor.stderr);
+  assert.match(doctor.stdout, /\/pets Peasant/);
+  assert.equal(JSON.parse(run(['pet', 'status', 'peasant', '--json']).stdout).state, 'matching');
+  assert.equal(uninstallPet(env, 'peasant').changed, true);
+  assert.equal(existsSync(peasant), false);
+  assert.equal(petStatus(env).state, 'matching');
+  assert.equal(run(['pet', 'install', 'peasant']).status, 0);
+  assert.equal(run(['pet', 'uninstall', 'peasant']).status, 0);
+  uninstallPet(env);
+});
+
+test('unknown pet names are rejected before touching the pets directory', t => {
+  const { env } = fixture(t);
+  const run = args => spawnSync(process.execPath, [SCRIPT, ...args], { env, encoding: 'utf8', timeout: 5000 });
+  for (const args of [['pet', 'install', 'grunt'], ['pet', 'install', 'peon', 'peasant'], ['pet', 'status', '../peon'], ['doctor', '--pet', 'footman'], ['doctor', 'peasant']]) {
+    const result = run(args);
+    assert.equal(result.status, 1, args.join(' '));
+  }
+  assert.throws(() => installPet(env, false, 'grunt'), /Unknown pet/);
+  assert.equal(existsSync(join(env.CODEX_HOME, 'pets')), false);
+});
+
 test('pet installation is independent, identical, repeatable, and removable', async t => {
   const { root, env, target } = fixture(t);
   const pet = await packaged(root);

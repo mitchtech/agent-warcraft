@@ -25,12 +25,21 @@ peasant/
   NOTICE.md
 ```
 
-From a source checkout, copy the `pets/peasant` directory into your configured
-Codex home's `pets` directory. Use `$CODEX_HOME/pets` instead of `~/.codex/pets`
-when `CODEX_HOME` is set. Inspect and back up a different existing `peasant`
-directory before replacing it. Refresh the host's pet picker and choose
-Peasant. The runtime CLI's `pet install`, `pet status`, `pet uninstall`, and
-`doctor --pet` commands continue to target Peon.
+With the standalone command, or from a source checkout with
+`node scripts/warcraft.mjs`:
+
+```bash
+agent-warcraft pet install peasant
+agent-warcraft doctor --pet peasant
+```
+
+`pet status peasant` and `pet uninstall peasant` work the same way; without a
+name, the pet commands target the Peon. The installer writes
+`$CODEX_HOME/pets/peasant` (or `~/.codex/pets/peasant`), never selects the pet,
+refuses to overwrite a different existing `peasant` directory unless you pass
+`--replace`, and then keeps a backup. The Peon and the Peasant install side by
+side. Refresh the host's pet picker and choose Peasant, or enter
+`/pets Peasant` in a graphics-capable Codex CLI terminal.
 
 The bundle targets compatible Codex desktop and graphics-capable CLI hosts.
 ChatGPT account pets are separate from local bundles. Native host rendering
@@ -67,5 +76,6 @@ The creation workflow reviewed every animation and look direction, including
 an independent blind axis check and an idle-to-jump-to-idle transition.
 Repository validation checks all 73 occupied cells, 15 transparent cells,
 transparent-pixel RGB cleanup, and exact web-export pixels. Package checks
-verify the Peasant files in both npm and Gemini distributions; managed CLI
-installation tests exercise the Peon bundle.
+verify the Peasant files in both npm and Gemini distributions and install,
+diagnose, and remove the Peasant from each. Installer tests install the real
+Peasant bundle beside the Peon.

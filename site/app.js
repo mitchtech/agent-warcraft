@@ -294,8 +294,24 @@ new ResizeObserver(() => { fit(); if (!panel.classList.contains('live')) idle();
 fit();
 idle();
 
-// Pet stage: every animation row and look direction in the bundled atlas.
+// Pet stage: every animation row and look direction in either bundled atlas.
+const PETS = {
+  peon: ['Peon', 'The Peon, a hunched green orc laborer with a pickaxe, tusks, and a black topknot'],
+  peasant: ['Peasant', 'The Peasant, a bearded human worker in a blue hood with a pickaxe'],
+};
+const stageSprite = document.querySelector('#stage-sprite');
 const stateLabel = document.querySelector('#state-label');
+let stageState = 'idle';
+const petName = () => PETS[document.documentElement.dataset.pet === 'peasant' ? 'peasant' : 'peon'];
+function choosePet(id) {
+  document.documentElement.dataset.pet = id;
+  document.querySelectorAll('[data-pet-choice]').forEach(item => item.setAttribute('aria-pressed', String(item.dataset.petChoice === id)));
+  stageSprite.setAttribute('aria-label', PETS[id][1]);
+  stateLabel.textContent = `The ${PETS[id][0]} is ${STATES[stageState][2]}`;
+}
+document.querySelectorAll('[data-pet-choice]').forEach(button => button.addEventListener('click', () => choosePet(button.dataset.petChoice)));
+// Switching factions brings that faction's worker to the stage; the pet buttons can still pick either.
+document.addEventListener('factionchange', () => choosePet(alliance() ? 'peasant' : 'peon'));
 const motionButton = document.querySelector('#motion-toggle');
 function renderMotion() {
   motionButton.disabled = reducedMotion.matches;
@@ -304,8 +320,9 @@ function renderMotion() {
 }
 document.querySelectorAll('[data-state]').forEach(button => button.addEventListener('click', () => {
   document.querySelectorAll('[data-state]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-  stagePet.set(button.dataset.state);
-  stateLabel.textContent = `The Peon is ${STATES[button.dataset.state][2]}`;
+  stageState = button.dataset.state;
+  stagePet.set(stageState);
+  stateLabel.textContent = `The ${petName()[0]} is ${STATES[stageState][2]}`;
 }));
 motionButton.addEventListener('click', () => { stagePet.pause(!stagePet.paused); renderMotion(); });
 reducedMotion.addEventListener('change', renderMotion);
@@ -323,7 +340,8 @@ document.querySelectorAll('[data-install]').forEach(button => button.addEventLis
 document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
   const copyStatus = document.querySelector('#copy-status');
   try {
-    await navigator.clipboard.writeText(document.getElementById(button.dataset.copy).textContent);
+    // innerText skips the hidden pet's variant of a command.
+    await navigator.clipboard.writeText(document.getElementById(button.dataset.copy).innerText);
     copyStatus.textContent = 'Commands copied.';
     button.textContent = 'Copied';
     button.classList.add('copied');

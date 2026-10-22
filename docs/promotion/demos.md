@@ -9,8 +9,8 @@ physical speaker playback. Keep their labels visible and describe them as previe
 | Asset | Duration | Use |
 |---|---|---|
 | [Sound preview](../../assets/promotion/sound-preview.mp4) | 27 seconds | Main sound posts; cues at 0.5 s (ready to work), 4.5 s (what you want), 8.5 s (our town is under attack, with a force push on screen), 13.5 s (work complete), 17.5 s (we need more gold) |
-| [Faction preview](../../assets/promotion/faction-preview.mp4) | 15 seconds | Faction post; Alliance cues at 0.5 s (ready to work), 5.5 s (job's done), 10.5 s (more gold is required) |
-| [Pet preview](../../assets/promotion/pet-preview.mp4) | 25 seconds | Pet posts; the Peon idles, then works with "work, work" at 4.5 s, waits with "what you want" at 8.5 s, jumps with "work complete" at 12.5 s, slumps with "we need more gold" at 16.5 s, and waves over the install command |
+| [Faction preview](../../assets/promotion/faction-preview.mp4) | 15 seconds | Faction post; the Peasant waves, jumps, and slumps with Alliance cues at 0.5 s (ready to work), 5.5 s (job's done), 10.5 s (more gold is required) |
+| [Pet preview](../../assets/promotion/pet-preview.mp4) | 33 seconds | Pet posts; the Peon idles, then works with "work, work" at 4.5 s, waits with "what you want" at 8.5 s, jumps with "work complete" at 12.5 s, slumps with "we need more gold" at 16.5 s; the Peasant idles at 20 s, jumps with "job's done" at 24.5 s, and waves over the install command |
 
 The pet preview pairs atlas animations with matching clips to show both
 components together. In real use Codex animates the pet from its own activity
@@ -80,7 +80,7 @@ meter with a low `gold.lowPercent` so the "running low" cue plays honestly.
 
 ## Native pet recording - 10-20 seconds
 
-With the Peon installed and selected, record the Codex desktop pet (or a
+With the Peon or the Peasant installed and selected, record the Codex desktop pet (or a
 graphics-capable Codex CLI terminal) through one ordinary task: idle, working,
 then waiting or review as Codex reports them. Note the host and version. Do not
 composite the atlas over a host window and present it as native rendering.

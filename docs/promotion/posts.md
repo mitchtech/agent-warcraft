@@ -124,15 +124,30 @@ your agent works. No Node needed to install, just a ZIP.
 
 Clip: atlas preview with bundled clips.
 
-https://github.com/mitchtech/agent-warcraft#codex-pet
+https://github.com/mitchtech/agent-warcraft#codex-pets
+
+## X6 - meet the Peasant
+
+The Alliance has a pet now too: Agent Warcraft adds the human Peasant as a
+second native Codex pet.
+
+Same nine animations and sixteen look directions as the Peon. Install one,
+both, or neither:
+
+agent-warcraft pet install peasant
+
+Clip: atlas preview with bundled clips.
+
+https://mitchtech.github.io/agent-warcraft/#pet
 
 ## R3 - r/codex pet showcase
 
-Title: I made a WC3 Peon custom pet for Codex
+Title: I made WC3 Peon and Peasant custom pets for Codex
 
-I made a native custom pet for Codex: a Warcraft III-style orc Peon with nine
-animations (idle, working, waiting, review, blocked, moving, waving, jumping)
-and sixteen look directions. The art was made with Codex image generation and
+I made two native custom pets for Codex: a Warcraft III-style orc Peon and his
+Alliance counterpart, the human Peasant. Each has nine animations (idle,
+working, waiting, review, blocked, moving, waving, jumping) and sixteen look
+directions. The art was made with Codex image generation and
 is CC BY 4.0; nothing was extracted from the game.
 
 Install without Node.js:
@@ -140,18 +155,21 @@ Install without Node.js:
 ```bash
 curl -LO https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-pet.zip
 unzip agent-warcraft-pet.zip -d ~/.codex/pets
+curl -LO https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-peasant-pet.zip
+unzip agent-warcraft-peasant-pet.zip -d ~/.codex/pets
 ```
 
-Then refresh the desktop pet picker or enter `/pets Peon` in a graphics-capable
-Codex CLI terminal. There is also a nine-row atlas for web pet uploads. The
+Then refresh the desktop pet picker or enter `/pets Peon` or `/pets Peasant` in
+a graphics-capable Codex CLI terminal. There are also nine-row atlases for web
+pet uploads. The
 attached video is an atlas preview, not a native recording.
 
-The pet is independent of the project's sound plugin, which plays peon lines on
-agent events. Install either or both.
+The pets are independent of the project's sound plugin, which plays peon or
+peasant lines on agent events. Install any combination.
 
 Every animation is on the site: https://mitchtech.github.io/agent-warcraft/#pet
 
-Which state do you see most: working, waiting, or blocked?
+Horde or Alliance? And which state do you see most: working, waiting, or blocked?
 
 ## L1 - LinkedIn maker introduction
 

@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Warcraft peon sound notifications for Claude Code, Codex, and Gemini CLI, plus a native Peon pet for Codex. Work complete, job's done, and we need more gold when your usage runs out.">
+  <meta name="description" content="Warcraft peon sound notifications for Claude Code, Codex, and Gemini CLI, plus native Peon and Peasant pets for Codex. Work complete, job's done, and we need more gold when your usage runs out.">
   <meta name="theme-color" content="#14110d">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Agent Warcraft - Work complete!">
-  <meta property="og:description" content="Your coding agent says Work complete! when it finishes and We need more gold! when your usage runs out. Warcraft sound cues for Claude Code, Codex, and Gemini CLI, and a Peon pet for Codex.">
+  <meta property="og:description" content="Your coding agent says Work complete! when it finishes and We need more gold! when your usage runs out. Warcraft sound cues for Claude Code, Codex, and Gemini CLI, and Peon and Peasant pets for Codex.">
   <meta property="og:url" content="https://mitchtech.github.io/agent-warcraft/">
   <meta property="og:image" content="https://mitchtech.github.io/agent-warcraft/previews/social.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="The Peon pet, a green orc with a pickaxe, in a carved gold frame beside the words Work complete.">
+  <meta property="og:image:alt" content="The Peon and Peasant pets, an orc and a human worker with pickaxes, in a carved gold frame beside the words Work complete.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://mitchtech.github.io/agent-warcraft/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -35,7 +35,7 @@
         <span class="resource lumber" title="Lumber: previews played"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="5" width="12" height="6" rx="3"/></svg><output id="lumber">0</output></span>
         <span class="resource food" title="Food: cues on by default out of all cues"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2c3 0 5 2.5 5 6s-2 6-5 6-5-2.5-5-6 2-6 5-6Z"/></svg><output>10/15</output></span>
       </div>
-      <nav aria-label="Main"><a href="#listen">Event map</a><a href="#pet">Codex pet</a><a href="#install">Install</a><a href="https://github.com/mitchtech/agent-warcraft">GitHub <span aria-hidden="true">↗</span></a>
+      <nav aria-label="Main"><a href="#listen">Event map</a><a href="#pet">Codex pets</a><a href="#install">Install</a><a href="https://github.com/mitchtech/agent-warcraft">GitHub <span aria-hidden="true">↗</span></a>
         <button id="faction-toggle" class="faction-toggle" aria-pressed="false"><span class="horde-label">Horde</span><span class="alliance-label">Alliance</span><span class="visually-hidden"> faction: switch sounds and colors</span></button>
       </nav>
     </div>
@@ -52,14 +52,14 @@
       </div>
       <figure class="portrait-panel" aria-labelledby="portrait-caption">
         <div class="frame">
-          <button id="portrait" class="portrait" aria-describedby="portrait-caption"><span id="portrait-sprite" class="sprite horde-only" role="img" aria-label="The Peon pet, animated to match the cue"></span><canvas id="scope" width="480" height="360" role="img" aria-label="Waveform of the line that is playing"></canvas><span class="visually-hidden">Talk to the unit</span></button>
+          <button id="portrait" class="portrait" aria-describedby="portrait-caption"><span id="portrait-sprite" class="sprite" role="img" aria-label="The faction's pet, animated to match the cue"></span><canvas id="scope" width="480" height="360" role="img" aria-label="Waveform of the line that is playing"></canvas><span class="visually-hidden">Talk to the unit</span></button>
           <div class="unit-card" aria-live="polite">
             <p class="unit-name"><span class="horde-only">Peon</span><span class="alliance-only">Peasant</span></p>
             <p class="unit-line"><output id="readout-line"><span class="horde-only">Something need doing?</span><span class="alliance-only">More work?</span></output></p>
             <p class="unit-meta"><output id="readout-event">Click the portrait</output><output id="readout-length"></output></p>
           </div>
         </div>
-        <figcaption id="portrait-caption">Click the portrait. Then keep clicking: the third click inside ten seconds is exactly how the <code>annoyed</code> cue works. <span class="horde-only">The Peon is the bundled <a href="#pet">Codex pet</a>, acting out each cue.</span></figcaption>
+        <figcaption id="portrait-caption">Click the portrait. Then keep clicking: the third click inside ten seconds is exactly how the <code>annoyed</code> cue works. <span class="horde-only">The Peon is a bundled <a href="#pet">Codex pet</a>, acting out each cue.</span><span class="alliance-only">The Peasant is a bundled <a href="#pet">Codex pet</a>, acting out each cue.</span></figcaption>
         <div class="command-card" id="command-card" role="group" aria-label="Command card: press a hotkey or click to hear a line"></div>
       </figure>
     </section>
@@ -92,14 +92,15 @@
 
     <section class="pet-section" id="pet" aria-labelledby="pet-title"><div class="wrap pet-grid">
       <div class="pet-copy">
-        <p class="eyebrow">Codex pet</p>
-        <h2 id="pet-title">Something <em>need doing?</em></h2>
-        <p>The Peon is a native custom pet for Codex desktop and Codex CLI: nine animations, sixteen look directions, and a pickaxe close at hand. Codex animates him from its own activity. He works while the agent works, waits when it needs you, and slumps when something fails.</p>
-        <p>The pet and the sounds are independent. Install either one, or both. Installing the pet never selects it and never touches your sound settings.</p>
-        <div class="actions"><a class="button primary" href="https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-pet.zip">Download the pet <span aria-hidden="true">↓</span></a><a class="text-link" href="#install">Install commands</a></div>
-        <p class="fineprint">Creating a web pet? <a href="exports/agent-warcraft-pet-web.webp" download>Download the nine-row web atlas</a> for a separate account upload. <a href="https://github.com/mitchtech/agent-warcraft/blob/main/docs/pets.md#web-upload">Upload and attribution guide</a>. Artwork: <a href="https://github.com/mitchtech/agent-warcraft/blob/main/pets/peon/NOTICE.md">CC BY 4.0</a>.</p>
+        <p class="eyebrow">Codex pets</p>
+        <h2 id="pet-title"><span class="peon-only">Something <em>need doing?</em></span><span class="peasant-only">More <em>work?</em></span></h2>
+        <p>Two native custom pets for Codex desktop and Codex CLI: the orc Peon and the human Peasant. Each has nine animations, sixteen look directions, and a pickaxe close at hand. Codex animates them from its own activity. They work while the agent works, wait when it needs you, and slump when something fails.</p>
+        <p>Pets and sounds are independent. Install either pet, both, or neither, with either faction's voice. Installing a pet never selects it and never touches your sound settings.</p>
+        <div class="actions"><a class="button primary peon-only" href="https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-pet.zip">Download the Peon <span aria-hidden="true">↓</span></a><a class="button primary peasant-only" href="https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-peasant-pet.zip">Download the Peasant <span aria-hidden="true">↓</span></a><a class="text-link" href="#install">Install commands</a></div>
+        <p class="fineprint">Creating a web pet? <a class="peon-only" href="exports/agent-warcraft-pet-web.webp" download>Download the Peon web atlas</a><a class="peasant-only" href="exports/agent-warcraft-peasant-pet-web.webp" download>Download the Peasant web atlas</a> for a separate account upload. <a class="peon-only" href="https://github.com/mitchtech/agent-warcraft/blob/main/docs/pets.md#web-upload">Upload and attribution guide</a><a class="peasant-only" href="https://github.com/mitchtech/agent-warcraft/blob/main/docs/peasant.md#web-upload">Upload and attribution guide</a>. Artwork: <a class="peon-only" href="https://github.com/mitchtech/agent-warcraft/blob/main/pets/peon/NOTICE.md">CC BY 4.0</a><a class="peasant-only" href="https://github.com/mitchtech/agent-warcraft/blob/main/pets/peasant/NOTICE.md">CC BY 4.0</a>.</p>
       </div>
       <figure class="pet-stage">
+        <div class="install-choices pet-choices" role="group" aria-label="Choose a pet"><button data-pet-choice="peon" aria-pressed="true">Peon</button><button data-pet-choice="peasant" aria-pressed="false">Peasant</button></div>
         <div class="stage-frame"><div id="stage-sprite" class="sprite big" role="img" aria-label="The Peon, a hunched green orc laborer with a pickaxe, tusks, and a black topknot"></div></div>
         <figcaption><output id="state-label">The Peon is idle</output><button id="motion-toggle" class="copy" aria-pressed="false">Pause animation</button></figcaption>
         <div class="state-group" role="group" aria-label="Animations">
@@ -107,17 +108,6 @@
         </div>
         <details class="look-group"><summary>Sixteen look directions</summary><div role="group" aria-label="Look directions"><button data-state="look-0" aria-pressed="false">Up</button><button data-state="look-1" aria-pressed="false">Up-right 1</button><button data-state="look-2" aria-pressed="false">Up-right 2</button><button data-state="look-3" aria-pressed="false">Up-right 3</button><button data-state="look-4" aria-pressed="false">Right</button><button data-state="look-5" aria-pressed="false">Down-right 1</button><button data-state="look-6" aria-pressed="false">Down-right 2</button><button data-state="look-7" aria-pressed="false">Down-right 3</button><button data-state="look-8" aria-pressed="false">Down</button><button data-state="look-9" aria-pressed="false">Down-left 1</button><button data-state="look-10" aria-pressed="false">Down-left 2</button><button data-state="look-11" aria-pressed="false">Down-left 3</button><button data-state="look-12" aria-pressed="false">Left</button><button data-state="look-13" aria-pressed="false">Up-left 1</button><button data-state="look-14" aria-pressed="false">Up-left 2</button><button data-state="look-15" aria-pressed="false">Up-left 3</button></div></details>
       </figure>
-    </div></section>
-
-    <section class="pet-section" id="peasant" aria-labelledby="peasant-title"><div class="wrap pet-grid">
-      <div class="pet-copy">
-        <p class="eyebrow">Alliance companion</p>
-        <h2 id="peasant-title">More <em>work?</em></h2>
-        <p>The human Peasant has the same complete set: nine animations and sixteen look directions, with a blue hood, a familiar beard, and his own pickaxe. Choose him as the Alliance counterpart to the Peon.</p>
-        <div class="actions"><a class="button primary" href="https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-peasant-pet.zip">Download Peasant <span aria-hidden="true">↓</span></a><a class="text-link" href="https://github.com/mitchtech/agent-warcraft/blob/main/docs/peasant.md">Installation guide</a></div>
-        <p class="fineprint">Extract the separate ZIP into your Codex home's pets directory and choose Peasant in the host's picker. For account uploads, <a href="exports/agent-warcraft-peasant-pet-web.webp" download>download the Peasant web atlas</a>. Artwork: <a href="https://github.com/mitchtech/agent-warcraft/blob/main/pets/peasant/NOTICE.md">CC BY 4.0</a>.</p>
-      </div>
-      <figure class="pet-stage"><img src="previews/peasant-working.gif" width="288" height="288" loading="lazy" alt="The human Peasant working with his pickaxe"><figcaption>Peasant at work. His local bundle includes all nine states and sixteen look directions.</figcaption></figure>
     </div></section>
 
     <section class="alarm-section" aria-labelledby="danger-title"><div class="wrap alarm-grid">
@@ -146,7 +136,7 @@
 
     <section class="install-section" id="install" aria-labelledby="install-title"><div class="wrap">
       <div class="section-heading"><p class="eyebrow">Install</p><h2 id="install-title">Two commands. <em>Ready to work.</em></h2><p>Run these in your terminal. Sounds need Node.js 22+ and a local audio player; restart your agent after installation. The pet needs neither.</p></div>
-      <div class="install-choices" role="group" aria-label="Choose installation components"><button data-install="sounds" aria-pressed="false">Sounds</button><button data-install="pet" aria-pressed="false">Codex pet</button><button data-install="both" aria-pressed="true">Both</button></div>
+      <div class="install-choices" role="group" aria-label="Choose installation components"><button data-install="sounds" aria-pressed="false">Sounds</button><button data-install="pet" aria-pressed="false">Codex pets</button><button data-install="both" aria-pressed="true">Both</button></div>
       <div id="sounds-install">
       <div class="command-grid">
         <div class="command"><div class="command-head"><h3>Claude Code</h3><button class="copy" data-copy="claude-command" aria-label="Copy Claude Code commands">Copy</button></div><pre id="claude-command"><code>claude plugin marketplace add mitchtech/agent-warcraft
@@ -159,12 +149,13 @@ codex plugin add warcraft@agent-warcraft</code></pre></div>
       </div>
       <div id="pet-install" class="pet-install">
         <div class="command-grid two">
-          <div class="command"><div class="command-head"><h3>Pet ZIP, no Node</h3><button class="copy" data-copy="pet-zip-command" aria-label="Copy pet ZIP commands">Copy</button></div><pre id="pet-zip-command"><code>curl -LO https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-pet.zip
-unzip agent-warcraft-pet.zip -d ~/.codex/pets</code></pre></div>
+          <div class="command"><div class="command-head"><h3>Pet ZIP, no Node</h3><button class="copy" data-copy="pet-zip-command" aria-label="Copy pet ZIP commands">Copy</button></div><pre id="pet-zip-command"><code class="peon-only">curl -LO https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-pet.zip
+unzip agent-warcraft-pet.zip -d ~/.codex/pets</code><code class="peasant-only">curl -LO https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-peasant-pet.zip
+unzip agent-warcraft-peasant-pet.zip -d ~/.codex/pets</code></pre></div>
           <div class="command"><div class="command-head"><h3>Pet installer</h3><button class="copy" data-copy="pet-cli-command" aria-label="Copy pet installer commands">Copy</button></div><pre id="pet-cli-command"><code>npm install -g github:mitchtech/agent-warcraft
-agent-warcraft pet install</code></pre></div>
+agent-warcraft pet install<span class="peasant-only"> peasant</span></code></pre></div>
         </div>
-        <p class="fineprint">Then refresh the Codex desktop pet picker, or enter <code>/pets Peon</code> in a graphics-capable Codex CLI terminal. With <code>CODEX_HOME</code> set, unzip into <code>$CODEX_HOME/pets</code>. The installer keeps a backup with <code>--replace</code> and never selects the pet for you. <a href="https://github.com/mitchtech/agent-warcraft/blob/main/docs/pets.md">Pet guide</a></p>
+        <p class="fineprint">Showing the <span class="peon-only">Peon</span><span class="peasant-only">Peasant</span>; <a href="#pet">switch pets above</a>. Then refresh the Codex desktop pet picker, or enter <code>/pets <span class="peon-only">Peon</span><span class="peasant-only">Peasant</span></code> in a graphics-capable Codex CLI terminal. With <code>CODEX_HOME</code> set, unzip into <code>$CODEX_HOME/pets</code>. The installer keeps a backup with <code>--replace</code> and never selects the pet for you. <a href="https://github.com/mitchtech/agent-warcraft/blob/main/docs/pets.md">Peon guide</a> · <a href="https://github.com/mitchtech/agent-warcraft/blob/main/docs/peasant.md">Peasant guide</a></p>
       </div>
       <div class="install-extra">
         <details class="install-panel"><summary>Sound controls</summary><pre id="control-command"><code>agent-warcraft status
@@ -173,7 +164,7 @@ agent-warcraft mute prompt_submitted
 agent-warcraft unmute subagent_started
 agent-warcraft preset attention
 agent-warcraft unmute all</code></pre><button class="copy" data-copy="control-command" aria-label="Copy control examples">Copy</button><p>Or ask your agent to "switch the peon to Alliance" or "mute the peon" through the bundled control skill. Global mute preserves your event preferences.</p></details>
-        <div class="install-panel pet-card"><p class="eyebrow">Web pet</p><h3>Upload the atlas</h3><p>Codex web takes a nine-row atlas instead of the local bundle. <a href="exports/agent-warcraft-pet-web.webp" download>Download agent-warcraft-pet-web.webp</a> and keep the CC BY 4.0 credit when you share it. An account upload is separate from the local pet.</p></div>
+        <div class="install-panel pet-card"><p class="eyebrow">Web pet</p><h3>Upload the atlas</h3><p>Codex web takes a nine-row atlas instead of the local bundle. Download the <a href="exports/agent-warcraft-pet-web.webp" download>Peon atlas</a> or the <a href="exports/agent-warcraft-peasant-pet-web.webp" download>Peasant atlas</a> and keep the CC BY 4.0 credit when you share it. An account upload is separate from the local pet.</p></div>
       </div>
       <p id="copy-status" class="fineprint" role="status" aria-live="polite"></p>
     </div></section>

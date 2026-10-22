@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a href="https://mitchtech.github.io/agent-warcraft/"><img src="assets/previews/banner.png" alt="Agent Warcraft: Work complete. Sound cues and a Codex pet for coding agents." width="100%"></a>
+  <a href="https://mitchtech.github.io/agent-warcraft/"><img src="assets/previews/banner.png" alt="Agent Warcraft: Work complete. Sound cues and Codex pets for coding agents." width="100%"></a>
 </h1>
 
 <p align="center">
@@ -10,13 +10,14 @@
   <a href="audio/NOTICE.md"><img src="https://img.shields.io/badge/audio-see_notice-e0562a?labelColor=14110d" alt="Audio: see notice"></a>
 </p>
 
-<p align="center"><b>Your coding agent says <i>Work complete!</i> when it finishes and <i>We need more gold!</i> when your usage runs out. Codex gets a Peon to keep it company.</b></p>
+<p align="center"><b>Your coding agent says <i>Work complete!</i> when it finishes and <i>We need more gold!</i> when your usage runs out. Codex gets a Peon or a Peasant to keep it company.</b></p>
 
 <p align="center">
-  <a href="https://mitchtech.github.io/agent-warcraft/"><b>Hear every clip and meet the Peon</b></a> ·
+  <a href="https://mitchtech.github.io/agent-warcraft/"><b>Hear every clip and meet the pets</b></a> ·
   <a href="#sounds">Event map</a> ·
-  <a href="https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-pet.zip">Download the pet</a> ·
-  <a href="https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-pet-web.webp">Web pet atlas</a> ·
+  <a href="https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-pet.zip">Download the Peon</a> ·
+  <a href="https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-peasant-pet.zip">Download the Peasant</a> ·
+  <a href="#web-pets">Web pet atlases</a> ·
   <a href="https://github.com/mitchtech/agent-warcraft/releases">Releases</a> ·
   <a href="https://github.com/mitchtech/agent-navi">Agent Navi</a> ·
   <a href="https://github.com/mitchtech/agent-johnny5">Agent Johnny 5</a>
@@ -29,6 +30,13 @@
     <td align="center"><img src="assets/previews/pet-waiting.gif" width="128" alt="The Peon pet waiting for input"><br><sub>Waiting</sub></td>
     <td align="center"><img src="assets/previews/pet-review.gif" width="128" alt="The Peon pet reviewing"><br><sub>Review</sub></td>
     <td align="center"><img src="assets/previews/pet-failure.gif" width="128" alt="The Peon pet blocked, holding his head"><br><sub>Blocked</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/previews/peasant-idle.gif" width="128" alt="The Peasant pet idling with his pickaxe"><br><sub>Idle</sub></td>
+    <td align="center"><img src="assets/previews/peasant-working.gif" width="128" alt="The Peasant pet working"><br><sub>Working</sub></td>
+    <td align="center"><img src="assets/previews/peasant-waiting.gif" width="128" alt="The Peasant pet waiting for input"><br><sub>Waiting</sub></td>
+    <td align="center"><img src="assets/previews/peasant-review.gif" width="128" alt="The Peasant pet reviewing"><br><sub>Review</sub></td>
+    <td align="center"><img src="assets/previews/peasant-failure.gif" width="128" alt="The Peasant pet blocked"><br><sub>Blocked</sub></td>
   </tr>
 </table>
 
@@ -43,11 +51,11 @@
   </tr>
 </table>
 
-Warcraft peon sound notifications for coding agents and an **independent Codex
-pet**. Native sound integrations for **Claude Code**, **Codex**, and **Gemini
+Warcraft peon sound notifications for coding agents and **two independent Codex
+pets**. Native sound integrations for **Claude Code**, **Codex**, and **Gemini
 CLI**, plus a small event interface for other agents and scripts. One shared
-player supports macOS, Linux, and Windows. The Peon pet uses Codex's native
-animation and activity states.
+player supports macOS, Linux, and Windows. The orc Peon and human Peasant pets
+use Codex's native animation and activity states.
 
 Agent Warcraft plays 56 *Warcraft III* voice lines on agent events:
 
@@ -75,7 +83,7 @@ large multi-game sound pack registry, see [peon-ping](https://github.com/PeonPin
 |---|---|---|
 | Sounds | [Agent plugin](#install) or standalone CLI | Node.js 22+ and local audio |
 | Gold meter | [Status line command](#gold-meter-and-usage-alarms) | Claude Code status line |
-| Codex pet | [Pet installer or manual ZIP](#codex-pet) | A host with compatible custom pets |
+| Codex pets | [Pet installer or manual ZIP](#codex-pets) | A host with compatible custom pets |
 
 Installing the sound plugin never installs or selects a pet, and never changes
 your status line.
@@ -170,58 +178,50 @@ All commands also work as `node /path/to/agent-warcraft/scripts/warcraft.mjs ...
 Standalone `play` and `preview` wait for the short clip; native hooks dispatch
 playback to a detached worker so the agent can continue immediately.
 
-## Codex pet
+## Codex pets
 
-<p align="center"><img src="assets/previews/pet-working.gif" width="192" alt="The Peon pet swinging his pickaxe"></p>
+<p align="center"><img src="assets/previews/pet-working.gif" width="192" alt="The Peon pet swinging his pickaxe"> <img src="assets/previews/peasant-working.gif" width="192" alt="The Peasant pet swinging his pickaxe"></p>
 
-The Peon is a native custom pet for Codex desktop and Codex CLI, with nine
-animations and sixteen look directions. Codex animates him from its own
-activity: he works while the agent works, waits when it needs you, and slumps
-when something fails. The pet and the sounds are independent; install either
-or both.
+Two native custom pets for Codex desktop and Codex CLI: the orc **Peon** and
+the human **Peasant**. Each has nine animations and sixteen look directions.
+Codex animates them from its own activity: they work while the agent works,
+wait when it needs you, and slump when something fails. Pets and sounds are
+independent; install either pet, both, or neither, with either faction's voice.
 
 Without Node.js, from the latest release:
 
 ```bash
+# Peon
 curl -LO https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-pet.zip
 unzip agent-warcraft-pet.zip -d ~/.codex/pets
+# Peasant
+curl -LO https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-peasant-pet.zip
+unzip agent-warcraft-peasant-pet.zip -d ~/.codex/pets
 ```
 
 With the standalone command, or from a checkout with `node scripts/warcraft.mjs`:
 
 ```bash
-agent-warcraft pet install
-agent-warcraft doctor --pet
+agent-warcraft pet install            # Peon
+agent-warcraft pet install peasant    # Peasant
+agent-warcraft doctor --pet peasant
 ```
 
-Then refresh the Codex desktop pet picker, or enter `/pets Peon` in a
-graphics-capable Codex CLI terminal. With `CODEX_HOME` set, use
-`$CODEX_HOME/pets` instead. Installation leaves pet selection and sound
-configuration unchanged; `--replace` keeps a backup of a different existing pet.
+Then refresh the Codex desktop pet picker, or enter `/pets Peon` or
+`/pets Peasant` in a graphics-capable Codex CLI terminal. With `CODEX_HOME`
+set, use `$CODEX_HOME/pets` instead. Installation leaves pet selection and
+sound configuration unchanged; `--replace` keeps a backup of a different
+existing pet. `pet status` and `pet uninstall` take the same optional name and
+default to the Peon.
+
+### Web pets
 
 Creating a ChatGPT/Codex web pet instead? Upload the nine-row
-[web atlas](https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-pet-web.webp)
-and keep the CC BY 4.0 credit. See [pets](docs/pets.md) for compatibility,
-the web upload, backups, and provenance.
-
-### Human Peasant
-
-<p align="center"><img src="assets/previews/peasant-working.gif" width="192" alt="The human Peasant pet working with his pickaxe"></p>
-
-The human Peasant counterpart has the same nine animations and sixteen look
-directions. Install the separate local bundle from a release containing it:
-
-```bash
-curl -LO https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-peasant-pet.zip
-unzip agent-warcraft-peasant-pet.zip -d ~/.codex/pets
-```
-
-Choose Peasant in the host's pet picker. With `CODEX_HOME` set, extract into
-`$CODEX_HOME/pets`. The existing CLI pet installer targets Peon; use this ZIP
-for Peasant. For web uploads, use the separate
-[Peasant web atlas](https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-peasant-pet-web.webp).
-See the [Peasant guide](docs/peasant.md) for source-checkout installation,
-format, validation, and attribution.
+[Peon atlas](https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-pet-web.webp)
+or [Peasant atlas](https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-peasant-pet-web.webp)
+and keep the CC BY 4.0 credit. See the [Peon guide](docs/pets.md) and the
+[Peasant guide](docs/peasant.md) for compatibility, the web upload, backups,
+and provenance.
 
 ## Sounds
 
@@ -437,7 +437,7 @@ node scripts/warcraft.mjs preview orc-ready
 
 `doctor` reports configuration, paths, player availability, clips, the faction,
 enabled events, easter eggs, the gold meter, and the optional pet. `doctor
---pet` checks only the pet and works without an audio player or valid sound
+--pet` checks only the Peon (or `doctor --pet peasant`, the Peasant) and works without an audio player or valid sound
 configuration. These commands operate without playing anything.
 
 `preview` plays a clip even when muted and bypasses event cooldown, but still
@@ -493,12 +493,13 @@ the project workflow.
 - Author: [Michael J. Mitchell / mitchtech](https://github.com/mitchtech).
 - *Warcraft III: Reign of Chaos* (2002): Blizzard Entertainment. Warcraft is a trademark of Blizzard Entertainment.
 - Clip sources: warcraft.wiki.gg file pages and The Sounds Resource *Warcraft III* archives.
-- Peon pet artwork: Michael J. Mitchell / mitchtech, made with Codex image generation, [CC BY 4.0](pets/peon/LICENSE.txt). No game sprites were extracted.
+- Peon and Peasant pet artwork: Michael J. Mitchell / mitchtech, made with Codex image generation, CC BY 4.0 ([Peon](pets/peon/LICENSE.txt), [Peasant](pets/peasant/LICENSE.txt)). No game sprites were extracted.
 - Sibling projects: [Agent Navi](https://github.com/mitchtech/agent-navi) and [Agent Johnny 5](https://github.com/mitchtech/agent-johnny5).
 - Original plugin inspiration: [thephw/claude-meseeks](https://github.com/thephw/claude-meseeks). The peon-in-your-terminal idea owes a nod to [peon-ping](https://github.com/PeonPing/peon-ping).
 
 Code and configuration: [MIT](LICENSE). Contributor rights in the pet artwork:
-[CC BY 4.0](pets/peon/LICENSE.txt), with [provenance and credit](pets/peon/NOTICE.md).
+CC BY 4.0, with provenance and credit for the [Peon](pets/peon/NOTICE.md) and
+the [Peasant](pets/peasant/NOTICE.md).
 Bundled audio is excluded from both licenses; see the [audio rights notice](audio/NOTICE.md). Third-party character
 rights and trademarks remain with their owners. This is a fan project, not
 affiliated with or endorsed by Blizzard Entertainment.

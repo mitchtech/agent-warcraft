@@ -71,7 +71,8 @@ can answer replies for the following hour. The budgets below include replies.
 | Day 16 | Publish R2 in r/codex, with the current appropriate showcase flair | Included below |
 | Day 18 | Publish X2 about the usage alarms and gold meter | Included below |
 | Day 20 | Publish X3 about the annoyed peon and factions | Days 15-21: 4 hours |
-| Day 23 | Publish X5 and R3 introducing the Peon pet, with the pet preview | Included below |
+| Day 23 | Publish X5 and R3 introducing the Peon and Peasant pets, with the pet preview | Included below |
+| Day 24 | Publish X6 introducing the Peasant, with the faction preview | Included below |
 | Day 25 | Publish X4, a useful install/configuration follow-up | Included below |
 | Day 27 | Publish LinkedIn L2 about the privacy boundary in command detection | Included below |
 | Days 28-30 | Ask willing early users about continued use; write results and select the next channel | Days 22-30: 4 hours |

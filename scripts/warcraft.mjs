@@ -415,9 +415,10 @@ export async function main(argv = process.argv.slice(2)) {
     }
     if (command === 'pet') return petMain(args);
     if (command === 'doctor') {
-      const { values } = parseArgs({ args, options: { pet: { type: 'boolean', default: false } } });
+      const { values, positionals } = parseArgs({ args, options: { pet: { type: 'boolean', default: false } }, allowPositionals: true });
+      if (positionals.length > (values.pet ? 1 : 0)) throw new Error('Usage: agent-warcraft doctor [--pet [peon|peasant]]');
       if (values.pet) {
-        const status = petStatus();
+        const status = petStatus(process.env, positionals[0] ?? 'peon');
         printPetStatus(status);
         return status.state === 'matching' ? 0 : 1;
       }
@@ -515,7 +516,7 @@ export async function main(argv = process.argv.slice(2)) {
       return 0;
     }
     if (command && !['--help', '-h'].includes(command)) throw new Error(`Unknown command: ${command}`);
-    console.log('Agent Warcraft\n\nagent-warcraft hook --agent claude|codex|gemini\nagent-warcraft play EVENT [--session ID] [--tool TOOL] [--command CMD]\nagent-warcraft preview CLIP\nagent-warcraft pet install [--replace]\nagent-warcraft pet status [--json]\nagent-warcraft pet uninstall\nagent-warcraft doctor [--pet]\nagent-warcraft config [--effective]\nagent-warcraft status [--json]\nagent-warcraft mute EVENT|easter-egg|all\nagent-warcraft unmute EVENT|easter-egg|all\nagent-warcraft preset default|attention\nagent-warcraft faction horde|alliance|both\nagent-warcraft statusline  (reads Claude Code status line JSON on stdin)\nagent-warcraft list [--json]');
+    console.log('Agent Warcraft\n\nagent-warcraft hook --agent claude|codex|gemini\nagent-warcraft play EVENT [--session ID] [--tool TOOL] [--command CMD]\nagent-warcraft preview CLIP\nagent-warcraft pet install [peon|peasant] [--replace]\nagent-warcraft pet status [peon|peasant] [--json]\nagent-warcraft pet uninstall [peon|peasant]\nagent-warcraft doctor [--pet [peon|peasant]]\nagent-warcraft config [--effective]\nagent-warcraft status [--json]\nagent-warcraft mute EVENT|easter-egg|all\nagent-warcraft unmute EVENT|easter-egg|all\nagent-warcraft preset default|attention\nagent-warcraft faction horde|alliance|both\nagent-warcraft statusline  (reads Claude Code status line JSON on stdin)\nagent-warcraft list [--json]');
     return 0;
   } catch (error) {
     if (!quiet) console.error(`Agent Warcraft: ${error.message}`);

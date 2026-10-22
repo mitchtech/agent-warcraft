@@ -32,18 +32,22 @@ Review and trust the installed hooks in Codex's hook settings, then restart.
 Repeat the harmless approval check under your normal permission settings.
 Installing or enabling the plugin alone does not establish hook trust.
 
-## Codex pet
+## Codex pets
 
-The Peon pet installs separately and needs no Node.js:
+The Peon and Peasant pets install separately and need no Node.js:
 
 ```bash
 curl -LO https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-pet.zip
 unzip agent-warcraft-pet.zip -d ~/.codex/pets
+curl -LO https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-peasant-pet.zip
+unzip agent-warcraft-peasant-pet.zip -d ~/.codex/pets
 ```
 
-Refresh the Codex desktop pet picker, or enter `/pets Peon` in a
-graphics-capable Codex CLI terminal. Installing the pet never selects it and
-never changes sound settings.
+With the standalone command, `agent-warcraft pet install` and
+`agent-warcraft pet install peasant` do the same. Refresh the Codex desktop pet
+picker, or enter `/pets Peon` or `/pets Peasant` in a graphics-capable Codex
+CLI terminal. Installing a pet never selects it and never changes sound
+settings.
 
 ## Already using Agent Navi or Agent Johnny 5?
 

@@ -53,7 +53,9 @@ animations and sixteen look directions, made with Codex's own image generation
 rather than lifted from the game. Codex animates him from its activity, so he
 swings his pickaxe while the agent works and holds his head when something
 fails. He installs from a ZIP without Node.js, and he is independent of the
-sounds; plenty of people will want one without the other.
+sounds; plenty of people will want one without the other. The Alliance got its
+own pet next: a bearded human Peasant in a blue hood, with the same full set of
+animations, installed beside the Peon or instead of him.
 
 The project separates its licenses: MIT for code and configuration, CC BY 4.0
 for the pet artwork, and a separate notice for the *Warcraft III* recordings, which belong to Blizzard

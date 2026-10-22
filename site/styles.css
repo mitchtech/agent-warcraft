@@ -81,6 +81,8 @@ code { font: 0.88em/1.4 var(--mono); background: color-mix(in srgb, var(--code-b
 /* Only the selected faction's copy and clips appear. */
 :root:not([data-faction="alliance"]) .alliance-only, :root:not([data-faction="alliance"]) [data-faction="alliance"] { display: none !important; }
 :root[data-faction="alliance"] .horde-only, :root[data-faction="alliance"] [data-faction="horde"] { display: none !important; }
+/* The pet section and pet install commands follow the chosen pet, which starts as the faction's worker. */
+:root[data-pet="peasant"] .peon-only, :root:not([data-pet="peasant"]) .peasant-only { display: none !important; }
 
 h1, h2, h3, .footer-brand, .brand, .unit-name { font-family: var(--display); font-weight: 400; letter-spacing: 0.02em; }
 h1 em, h2 em { font-style: normal; color: var(--trim-hi); text-shadow: 0 0 24px color-mix(in srgb, var(--trim) 45%, transparent); }
@@ -297,8 +299,9 @@ footer p { margin: 0.3rem 0; }
 .sprite { --scale: 1; display: block; width: calc(192px * var(--scale)); height: calc(208px * var(--scale)); background: url("pet/spritesheet.webp") 0 0 / calc(1536px * var(--scale)) calc(2288px * var(--scale)) no-repeat; }
 .portrait { position: relative; }
 .portrait .sprite { --scale: 0.82; position: absolute; left: 50%; bottom: 4%; transform: translateX(-50%); filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.7)); }
-/* With the Horde, the peon fills the portrait and the waveform runs along its foot. */
-:root:not([data-faction="alliance"]) .portrait canvas { position: absolute; left: 0; right: 0; bottom: 0; height: 26%; opacity: 0.85; mix-blend-mode: screen; }
+:root[data-faction="alliance"] .portrait .sprite, :root[data-pet="peasant"] .sprite.big { background-image: url("peasant/spritesheet.webp"); }
+/* The faction's worker fills the portrait and the waveform runs along its foot. */
+.portrait canvas { position: absolute; left: 0; right: 0; bottom: 0; height: 26%; opacity: 0.85; mix-blend-mode: screen; }
 .portrait::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 70%, rgba(201, 162, 74, 0.18), transparent 60%); pointer-events: none; }
 
 /* Codex pet section */
@@ -319,6 +322,7 @@ footer p { margin: 0.3rem 0; }
 .install-choices { display: inline-flex; border: 2px solid var(--trim-lo); border-radius: 4px; overflow: hidden; margin-bottom: 1.2rem; background: var(--code-bg); }
 .install-choices button { font: 700 0.9rem/1 var(--body); letter-spacing: 0.06em; padding: 0.7rem 1.1rem; border: 0; background: transparent; color: #c9bc9e; cursor: pointer; }
 .install-choices button[aria-pressed="true"] { background: var(--accent); color: #fff6e6; }
+.pet-choices { justify-self: start; margin-bottom: 0; }
 .pet-install { margin-top: 1.25rem; }
 .command-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 960px) {

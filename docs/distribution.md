@@ -139,5 +139,5 @@ users. Keep the website free of analytics.
 the release checksums automatically. Run `scripts/check-pet.py` to validate
 both characters before packaging. Preserve the source PNG in
 `assets/original/peasant` and update `assets/peasant-pet-revision.json` when
-replacing Peasant artwork. The default runtime CLI pet installer targets Peon;
-the [Peasant guide](peasant.md) describes manual installation.
+replacing Peasant artwork. `agent-warcraft pet install peasant` installs it from the
+package; the [Peasant guide](peasant.md) also describes manual installation.

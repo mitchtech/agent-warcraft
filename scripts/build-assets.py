@@ -13,6 +13,7 @@ AUDIO = ROOT / "audio"
 PREVIEWS = ROOT / "assets" / "previews"
 FONTS = ROOT / "site" / "fonts"
 SHEET = Image.open(ROOT / "pets" / "peon" / "spritesheet.webp").convert("RGBA")
+PEASANT = Image.open(ROOT / "pets" / "peasant" / "spritesheet.webp").convert("RGBA")
 # (preview name, atlas row, frame count), matching Codex's v2 row order.
 PET_STATES = [("pet-idle", 0, 6), ("pet-working", 7, 6), ("pet-waiting", 6, 6), ("pet-review", 8, 6), ("pet-failure", 5, 8)]
 # --check renders elsewhere and compares pixels: PNG bytes vary with each platform's zlib.
@@ -170,12 +171,15 @@ def peon(canvas, box, row=0, column=0, scale=1.0, sheet=SHEET):
     canvas.alpha_composite(sprite, (x, y))
 
 
-def framed_peon(canvas, box, row=0, column=0, scale=1.0):
+def framed_pair(canvas, box, row=0, column=0, scale=1.0):
+    """The Peon and the Peasant side by side in one carved frame."""
     left, top, right, bottom = box
     draw = ImageDraw.Draw(canvas, "RGBA")
     frame(draw, box)
     inner = Image.new("RGBA", (right - left, bottom - top), PORTRAIT + (255,))
-    peon(inner, (0, 0, inner.width, inner.height - 6), row, column, scale)
+    half = inner.width // 2
+    peon(inner, (0, 0, half + 12, inner.height - 6), row, column, scale)
+    peon(inner, (half - 12, 0, inner.width, inner.height - 6), row, column, scale, sheet=PEASANT)
     canvas.alpha_composite(inner, (left, top))
     for cx in (left - 1, right + 1):
         draw.ellipse((cx - 6, top - 7, cx + 6, top + 5), fill=TRIM_HI, outline=TRIM_LO)
@@ -208,8 +212,7 @@ def pet_previews(sheet, prefix):
 
 
 pet_previews(SHEET, "pet")
-with Image.open(ROOT / "pets" / "peasant" / "spritesheet.webp") as source:
-    pet_previews(source.convert("RGBA"), "peasant")
+pet_previews(PEASANT, "peasant")
 
 # Waveform previews: a sweep that reveals each clip, then holds.
 label_font = font(BOLD, 19)
@@ -236,19 +239,20 @@ eyebrow(card, (88, 92), 22)
 headline(card, (82, 138), 120, 560)
 draw.text((90, 300), "Your coding agent, with a", font=font(DISPLAY, 40), fill=INK)
 draw.text((90, 350), "peon's work ethic.", font=font(DISPLAY, 40), fill=INK)
-for row, text in enumerate(["Warcraft sound cues and a Codex pet for", "Claude Code, Codex, and Gemini CLI"]):
+for row, text in enumerate(["Warcraft sound cues and Codex pets for", "Claude Code, Codex, and Gemini CLI"]):
     draw.text((90, 466 + row * 38), text, font=font(BODY, 30), fill=MUTED)
 resources(card, (700, 92))
-framed_peon(card, (700, 166, 1120, 486), row=7, column=2, scale=1.4)
-draw.text((700, 510), "SOUND CUES + A CODEX PET", font=font(BOLD, 24), fill=EMBER)
+framed_pair(card, (680, 166, 1120, 486), row=7, column=2, scale=1.25)
+draw.text((680, 510), "SOUND CUES + TWO CODEX PETS", font=font(BOLD, 24), fill=EMBER)
 card.convert("RGB").save(OUT / "social.png")
 
 banner = stone(1280, 440)
 draw = ImageDraw.Draw(banner, "RGBA")
 eyebrow(banner, (92, 80), 22)
-headline(banner, (86, 120), 130, 700)
-draw.text((94, 296), "Sound cues and a Codex pet for coding agents.", font=font(BODY, 32), fill=MUTED)
-framed_peon(banner, (860, 70, 1170, 370), row=0, column=0, scale=1.3)
+headline(banner, (86, 120), 130, 620)
+draw.text((94, 296), "Sound cues and Codex pets", font=font(BODY, 32), fill=MUTED)
+draw.text((94, 340), "for coding agents.", font=font(BODY, 32), fill=MUTED)
+framed_pair(banner, (760, 70, 1190, 370), row=0, column=0, scale=1.2)
 banner.convert("RGB").save(OUT / "banner.png")
 
 touch = stone(180, 180)

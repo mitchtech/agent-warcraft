@@ -57,6 +57,11 @@
       "sha256": "f8c7b8bd8c183f5ffe2ba30735a11b86994e8d7e67a3b73a85cc7137168cbaa4"
     },
     {
+      "path": "pets/peasant/spritesheet.webp",
+      "bytes": 1695684,
+      "sha256": "5d6a5d6f406ed081a5897641c66abcc27279d7bd8cf29b8ad38bee524ae9f6bc"
+    },
+    {
       "path": "site/fonts/marcellus-latin-400-normal.woff2",
       "bytes": 14552,
       "sha256": "8a539799d12e3a144273288055490f57e1eee84da7a9145f085bc522e80719c3"
@@ -75,13 +80,13 @@
   "artifacts": [
     {
       "path": "assets/promotion/faction-preview.mp4",
-      "bytes": 176973,
-      "sha256": "73a7e404811c9ca42059cf723eb644df6a7fa6ade02dccf1a6f8254c27ed07f5"
+      "bytes": 321491,
+      "sha256": "766b023d0775a533f400b540212fcedd16ef2cf10fb2318bff7fc5b05c0b7f16"
     },
     {
       "path": "assets/promotion/faction-preview.png",
-      "bytes": 91545,
-      "sha256": "f77e548c35c7d64c50ecce0dabe14fba1c1e7242e1963842101394859af8168f"
+      "bytes": 141773,
+      "sha256": "3f0ead192e5bfc37d9393754485b863f182b7c83028fca073221f6de7e653588"
     },
     {
       "path": "assets/promotion/faction-preview.srt",
@@ -90,8 +95,8 @@
     },
     {
       "path": "assets/promotion/pet-preview.mp4",
-      "bytes": 580009,
-      "sha256": "88acbc84350de47d5c3fff7c4df4304d2a369748ad3d2a18e4676ca206dc66e0"
+      "bytes": 682735,
+      "sha256": "42e56b8e08f6d4cd5e005523364b4f2de22e41c6ac6a1a0bf4c456a768c8f921"
     },
     {
       "path": "assets/promotion/pet-preview.png",
@@ -100,8 +105,8 @@
     },
     {
       "path": "assets/promotion/pet-preview.srt",
-      "bytes": 815,
-      "sha256": "b2ae47d40d592aaab1c6d1d9737592af705300c0c859e531dcd265adedb11d17"
+      "bytes": 1118,
+      "sha256": "1715cbb337cc724154f5cfc3c0f9e3fe5e5d9cc3a4b6b5b9c090cc473141b15c"
     },
     {
       "path": "assets/promotion/sound-preview.mp4",
@@ -128,6 +133,6 @@
     "Not a live host or physical audio recording.",
     "No claim of hook execution in these videos.",
     "Audio is assembled from the bundled, separately noticed Warcraft III clips.",
-    "Pet animation is drawn from the bundled atlas; Codex, not the sound plugin, animates the installed pet."
+    "Pet animation is drawn from the bundled atlases; Codex, not the sound plugin, animates the installed pet."
   ]
 }

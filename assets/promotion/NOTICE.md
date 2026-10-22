@@ -5,8 +5,9 @@ Created by Michael J. Mitchell / mitchtech for
 previews, not recordings of native host execution. See [the manifest](manifest.json)
 for source hashes and artifacts.
 
-The pet preview animates the [Peon artwork](../../pets/peon/NOTICE.md), whose
-contributor rights are licensed CC BY 4.0. The videos incorporate the bundled
+The pet and faction previews animate the [Peon](../../pets/peon/NOTICE.md) and
+[Peasant](../../pets/peasant/NOTICE.md) artwork, whose contributor rights are
+licensed CC BY 4.0. The videos incorporate the bundled
 *Warcraft III* recordings (Blizzard
 Entertainment). Those recordings are excluded from the MIT license; the
 [audio notice](../../audio/NOTICE.md) records their provenance and is not a
