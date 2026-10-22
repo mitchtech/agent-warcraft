@@ -5,15 +5,21 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 
-const ID = 'peon';
-const BUNDLE = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'pets', ID);
+// Each bundled pet installs into its own directory; Peon stays the default for existing commands.
+export const PETS = { peon: 'Peon', peasant: 'Peasant' };
+const bundleOf = id => resolve(dirname(fileURLToPath(import.meta.url)), '..', 'pets', id);
 const FILES = ['pet.json', 'spritesheet.webp', 'LICENSE.txt', 'NOTICE.md'];
 const MARKER = '.agent-warcraft.json';
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
-export const NOT_BUNDLED = "Peon pet art is not bundled yet. Create one with Codex's native pet feature, or watch the repo for a release that includes it.";
+export const notBundled = (id = 'peon') => `${PETS[id]} pet art is not bundled yet. Create one with Codex's native pet feature, or watch the repo for a release that includes it.`;
 
-export function petPath(env = process.env) {
-  return resolve(env.CODEX_HOME || join(homedir(), '.codex'), 'pets', ID);
+function known(id) {
+  if (!Object.hasOwn(PETS, id)) throw new Error(`Unknown pet: ${id}. Choose ${Object.keys(PETS).join(' or ')}`);
+  return id;
+}
+
+export function petPath(env = process.env, id = 'peon') {
+  return resolve(env.CODEX_HOME || join(homedir(), '.codex'), 'pets', known(id));
 }
 
 function regular(path) {
@@ -26,8 +32,8 @@ function regular(path) {
 // Missing art is the expected state until a pet ships; it is not an error.
 const HEALTHY = ['matching', 'not-installed', 'not-bundled'];
 
-function bundled() {
-  return regular(join(BUNDLE, 'pet.json')) && regular(join(BUNDLE, 'spritesheet.webp'));
+function bundled(id) {
+  return regular(join(bundleOf(id), 'pet.json')) && regular(join(bundleOf(id), 'spritesheet.webp'));
 }
 
 function hashes(directory) {
@@ -44,36 +50,36 @@ function owned(directory) {
   } catch { return false; }
 }
 
-export function petStatus(env = process.env) {
-  const path = petPath(env);
+export function petStatus(env = process.env, id = 'peon') {
+  const path = petPath(env, id);
   let entry;
   try { entry = lstatSync(path); } catch (error) {
     if (error.code !== 'ENOENT') throw error;
-    return { id: ID, path, state: bundled() ? 'not-installed' : 'not-bundled', managed: false };
+    return { id, path, state: bundled(id) ? 'not-installed' : 'not-bundled', managed: false };
   }
-  if (!entry.isDirectory() || entry.isSymbolicLink()) return { id: ID, path, state: 'conflict', managed: false };
+  if (!entry.isDirectory() || entry.isSymbolicLink()) return { id, path, state: 'conflict', managed: false };
   // Without bundled art there is nothing to compare, but a managed copy from a release can still be removed.
-  if (!bundled()) return { id: ID, path, state: 'not-bundled', managed: owned(path) };
+  if (!bundled(id)) return { id, path, state: 'not-bundled', managed: owned(path) };
   const actual = hashes(path);
-  const expected = hashes(BUNDLE);
+  const expected = hashes(bundleOf(id));
   // A manually extracted bundle may have only the two host files. Notices are optional for matching it.
   const matching = FILES.every(name => actual[name] === expected[name] || (!actual[name] && !['pet.json', 'spritesheet.webp'].includes(name)));
-  const version = matching ? JSON.parse(readFileSync(join(BUNDLE, 'pet.json'), 'utf8')).spriteVersionNumber ?? null : null;
-  return { id: ID, path, state: matching ? 'matching' : 'modified', managed: owned(path), spriteVersionNumber: version };
+  const version = matching ? JSON.parse(readFileSync(join(bundleOf(id), 'pet.json'), 'utf8')).spriteVersionNumber ?? null : null;
+  return { id, path, state: matching ? 'matching' : 'modified', managed: owned(path), spriteVersionNumber: version };
 }
 
-export function installPet(env = process.env, replace = false) {
-  const status = petStatus(env);
-  if (status.state === 'not-bundled') throw new Error(NOT_BUNDLED);
+export function installPet(env = process.env, replace = false, id = 'peon') {
+  const status = petStatus(env, id);
+  if (status.state === 'not-bundled') throw new Error(notBundled(id));
   if (status.state === 'matching') return { ...status, changed: false };
   if (status.state === 'conflict') throw new Error(`Pet path is not a regular directory: ${status.path}`);
-  if (status.state !== 'not-installed' && !replace) throw new Error(`Different pet files at ${status.path}; use --replace to keep a backup and install the Peon`);
+  if (status.state !== 'not-installed' && !replace) throw new Error(`Different pet files at ${status.path}; use --replace to keep a backup and install the ${PETS[id]}`);
   const parent = dirname(status.path);
   mkdirSync(parent, { recursive: true });
   const temporary = mkdtempSync(join(parent, '.agent-warcraft-'));
   let backup;
   try {
-    for (const name of FILES) writeFileSync(join(temporary, name), readFileSync(join(BUNDLE, name)));
+    for (const name of FILES) writeFileSync(join(temporary, name), readFileSync(join(bundleOf(id), name)));
     writeFileSync(join(temporary, MARKER), `${JSON.stringify({ owner: 'agent-warcraft', files: hashes(temporary) }, null, 2)}\n`);
     if (status.state !== 'not-installed') {
       backup = `${status.path}.backup-${temporary.split('.agent-warcraft-').at(-1)}`;
@@ -84,17 +90,17 @@ export function installPet(env = process.env, replace = false) {
     if (backup && !existsSync(status.path)) renameSync(backup, status.path);
     throw error;
   } finally { rmSync(temporary, { recursive: true, force: true }); }
-  return { ...petStatus(env), changed: true, ...(backup ? { backup } : {}) };
+  return { ...petStatus(env, id), changed: true, ...(backup ? { backup } : {}) };
 }
 
-export function uninstallPet(env = process.env) {
-  const status = petStatus(env);
+export function uninstallPet(env = process.env, id = 'peon') {
+  const status = petStatus(env, id);
   if (status.state === 'not-installed' || (status.state === 'not-bundled' && !existsSync(status.path))) return { ...status, changed: false };
   if (!status.managed) throw new Error(`Refusing to remove unmanaged or changed files at ${status.path}; inspect and remove them manually`);
   // Move out of the live pet directory before removing only the verified owned bundle.
   const temporary = mkdtempSync(join(dirname(status.path), '.agent-warcraft-remove-'));
   try {
-    const retired = join(temporary, ID);
+    const retired = join(temporary, id);
     renameSync(status.path, retired);
     if (!owned(retired)) {
       renameSync(retired, status.path);
@@ -105,31 +111,34 @@ export function uninstallPet(env = process.env) {
     // A failed restoration must preserve the retired directory for manual recovery.
     if (readdirSync(temporary).length === 0) rmSync(temporary, { recursive: true });
   }
-  return { ...petStatus(env), changed: true };
+  return { ...petStatus(env, id), changed: true };
 }
 
 export function printPetStatus(status = petStatus()) {
-  console.log(`Pet: ${status.state} (${status.path})`);
+  const install = status.id === 'peon' ? 'agent-warcraft pet install' : `agent-warcraft pet install ${status.id}`;
+  console.log(`Pet: ${PETS[status.id]}, ${status.state} (${status.path})`);
   console.log(`Pet ownership: ${status.managed ? 'managed by agent-warcraft' : 'unmanaged'}`);
   console.log(status.state === 'matching'
-    ? 'Select: refresh the desktop pet picker, or enter /pets Peon in a supported Codex CLI terminal'
-    : status.state === 'not-bundled' ? NOT_BUNDLED : 'Install: agent-warcraft pet install (optional; independent of sounds)');
+    ? `Select: refresh the desktop pet picker, or enter /pets ${PETS[status.id]} in a supported Codex CLI terminal`
+    : status.state === 'not-bundled' ? notBundled(status.id) : `Install: ${install} (optional; independent of sounds)`);
   return HEALTHY.includes(status.state) ? 0 : 1;
 }
 
 export function petMain(argv) {
   const [command, ...args] = argv;
   if (!command || ['--help', '-h'].includes(command)) {
-    console.log('agent-warcraft pet install [--replace]\nagent-warcraft pet status [--json]\nagent-warcraft pet uninstall');
+    console.log('agent-warcraft pet install [peon|peasant] [--replace]\nagent-warcraft pet status [peon|peasant] [--json]\nagent-warcraft pet uninstall [peon|peasant]');
     return 0;
   }
   const options = command === 'install' ? { replace: { type: 'boolean', default: false } }
     : command === 'status' ? { json: { type: 'boolean', default: false } } : {};
-  const { values } = parseArgs({ args, options });
+  const { values, positionals } = parseArgs({ args, options, allowPositionals: true });
+  if (positionals.length > 1) throw new Error('Name one pet: peon or peasant');
+  const id = known(positionals[0] ?? 'peon');
   let status;
-  if (command === 'install') status = installPet(process.env, values.replace);
-  else if (command === 'status') status = petStatus();
-  else if (command === 'uninstall') status = uninstallPet();
+  if (command === 'install') status = installPet(process.env, values.replace, id);
+  else if (command === 'status') status = petStatus(process.env, id);
+  else if (command === 'uninstall') status = uninstallPet(process.env, id);
   else throw new Error(`Unknown pet command: ${command}`);
   if (values.json) console.log(JSON.stringify(status, null, 2));
   else {

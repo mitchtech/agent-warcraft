@@ -4,6 +4,7 @@ const root = document.documentElement;
 try {
   if (localStorage.getItem(factionKey) === 'alliance') root.dataset.faction = 'alliance';
 } catch {}
+root.dataset.pet = root.dataset.faction === 'alliance' ? 'peasant' : 'peon';
 
 document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.querySelector('#faction-toggle');

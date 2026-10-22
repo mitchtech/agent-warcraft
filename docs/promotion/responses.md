@@ -80,10 +80,15 @@ the execution environment and speakers are on different machines.
 tool-failure, and error mappings that Codex and Gemini lack. Completion is not
 a task success detector. See [compatibility](../compatibility.md).
 
-**Is there a Codex pet?** Yes, since v0.2.0: the Peon, with nine animations
-and sixteen look directions. Install from the release ZIP without Node.js, or
-with `agent-warcraft pet install`. A nine-row atlas covers web pet uploads.
-See [pets](../pets.md).
+**Is there a Codex pet?** Two. The Peon (since v0.2.0) and the human Peasant
+(since v0.3.0) each have nine animations and sixteen look directions. Install
+from the release ZIPs without Node.js, or with `agent-warcraft pet install` and
+`agent-warcraft pet install peasant`; they install side by side. Nine-row
+atlases cover web pet uploads. See the [Peon](../pets.md) and
+[Peasant](../peasant.md) guides.
+
+**Does the pet follow my faction?** No. The faction picks whose voice you hear;
+the pet is whichever one you choose in the Codex picker. Any combination works.
 
 **Does the pet react to the sounds?** No. Codex animates the pet from its own
 activity, and the sound plugin plays clips from hook events. They line up
@@ -92,7 +97,7 @@ site and pet video pair them on purpose to show both.
 
 **Is the pet art from the game?** No. It was made with Codex image generation,
 and no sprites, portraits, or models were extracted from Blizzard games. The
-contributor's rights are licensed CC BY 4.0; Warcraft and the peon remain
+contributor's rights are licensed CC BY 4.0; Warcraft, the peon, and the peasant remain
 Blizzard's.
 
 **Is this official Blizzard software?** No. Warcraft and its voice lines belong

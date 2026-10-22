@@ -30,8 +30,21 @@ Out of usage
 Atlas animation preview - not a native host recording
 
 6
-00:00:20,000 --> 00:00:25,000
-Install the pet
+00:00:20,000 --> 00:00:24,000
+Or the Peasant
+The Alliance counterpart, with the same
+nine animations and sixteen look directions.
+Atlas animation preview - not a native host recording
+
+7
+00:00:24,000 --> 00:00:28,000
+Turn finished
+"Job's done!"
+Atlas animation preview - not a native host recording
+
+8
+00:00:28,000 --> 00:00:33,000
+Install either pet
 Independent of the sounds.
-Choose Peon in the pet picker.
+Choose it in the pet picker.
 Atlas animation preview - not a native host recording

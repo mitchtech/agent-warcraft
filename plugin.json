@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "warcraft",
-  "version": "0.2.0",
-  "description": "Warcraft peon sound notifications for coding agents and a native Codex pet: Work complete!",
+  "version": "0.3.0",
+  "description": "Warcraft peon sound notifications for coding agents and native Peon and Peasant Codex pets: Work complete!",
   "author": {
     "name": "Michael J. Mitchell",
     "email": "michael@mitchtech.net",
@@ -17,6 +17,7 @@
     "coding-agents",
     "warcraft",
     "peon",
+    "peasant",
     "orc",
     "pet",
     "custom-pet",
@@ -28,7 +29,7 @@
       "hooks": "./hooks/codex.json",
       "interface": {
         "displayName": "Agent Warcraft",
-        "shortDescription": "Warcraft peon sounds for agents, plus an optional Codex pet",
+        "shortDescription": "Warcraft peon sounds for agents, plus optional Codex pets",
         "developerName": "Michael J. Mitchell",
         "category": "Productivity"
       }

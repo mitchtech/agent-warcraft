@@ -1,6 +1,7 @@
 # Peon pet
 
-Looking for the human counterpart? See the [Peasant bundle](peasant.md).
+Looking for the human counterpart? See the [Peasant bundle](peasant.md), or run
+`agent-warcraft pet install peasant`.
 
 <p align="center"><img src="../assets/previews/pet-idle.gif" width="160" alt="The Peon pet idling"> <img src="../assets/previews/pet-working.gif" width="160" alt="The Peon pet working"> <img src="../assets/previews/pet-failure.gif" width="160" alt="The Peon pet blocked"></p>
 

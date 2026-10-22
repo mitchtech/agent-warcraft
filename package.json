@@ -1,7 +1,7 @@
 {
   "name": "agent-warcraft",
-  "version": "0.2.0",
-  "description": "Warcraft peon sound notifications for coding agents and a native Codex pet: Work complete!",
+  "version": "0.3.0",
+  "description": "Warcraft peon sound notifications for coding agents and native Peon and Peasant Codex pets: Work complete!",
   "type": "module",
   "bin": {
     "agent-warcraft": "scripts/warcraft.mjs"
@@ -59,6 +59,7 @@
   "keywords": [
     "warcraft",
     "peon",
+    "peasant",
     "orc",
     "audio",
     "notifications",

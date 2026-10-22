@@ -40,6 +40,7 @@ try {
     // Exercise bundled art while preserving support for packages without a sprite sheet.
     if (existsSync(join(bundle, 'pets', 'peon', 'spritesheet.webp'))) { cli(['pet', 'install']); cli(['doctor', '--pet']); cli(['pet', 'uninstall']); }
     else assert.equal(JSON.parse(cli(['pet', 'status', '--json'])).state, 'not-bundled');
+    cli(['pet', 'install', 'peasant']); cli(['doctor', '--pet', 'peasant']); cli(['pet', 'uninstall', 'peasant']);
     cli(['mute', 'all']);
     const hookPath = bundle === extension ? 'hooks/hooks.json' : 'hooks/gemini.json';
     const hooks = JSON.parse(readFileSync(join(bundle, hookPath), 'utf8')).hooks;
