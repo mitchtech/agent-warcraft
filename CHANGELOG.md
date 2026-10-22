@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Bundle the Peon v2 pet with nine animations and sixteen look directions, preserve the original PNG, and record lossless WebP provenance and artwork licensing.
+- Verify installation and diagnostics against the real artwork while preserving missing-art and conflict coverage.
+
 ## 0.1.0 - 2026-10-21
 
 First release, built on the Agent Johnny 5 v0.1.0 runtime.

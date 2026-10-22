@@ -20,7 +20,7 @@ def package(destination, with_package=False):
         subprocess.run(["npm.cmd" if os.name == "nt" else "npm", "pack", "--pack-destination", str(destination.resolve())], cwd=ROOT, check=True)
     archive = destination / f"agent-warcraft-pet-v{version}.zip"
     if not (PET / "spritesheet.webp").exists():
-        # The pet ships as a manifest-only stub until its art lands.
+        # Preserve support for older or manifest-only packages without artwork.
         print("pet art not bundled; skipping the pet archive")
         archive = None
     else:
