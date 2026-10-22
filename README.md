@@ -60,7 +60,7 @@ large multi-game sound pack registry, see [peon-ping](https://github.com/PeonPin
 |---|---|---|
 | Sounds | [Agent plugin](#install) or standalone CLI | Node.js 22+ and local audio |
 | Gold meter | [Status line command](#gold-meter-and-usage-alarms) | Claude Code status line |
-| Codex pet | [Coming soon](#codex-pet-coming-soon) | A host with compatible custom pets |
+| Codex pet | [Pet installer or manual ZIP](#codex-pet) | A host with compatible custom pets |
 
 Installing the sound plugin never installs or selects a pet, and never changes
 your status line.
@@ -155,13 +155,22 @@ All commands also work as `node /path/to/agent-warcraft/scripts/warcraft.mjs ...
 Standalone `play` and `preview` wait for the short clip; native hooks dispatch
 playback to a detached worker so the agent can continue immediately.
 
-## Codex pet (coming soon)
+## Codex pet
 
-The Peon Codex pet is not bundled yet. The installer, validation, and release
-packaging are in place, so the pet will arrive in a release without changing
-how anything else works. Until then, `agent-warcraft pet status` reports
-`not-bundled` and `agent-warcraft pet install` changes nothing. Codex's native
-pet feature can create a companion in the meantime. See [pets](docs/pets.md).
+The bundled Warcraft III-era Peon has nine animations and sixteen look
+directions. Install it independently of sounds:
+
+```bash
+node scripts/warcraft.mjs pet install
+node scripts/warcraft.mjs doctor --pet
+```
+
+With a CLI package that includes the artwork, use `agent-warcraft pet install`.
+For manual installation, extract the `peon` directory from a pet-enabled
+release ZIP into your configured Codex home's `pets` directory (normally
+`~/.codex/pets/peon`). Refresh the host's pet picker and choose Peon.
+Installation leaves pet selection and sound configuration unchanged.
+See [pets](docs/pets.md) for compatibility, backups, and provenance.
 
 ## Sounds
 

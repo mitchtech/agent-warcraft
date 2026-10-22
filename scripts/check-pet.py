@@ -23,7 +23,7 @@ def validate():
             raise ValueError(f"Missing {key}")
     sheet = PET / manifest["spritesheetPath"]
     if not sheet.exists():
-        # The pet ships as a manifest-only stub until its art lands.
+        # Preserve support for older or manifest-only packages without artwork.
         return {"bundled": False, "message": "pet art not bundled; skipping"}
     if not (PET / "LICENSE.txt").exists():
         raise ValueError("Bundled pet art needs LICENSE.txt")

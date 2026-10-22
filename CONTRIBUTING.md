@@ -32,9 +32,11 @@ root default hook file to Claude/Codex installations.
 
 `audio/` holds the canonical clips; `audio/sources.json` and
 `scripts/build-audio.py` record and reproduce them (ffmpeg required for
-rebuilds). `pets/peon` holds the pet manifest until art lands; installer tests
-use `tests/fixtures/pet`. `assets/previews` is generated from the clips by
-`scripts/build-assets.py`; keep preview generation reproducible.
+rebuilds). `pets/peon` holds the complete local v2 pet bundle; the original PNG is
+preserved in `assets/original/peon`. Installer tests cover the real artwork
+and use `tests/fixtures/pet` for conflict and missing-art behavior.
+`assets/previews` is generated from the clips by `scripts/build-assets.py`;
+keep preview generation reproducible.
 
 Release and discovery procedures live in [distribution maintenance](docs/distribution.md).
 The [promotion kit](docs/promotion/README.md) contains public post drafts,

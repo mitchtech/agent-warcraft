@@ -100,16 +100,16 @@ audio to your local speakers. This plugin does not deploy a relay or service.
 ## Native pet compatibility
 
 Sounds and pets install independently. The `warcraft` plugin registers sound
-hooks only. The Peon pet is not bundled yet; when it ships, the pet CLI or
-ZIP will install a local custom pet without hook registration or avatar
-selection changes, and the host will drive its activity and animation.
+hooks only. The bundled Peon pet installs through the pet CLI or ZIP as a
+local custom pet without hook registration or avatar selection changes.
+The host drives its activity and animation.
 
 | Surface | Sounds | Native pet |
 |---|---|---|
 | Claude Code | Native hooks | No integration provided |
 | Gemini CLI | Native extension | No integration provided |
-| Codex desktop | With trusted hooks | Custom pet picker, once the pet ships |
-| Codex CLI | Native hooks | Graphics-capable terminal required, once the pet ships |
+| Codex desktop | With trusted hooks | Custom pet picker |
+| Codex CLI | Native hooks | Graphics-capable terminal required |
 | Codex IDE extension | Depends on host hook support | No picker or overlay |
 | Other agents and scripts | Generic event interface | Depends on host; no adapter provided |
 | Headless or remote environments | Requires local audio access | No local display is implied |

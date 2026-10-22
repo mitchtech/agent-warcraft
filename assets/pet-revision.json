@@ -1,0 +1,14 @@
+{
+  "method": "Pillow lossless PNG-to-WebP encoding with exact RGBA preservation; no visual changes",
+  "source": {
+    "file": "assets/original/peon/spritesheet.png",
+    "sha256": "d77132a73d2ccda9689ffe6417723fc5b0169688d9fb486e947e19f658920420"
+  },
+  "active": {
+    "pet.json": "4368987fea19372f947aa45936777524dab938cb30e50942a155f12c77e51b21",
+    "spritesheet.webp": "f8c7b8bd8c183f5ffe2ba30735a11b86994e8d7e67a3b73a85cc7137168cbaa4"
+  },
+  "decodedPixelsIdentical": true,
+  "occupiedCells": 73,
+  "transparentCells": 15
+}
