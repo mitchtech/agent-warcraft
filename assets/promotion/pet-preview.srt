@@ -1,0 +1,37 @@
+1
+00:00:00,000 --> 00:00:04,000
+Meet the Peon
+A native custom pet for Codex.
+Codex animates him; the plugin plays sounds.
+Atlas animation preview - not a native host recording
+
+2
+00:00:04,000 --> 00:00:08,000
+Agent working
+"Work, work."
+Atlas animation preview - not a native host recording
+
+3
+00:00:08,000 --> 00:00:12,000
+Needs your approval
+"What you want?"
+Atlas animation preview - not a native host recording
+
+4
+00:00:12,000 --> 00:00:16,000
+Turn finished
+"Work complete!"
+Atlas animation preview - not a native host recording
+
+5
+00:00:16,000 --> 00:00:20,000
+Out of usage
+"We need more gold!"
+Atlas animation preview - not a native host recording
+
+6
+00:00:20,000 --> 00:00:25,000
+Install the pet
+Independent of the sounds.
+Choose Peon in the pet picker.
+Atlas animation preview - not a native host recording

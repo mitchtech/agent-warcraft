@@ -16,8 +16,8 @@ changelog, and run the contributor checks. After its PR merges into `main`, tag
 the merged commit and push the tag:
 
 ```bash
-git tag v0.1.0
-git push origin v0.1.0
+git tag v0.2.0
+git push origin v0.2.0
 ```
 
 The release workflow checks Node 22/24 on macOS, Linux, and Windows, including

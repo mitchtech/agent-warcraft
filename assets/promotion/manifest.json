@@ -47,6 +47,16 @@
       "sha256": "f8197d0c24ee1dca148b9b8caeef4eb3702583945f0ce99a9ecf0de7301989cd"
     },
     {
+      "path": "audio/orc-work-work.wav",
+      "bytes": 54924,
+      "sha256": "4d7c8f4b86bc386cbda8338008e718de0aace2380a25311a6ad2ead46cdd922a"
+    },
+    {
+      "path": "pets/peon/spritesheet.webp",
+      "bytes": 2318222,
+      "sha256": "f8c7b8bd8c183f5ffe2ba30735a11b86994e8d7e67a3b73a85cc7137168cbaa4"
+    },
+    {
       "path": "site/fonts/marcellus-latin-400-normal.woff2",
       "bytes": 14552,
       "sha256": "8a539799d12e3a144273288055490f57e1eee84da7a9145f085bc522e80719c3"
@@ -79,6 +89,21 @@
       "sha256": "b89d88f50c12c695a74a6a379a0a6cf83ca25340c839eb76db5568f1145357d8"
     },
     {
+      "path": "assets/promotion/pet-preview.mp4",
+      "bytes": 580009,
+      "sha256": "88acbc84350de47d5c3fff7c4df4304d2a369748ad3d2a18e4676ca206dc66e0"
+    },
+    {
+      "path": "assets/promotion/pet-preview.png",
+      "bytes": 141784,
+      "sha256": "3165911b0319deb73ddaf8f4074c708886b60f65b8e3b713edc3bfb6e18f9f0c"
+    },
+    {
+      "path": "assets/promotion/pet-preview.srt",
+      "bytes": 815,
+      "sha256": "b2ae47d40d592aaab1c6d1d9737592af705300c0c859e531dcd265adedb11d17"
+    },
+    {
       "path": "assets/promotion/sound-preview.mp4",
       "bytes": 339320,
       "sha256": "1fada13970cbb7c275ebed5b878e14d3ab1bd7c6d37f2a9de1c0e38ddc8bc52c"
@@ -102,6 +127,7 @@
   "limitations": [
     "Not a live host or physical audio recording.",
     "No claim of hook execution in these videos.",
-    "Audio is assembled from the bundled, separately noticed Warcraft III clips."
+    "Audio is assembled from the bundled, separately noticed Warcraft III clips.",
+    "Pet animation is drawn from the bundled atlas; Codex, not the sound plugin, animates the installed pet."
   ]
 }

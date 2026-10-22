@@ -48,8 +48,15 @@ and matches loudness across all 56 clips. I transcribed every result to confirm
 the words survived the trim. Speech-to-text heard "Something need doing?" as
 "Something you're doing?", which says more about orc grammar than the trim.
 
-The project separates its licenses: MIT for code and configuration, and a
-separate notice for the *Warcraft III* recordings, which belong to Blizzard
+The project now has a face, too. The Peon is a native Codex pet with nine
+animations and sixteen look directions, made with Codex's own image generation
+rather than lifted from the game. Codex animates him from its activity, so he
+swings his pickaxe while the agent works and holds his head when something
+fails. He installs from a ZIP without Node.js, and he is independent of the
+sounds; plenty of people will want one without the other.
+
+The project separates its licenses: MIT for code and configuration, CC BY 4.0
+for the pet artwork, and a separate notice for the *Warcraft III* recordings, which belong to Blizzard
 Entertainment. There is no claim of official affiliation or ownership of the
 characters or the audio.
 

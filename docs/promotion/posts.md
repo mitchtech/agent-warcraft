@@ -115,6 +115,44 @@ machine running the hook. Already running Agent Navi or Johnny 5? Enable one per
 
 https://github.com/mitchtech/agent-warcraft#install
 
+## X5 - meet the Peon
+
+Agent Warcraft now ships a native Codex pet: the Peon.
+
+Nine animations, sixteen look directions. Codex animates him; he works while
+your agent works. No Node needed to install, just a ZIP.
+
+Clip: atlas preview with bundled clips.
+
+https://github.com/mitchtech/agent-warcraft#codex-pet
+
+## R3 - r/codex pet showcase
+
+Title: I made a WC3 Peon custom pet for Codex
+
+I made a native custom pet for Codex: a Warcraft III-style orc Peon with nine
+animations (idle, working, waiting, review, blocked, moving, waving, jumping)
+and sixteen look directions. The art was made with Codex image generation and
+is CC BY 4.0; nothing was extracted from the game.
+
+Install without Node.js:
+
+```bash
+curl -LO https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-pet.zip
+unzip agent-warcraft-pet.zip -d ~/.codex/pets
+```
+
+Then refresh the desktop pet picker or enter `/pets Peon` in a graphics-capable
+Codex CLI terminal. There is also a nine-row atlas for web pet uploads. The
+attached video is an atlas preview, not a native recording.
+
+The pet is independent of the project's sound plugin, which plays peon lines on
+agent events. Install either or both.
+
+Every animation is on the site: https://mitchtech.github.io/agent-warcraft/#pet
+
+Which state do you see most: working, waiting, or blocked?
+
 ## L1 - LinkedIn maker introduction
 
 I built Agent Warcraft, a small sound-notification plugin for Claude Code,

@@ -1,8 +1,14 @@
 # Changelog
 
-## Unreleased
+## 0.2.0 - 2026-10-21
 
-- Bundle the Peon v2 pet with nine animations and sixteen look directions, preserve the original PNG, and record lossless WebP provenance and artwork licensing.
+Meet the Peon: a native custom pet for Codex desktop and Codex CLI.
+
+- Bundle the Peon v2 pet with nine animations and sixteen look directions, preserve the original PNG, and record lossless WebP provenance and artwork licensing (CC BY 4.0).
+- Attach `agent-warcraft-pet.zip` to releases for installation without Node.js, alongside the existing `agent-warcraft pet install`.
+- Add a nine-row web atlas, `agent-warcraft-pet-web.webp`, for ChatGPT/Codex web pet uploads. `scripts/check-pet.py` verifies its pixels against the active atlas.
+- Add a Codex pet section to the site with every animation and look direction. The hero portrait now acts out each cue with the Peon's animations, and the install section offers Sounds, Pet, or Both.
+- Add animated pet previews to the README, a captioned `pet-preview.mp4`, and Peon-based banner, social card, and touch icon.
 - Verify installation and diagnostics against the real artwork while preserving missing-art and conflict coverage.
 
 ## 0.1.0 - 2026-10-21

@@ -1,6 +1,6 @@
 {
   "name": "agent-warcraft",
-  "description": "Warcraft peon sound notifications for coding agents: Work complete!",
+  "description": "Warcraft peon sound notifications for coding agents and a native Codex pet: Work complete!",
   "owner": {
     "name": "mitchtech",
     "url": "https://github.com/mitchtech"
@@ -9,7 +9,7 @@
     {
       "name": "warcraft",
       "source": "./",
-      "description": "Warcraft peon sound notifications for coding agents: Work complete!"
+      "description": "Warcraft peon sound notifications for coding agents and a native Codex pet: Work complete!"
     }
   ]
 }

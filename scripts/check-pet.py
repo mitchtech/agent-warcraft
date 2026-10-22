@@ -1,5 +1,6 @@
 """Validate the Peon v2 pet bundle when its art is present. Requires requirements-dev.txt."""
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -7,6 +8,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
 PET = ROOT / "pets" / "peon"
+REVISION = ROOT / "assets" / "pet-revision.json"
 STATES = [
     ("idle", 6), ("moving-right", 8), ("moving-left", 8), ("waving", 4),
     ("jumping", 5), ("failure", 8), ("waiting", 6), ("working", 6),
@@ -48,8 +50,18 @@ def validate():
     data = image.tobytes()
     if any(data[i + 3] == 0 and any(data[i:i + 3]) for i in range(0, len(data), 4)):
         raise ValueError("Transparent pixels contain RGB residue")
+    revision = json.loads(REVISION.read_text(encoding="utf-8"))
+    web_path = ROOT / revision["web"]["file"]
+    if hashlib.sha256(web_path.read_bytes()).hexdigest() != revision["web"]["sha256"]:
+        raise ValueError("Web export checksum mismatch; run python3 scripts/export-pet-web.py")
+    with Image.open(web_path) as web:
+        if web.format != "WEBP" or web.mode != "RGBA" or web.size != (1536, 1872) or web_path.stat().st_size > 20 * 1024 * 1024:
+            raise ValueError("Web export violates the upload format")
+        # The web atlas must be exactly the nine animation rows of the active sheet.
+        if web.tobytes() != image.crop((0, 0, 1536, 1872)).tobytes():
+            raise ValueError("Web export differs from the active animation rows")
     return {"bundled": True, "format": "v2", "width": image.width, "height": image.height,
-            "occupiedCells": occupied, "transparentCells": empty}
+            "occupiedCells": occupied, "transparentCells": empty, "webExportValidated": True}
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-"""Derive preview artifacts from the committed clips; never change source audio."""
+"""Derive preview artifacts from the committed clips and pet atlas; never change source audio or art."""
 
 import sys
 import tempfile
@@ -12,6 +12,9 @@ ROOT = Path(__file__).resolve().parent.parent
 AUDIO = ROOT / "audio"
 PREVIEWS = ROOT / "assets" / "previews"
 FONTS = ROOT / "site" / "fonts"
+SHEET = Image.open(ROOT / "pets" / "peon" / "spritesheet.webp").convert("RGBA")
+# (preview name, atlas row, frame count), matching Codex's v2 row order.
+PET_STATES = [("pet-idle", 0, 6), ("pet-working", 7, 6), ("pet-waiting", 6, 6), ("pet-review", 8, 6), ("pet-failure", 5, 8)]
 # --check renders elsewhere and compares pixels: PNG bytes vary with each platform's zlib.
 CHECK = "--check" in sys.argv[1:]
 OUT = Path(tempfile.mkdtemp()) if CHECK else PREVIEWS
@@ -147,6 +150,37 @@ def resources(canvas, xy):
         x += width + 10
 
 
+def cell(row, column):
+    return SHEET.crop((column * 192, row * 208, (column + 1) * 192, (row + 1) * 208))
+
+
+def peon(canvas, box, row=0, column=0, scale=1.0):
+    """The peon centered in `box`, standing on its lower edge, over a soft gold glow."""
+    left, top, right, bottom = box
+    sprite = cell(row, column)
+    if scale != 1.0:
+        sprite = sprite.resize((round(192 * scale), round(208 * scale)), Image.LANCZOS)
+    x = left + (right - left - sprite.width) // 2
+    y = bottom - sprite.height
+    halo = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
+    cx, cy = (left + right) // 2, bottom - sprite.height // 2
+    r = sprite.width // 2
+    ImageDraw.Draw(halo).ellipse((cx - r, cy - r, cx + r, cy + r), fill=TRIM + (70,))
+    canvas.alpha_composite(halo.filter(ImageFilter.GaussianBlur(r // 2)))
+    canvas.alpha_composite(sprite, (x, y))
+
+
+def framed_peon(canvas, box, row=0, column=0, scale=1.0):
+    left, top, right, bottom = box
+    draw = ImageDraw.Draw(canvas, "RGBA")
+    frame(draw, box)
+    inner = Image.new("RGBA", (right - left, bottom - top), PORTRAIT + (255,))
+    peon(inner, (0, 0, inner.width, inner.height - 6), row, column, scale)
+    canvas.alpha_composite(inner, (left, top))
+    for cx in (left - 1, right + 1):
+        draw.ellipse((cx - 6, top - 7, cx + 6, top + 5), fill=TRIM_HI, outline=TRIM_LO)
+
+
 def framed_portrait(canvas, box, clip):
     left, top, right, bottom = box
     draw = ImageDraw.Draw(canvas, "RGBA")
@@ -155,6 +189,20 @@ def framed_portrait(canvas, box, clip):
     for cx in (left - 1, right + 1):
         draw.ellipse((cx - 6, top - 7, cx + 6, top + 5), fill=TRIM_HI, outline=TRIM_LO)
 
+
+# Pet previews: each animation row in the portrait frame, at the site's 160 ms frame rate.
+for name, row, count in PET_STATES:
+    base = stone(288, 288)
+    frame(ImageDraw.Draw(base), (14, 14, 274, 274))
+    frames = []
+    for column in range(count):
+        canvas = base.copy()
+        inner = Image.new("RGBA", (260, 260), PORTRAIT + (255,))
+        peon(inner, (0, 0, 260, 248), row, column)
+        canvas.alpha_composite(inner, (14, 14))
+        frames.append(canvas.convert("RGB"))
+    frames[0].save(OUT / f"{name}.gif", save_all=True, append_images=frames[1:], duration=160, loop=0, disposal=2)
+cell(0, 0).save(OUT / "pet-idle.png")
 
 # Waveform previews: a sweep that reveals each clip, then holds.
 label_font = font(BOLD, 19)
@@ -181,30 +229,27 @@ eyebrow(card, (88, 92), 22)
 headline(card, (82, 138), 120, 560)
 draw.text((90, 300), "Your coding agent, with a", font=font(DISPLAY, 40), fill=INK)
 draw.text((90, 350), "peon's work ethic.", font=font(DISPLAY, 40), fill=INK)
-for row, text in enumerate(["Warcraft sound cues for", "Claude Code, Codex, and Gemini CLI"]):
+for row, text in enumerate(["Warcraft sound cues and a Codex pet for", "Claude Code, Codex, and Gemini CLI"]):
     draw.text((90, 466 + row * 38), text, font=font(BODY, 30), fill=MUTED)
 resources(card, (700, 92))
-framed_portrait(card, (700, 166, 1120, 486), "orc-work-complete")
-draw.text((700, 510), "WE NEED MORE GOLD!", font=font(BOLD, 24), fill=EMBER)
+framed_peon(card, (700, 166, 1120, 486), row=7, column=2, scale=1.4)
+draw.text((700, 510), "SOUND CUES + A CODEX PET", font=font(BOLD, 24), fill=EMBER)
 card.convert("RGB").save(OUT / "social.png")
 
 banner = stone(1280, 440)
 draw = ImageDraw.Draw(banner, "RGBA")
 eyebrow(banner, (92, 80), 22)
 headline(banner, (86, 120), 130, 700)
-draw.text((94, 296), "Sound cues for coding agents. Zug zug.", font=font(BODY, 32), fill=MUTED)
-framed_portrait(banner, (840, 80, 1190, 360), "orc-ready")
+draw.text((94, 296), "Sound cues and a Codex pet for coding agents.", font=font(BODY, 32), fill=MUTED)
+framed_peon(banner, (860, 70, 1170, 370), row=0, column=0, scale=1.3)
 banner.convert("RGB").save(OUT / "banner.png")
 
 touch = stone(180, 180)
 draw = ImageDraw.Draw(touch, "RGBA")
-glow = Image.new("RGBA", touch.size, (0, 0, 0, 0))
-ImageDraw.Draw(glow).ellipse((22, 22, 158, 158), fill=TRIM + (120,))
-touch.alpha_composite(glow.filter(ImageFilter.GaussianBlur(12)))
-draw.ellipse((28, 28, 152, 152), fill=(201, 150, 40), outline=(58, 42, 8), width=4)
-draw.ellipse((40, 36, 140, 136), fill=(242, 201, 76))
-draw.line((56, 132, 124, 56), fill=(90, 58, 28), width=14)
-draw.polygon([(44, 72), (70, 42), (112, 34), (142, 50), (116, 46), (86, 52), (60, 82)], fill=(59, 63, 69), outline=(20, 17, 13))
+draw.rounded_rectangle((6, 6, 173, 173), radius=18, fill=PORTRAIT + (255,), outline=TRIM, width=4)
+# The head sits in the top third of the idle frame; crop and enlarge it to fill the icon.
+head = cell(0, 0).crop((40, 4, 152, 116)).resize((150, 150), Image.LANCZOS)
+touch.alpha_composite(head, (15, 18))
 touch.convert("RGB").save(OUT / "touch-icon.png")
 
 

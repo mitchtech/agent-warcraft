@@ -1,7 +1,7 @@
 {
   "name": "agent-warcraft",
-  "version": "0.1.0",
-  "description": "Warcraft peon sound notifications for coding agents: Work complete!",
+  "version": "0.2.0",
+  "description": "Warcraft peon sound notifications for coding agents and a native Codex pet: Work complete!",
   "type": "module",
   "bin": {
     "agent-warcraft": "scripts/warcraft.mjs"
@@ -29,6 +29,11 @@
     "docs",
     "CHANGELOG.md",
     "assets/previews/banner.png",
+    "assets/previews/pet-idle.gif",
+    "assets/previews/pet-working.gif",
+    "assets/previews/pet-waiting.gif",
+    "assets/previews/pet-review.gif",
+    "assets/previews/pet-failure.gif",
     "assets/previews/orc-ready.gif",
     "assets/previews/orc-work-complete.gif",
     "assets/previews/orc-need-more-gold.gif",
@@ -56,6 +61,8 @@
     "claude-code",
     "codex",
     "gemini-cli",
-    "gemini-cli-extension"
+    "gemini-cli-extension",
+    "codex-pet",
+    "custom-pets"
   ]
 }

@@ -17,6 +17,50 @@ let samples;
 let activeButton;
 let raf = 0;
 
+// Codex v2 atlas rows: [row, frames, label, first column].
+const STATES = {
+  idle: [0, 6, 'idle'], 'moving-right': [1, 8, 'moving right'], 'moving-left': [2, 8, 'moving left'], waving: [3, 4, 'waving'],
+  jumping: [4, 5, 'jumping'], failure: [5, 8, 'blocked'], waiting: [6, 6, 'waiting for input'], working: [7, 6, 'working'], review: [8, 6, 'reviewing'],
+};
+const LOOKS = ['up', 'up-right 1', 'up-right 2', 'up-right 3', 'right', 'down-right 1', 'down-right 2', 'down-right 3',
+  'down', 'down-left 1', 'down-left 2', 'down-left 3', 'left', 'up-left 1', 'up-left 2', 'up-left 3'];
+LOOKS.forEach((name, direction) => { STATES[`look-${direction}`] = [9 + Math.floor(direction / 8), 1, `looking ${name}`, direction % 8]; });
+// Which animation the portrait acts out for each cue, mirroring the state Codex would show.
+const MOODS = {
+  session_started: 'waving', prompt_submitted: 'working', annoyed: 'failure', approval_required: 'waiting', input_required: 'waiting',
+  ready_for_input: 'waving', turn_completed: 'jumping', out_of_gold: 'failure', gold_low: 'review', out_of_lumber: 'failure', error: 'failure',
+  tool_failed: 'failure', subagent_started: 'moving-right', context_compacting: 'review', session_ended: 'moving-left', 'easter-egg': 'jumping',
+};
+const mood = event => (event.includes('destructive') ? 'failure' : MOODS[event.split(' ')[0]] || 'idle');
+
+function animator(element) {
+  let timer;
+  let state = 'idle';
+  let paused = false;
+  const scale = () => parseFloat(getComputedStyle(element).getPropertyValue('--scale')) || 1;
+  const draw = (row, column) => { element.style.backgroundPosition = `${-column * 192 * scale()}px ${-row * 208 * scale()}px`; };
+  const render = () => {
+    clearInterval(timer);
+    const [row, count, , start = 0] = STATES[state];
+    let frame = 0;
+    draw(row, start);
+    if (paused || reducedMotion.matches || document.hidden || count < 2) return;
+    timer = setInterval(() => { frame = (frame + 1) % count; draw(row, frame); }, 160);
+  };
+  return {
+    set(next) { state = next; render(); },
+    pause(value) { paused = value; render(); },
+    get paused() { return paused; },
+    render,
+  };
+}
+
+const portraitPet = animator(document.querySelector('#portrait-sprite'));
+const stagePet = animator(document.querySelector('#stage-sprite'));
+reducedMotion.addEventListener('change', () => { portraitPet.render(); stagePet.render(); });
+document.addEventListener('visibilitychange', () => { portraitPet.render(); stagePet.render(); });
+new ResizeObserver(() => { portraitPet.render(); stagePet.render(); }).observe(document.body);
+
 // The portrait is dark in both factions, so only the trace color follows the faction.
 const trace = () => (alliance() ? '#6fb0ff' : '#8fd14f');
 
@@ -138,6 +182,7 @@ function spend() {
 
 function settle(message) {
   panel.classList.remove('live', 'pissed');
+  portraitPet.set('idle');
   activeButton?.classList.remove('playing');
   activeButton = null;
   if (!reducedMotion.matches) idle();
@@ -164,6 +209,7 @@ async function play(source, { free = false } = {}) {
     if (activeButton !== button) return;
     button?.classList.add('playing');
     panel.classList.add('live');
+    portraitPet.set(mood(event));
     status.textContent = `Playing: ${line}`;
     cancelAnimationFrame(raf);
     if (reducedMotion.matches) await envelope(url);
@@ -247,6 +293,32 @@ document.addEventListener('keydown', event => {
 new ResizeObserver(() => { fit(); if (!panel.classList.contains('live')) idle(); }).observe(canvas);
 fit();
 idle();
+
+// Pet stage: every animation row and look direction in the bundled atlas.
+const stateLabel = document.querySelector('#state-label');
+const motionButton = document.querySelector('#motion-toggle');
+function renderMotion() {
+  motionButton.disabled = reducedMotion.matches;
+  motionButton.textContent = reducedMotion.matches ? 'Reduced motion is on' : stagePet.paused ? 'Resume animation' : 'Pause animation';
+  motionButton.setAttribute('aria-pressed', String(stagePet.paused || reducedMotion.matches));
+}
+document.querySelectorAll('[data-state]').forEach(button => button.addEventListener('click', () => {
+  document.querySelectorAll('[data-state]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+  stagePet.set(button.dataset.state);
+  stateLabel.textContent = `The Peon is ${STATES[button.dataset.state][2]}`;
+}));
+motionButton.addEventListener('click', () => { stagePet.pause(!stagePet.paused); renderMotion(); });
+reducedMotion.addEventListener('change', renderMotion);
+renderMotion();
+stagePet.set('idle');
+portraitPet.set('idle');
+
+document.querySelectorAll('[data-install]').forEach(button => button.addEventListener('click', () => {
+  const choice = button.dataset.install;
+  document.querySelectorAll('[data-install]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+  document.querySelector('#sounds-install').hidden = choice === 'pet';
+  document.querySelector('#pet-install').hidden = choice === 'sounds';
+}));
 
 document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
   const copyStatus = document.querySelector('#copy-status');
