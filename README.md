@@ -204,6 +204,25 @@ Creating a ChatGPT/Codex web pet instead? Upload the nine-row
 and keep the CC BY 4.0 credit. See [pets](docs/pets.md) for compatibility,
 the web upload, backups, and provenance.
 
+### Human Peasant
+
+<p align="center"><img src="assets/previews/peasant-working.gif" width="192" alt="The human Peasant pet working with his pickaxe"></p>
+
+The human Peasant counterpart has the same nine animations and sixteen look
+directions. Install the separate local bundle from a release containing it:
+
+```bash
+curl -LO https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-peasant-pet.zip
+unzip agent-warcraft-peasant-pet.zip -d ~/.codex/pets
+```
+
+Choose Peasant in the host's pet picker. With `CODEX_HOME` set, extract into
+`$CODEX_HOME/pets`. The existing CLI pet installer targets Peon; use this ZIP
+for Peasant. For web uploads, use the separate
+[Peasant web atlas](https://github.com/mitchtech/agent-warcraft/releases/latest/download/agent-warcraft-peasant-pet-web.webp).
+See the [Peasant guide](docs/peasant.md) for source-checkout installation,
+format, validation, and attribution.
+
 ## Sounds
 
 Each event lists the Horde line first, then the Alliance line.

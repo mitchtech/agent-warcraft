@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Add the human Peasant v2 pet with nine animations, sixteen look directions, original source art, lossless local and web atlases, and CC BY 4.0 contributor licensing.
+- Package a dedicated Peasant ZIP, validate both pets and web exports, and derive Peasant previews from the active atlas.
+
 ## 0.2.0 - 2026-10-21
 
 Meet the Peon: a native custom pet for Codex desktop and Codex CLI.

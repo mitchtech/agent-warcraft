@@ -1,0 +1,7 @@
+{
+  "id": "peasant",
+  "displayName": "Peasant",
+  "description": "A bearded human worker in a blue hood with a pickaxe, ready to work.",
+  "spriteVersionNumber": 2,
+  "spritesheetPath": "spritesheet.webp"
+}

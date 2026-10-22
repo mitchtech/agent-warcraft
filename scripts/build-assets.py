@@ -150,14 +150,14 @@ def resources(canvas, xy):
         x += width + 10
 
 
-def cell(row, column):
-    return SHEET.crop((column * 192, row * 208, (column + 1) * 192, (row + 1) * 208))
+def cell(row, column, sheet=SHEET):
+    return sheet.crop((column * 192, row * 208, (column + 1) * 192, (row + 1) * 208))
 
 
-def peon(canvas, box, row=0, column=0, scale=1.0):
+def peon(canvas, box, row=0, column=0, scale=1.0, sheet=SHEET):
     """The peon centered in `box`, standing on its lower edge, over a soft gold glow."""
     left, top, right, bottom = box
-    sprite = cell(row, column)
+    sprite = cell(row, column, sheet)
     if scale != 1.0:
         sprite = sprite.resize((round(192 * scale), round(208 * scale)), Image.LANCZOS)
     x = left + (right - left - sprite.width) // 2
@@ -191,18 +191,25 @@ def framed_portrait(canvas, box, clip):
 
 
 # Pet previews: each animation row in the portrait frame, at the site's 160 ms frame rate.
-for name, row, count in PET_STATES:
-    base = stone(288, 288)
-    frame(ImageDraw.Draw(base), (14, 14, 274, 274))
-    frames = []
-    for column in range(count):
-        canvas = base.copy()
-        inner = Image.new("RGBA", (260, 260), PORTRAIT + (255,))
-        peon(inner, (0, 0, 260, 248), row, column)
-        canvas.alpha_composite(inner, (14, 14))
-        frames.append(canvas.convert("RGB"))
-    frames[0].save(OUT / f"{name}.gif", save_all=True, append_images=frames[1:], duration=160, loop=0, disposal=2)
-cell(0, 0).save(OUT / "pet-idle.png")
+def pet_previews(sheet, prefix):
+    for name, row, count in PET_STATES:
+        base = stone(288, 288)
+        frame(ImageDraw.Draw(base), (14, 14, 274, 274))
+        frames = []
+        for column in range(count):
+            canvas = base.copy()
+            inner = Image.new("RGBA", (260, 260), PORTRAIT + (255,))
+            peon(inner, (0, 0, 260, 248), row, column, sheet=sheet)
+            canvas.alpha_composite(inner, (14, 14))
+            frames.append(canvas.convert("RGB"))
+        name = name.replace("pet-", f"{prefix}-", 1)
+        frames[0].save(OUT / f"{name}.gif", save_all=True, append_images=frames[1:], duration=160, loop=0, disposal=2)
+    cell(0, 0, sheet).save(OUT / f"{prefix}-idle.png")
+
+
+pet_previews(SHEET, "pet")
+with Image.open(ROOT / "pets" / "peasant" / "spritesheet.webp") as source:
+    pet_previews(source.convert("RGBA"), "peasant")
 
 # Waveform previews: a sweep that reveals each clip, then holds.
 label_font = font(BOLD, 19)

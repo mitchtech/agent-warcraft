@@ -1,5 +1,6 @@
-"""Validate the Peon v2 pet bundle when its art is present. Requires requirements-dev.txt."""
+"""Validate both v2 pet bundles and their web exports. Requires requirements-dev.txt."""
 
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -7,8 +8,6 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
-PET = ROOT / "pets" / "peon"
-REVISION = ROOT / "assets" / "pet-revision.json"
 STATES = [
     ("idle", 6), ("moving-right", 8), ("moving-left", 8), ("waving", 4),
     ("jumping", 5), ("failure", 8), ("waiting", 6), ("working", 6),
@@ -16,10 +15,12 @@ STATES = [
 ]
 
 
-def validate():
+def validate(pet_id="peon"):
+    PET = ROOT / "pets" / pet_id
+    REVISION = ROOT / "assets" / ("pet-revision.json" if pet_id == "peon" else "peasant-pet-revision.json")
     manifest = json.loads((PET / "pet.json").read_text())
-    if (manifest.get("id"), manifest.get("spriteVersionNumber"), manifest.get("spritesheetPath")) != ("peon", 2, "spritesheet.webp"):
-        raise ValueError("Expected the peon v2 manifest")
+    if (manifest.get("id"), manifest.get("spriteVersionNumber"), manifest.get("spritesheetPath")) != (pet_id, 2, "spritesheet.webp"):
+        raise ValueError(f"Expected the {pet_id} v2 manifest")
     for key in ["displayName", "description"]:
         if not isinstance(manifest.get(key), str) or not manifest[key].strip():
             raise ValueError(f"Missing {key}")
@@ -65,4 +66,8 @@ def validate():
 
 
 if __name__ == "__main__":
-    print(json.dumps(validate(), indent=2))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--pet", choices=["peon", "peasant"])
+    args = parser.parse_args()
+    result = validate(args.pet) if args.pet else {pet_id: validate(pet_id) for pet_id in ["peon", "peasant"]}
+    print(json.dumps(result, indent=2))
