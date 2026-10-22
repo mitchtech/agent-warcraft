@@ -80,9 +80,20 @@ the execution environment and speakers are on different machines.
 tool-failure, and error mappings that Codex and Gemini lack. Completion is not
 a task success detector. See [compatibility](../compatibility.md).
 
-**Is there a Codex pet?** Not yet. The installer and packaging are ready, and
-the art will arrive in a release. Until then, Codex's native pet feature can
-make a companion. See [pets](../pets.md).
+**Is there a Codex pet?** Yes, since v0.2.0: the Peon, with nine animations
+and sixteen look directions. Install from the release ZIP without Node.js, or
+with `agent-warcraft pet install`. A nine-row atlas covers web pet uploads.
+See [pets](../pets.md).
+
+**Does the pet react to the sounds?** No. Codex animates the pet from its own
+activity, and the sound plugin plays clips from hook events. They line up
+because they watch the same agent, not because they talk to each other. The
+site and pet video pair them on purpose to show both.
+
+**Is the pet art from the game?** No. It was made with Codex image generation,
+and no sprites, portraits, or models were extracted from Blizzard games. The
+contributor's rights are licensed CC BY 4.0; Warcraft and the peon remain
+Blizzard's.
 
 **Is this official Blizzard software?** No. Warcraft and its voice lines belong
 to Blizzard Entertainment. Code and configuration use MIT; the bundled audio is

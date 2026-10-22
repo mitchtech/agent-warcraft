@@ -10,5 +10,9 @@
   },
   "decodedPixelsIdentical": true,
   "occupiedCells": 73,
-  "transparentCells": 15
+  "transparentCells": 15,
+  "web": {
+    "file": "assets/exports/agent-warcraft-pet-web.webp",
+    "sha256": "2ee7fa273fdb85c09b7ec8dc7fa69c3d8258b0807d89367b4a132b83785b56be"
+  }
 }
