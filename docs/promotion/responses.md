@@ -6,7 +6,7 @@ and link only the relevant documentation.
 **What is Agent Warcraft?** A free sound-notification plugin for coding agents
 that plays *Warcraft III* voice lines. Native sounds support Claude Code, Codex,
 and Gemini CLI; other tools can call the shared event interface. It is a
-sibling of Agent Navi and Agent Johnny 5 and shares their runtime design.
+sibling of Agent Navi, Agent Johnny 5, and Agent Rocky and shares their runtime design.
 
 **How is it different from peon-ping?** peon-ping is a much larger project with
 hundreds of community sound packs across many games and IDEs, and it is a good
@@ -68,9 +68,9 @@ agent, verify the local audio player/device, and inspect the mute state. Codex
 also requires hook trust review. Use `doctor` for diagnostics and
 `preview orc-ready` for an explicit audio check.
 
-**I hear a fairy, a robot, and a peon.** Agent Navi or Agent Johnny 5 is
-installed too. Enable one per host; see the
-[install walkthrough](install.md#already-using-agent-navi-or-agent-johnny-5).
+**I hear a fairy, a robot, a peon, or an Eridian.** Agent Navi, Agent Johnny 5,
+or Agent Rocky is installed too. Enable one per host; see the
+[install walkthrough](install.md#already-using-another-agent-plugin).
 
 **Will it play on my laptop from SSH, WSL, or a container?** Not automatically.
 Audio plays where the hook runs. A working audio bridge must already exist if
