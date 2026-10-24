@@ -22,7 +22,8 @@
   <a href="https://github.com/mitchtech/agent-navi">Agent Navi</a> ·
   <a href="https://github.com/mitchtech/agent-johnny5">Agent Johnny 5</a> ·
   <a href="https://github.com/mitchtech/agent-rocky">Agent Rocky</a> ·
-  <a href="https://github.com/mitchtech/agent-starwars">Agent Star Wars</a>
+  <a href="https://github.com/mitchtech/agent-starwars">Agent Star Wars</a> ·
+  <a href="https://github.com/mitchtech/agent-starcraft">Agent StarCraft</a>
 </p>
 
 <table align="center">
@@ -76,8 +77,9 @@ approves or blocks an agent's actions.
 
 A sibling of [Agent Navi](https://github.com/mitchtech/agent-navi),
 [Agent Johnny 5](https://github.com/mitchtech/agent-johnny5),
-[Agent Rocky](https://github.com/mitchtech/agent-rocky), and
-[Agent Star Wars](https://github.com/mitchtech/agent-starwars), inspired by
+[Agent Rocky](https://github.com/mitchtech/agent-rocky),
+[Agent Star Wars](https://github.com/mitchtech/agent-starwars), and
+[Agent StarCraft](https://github.com/mitchtech/agent-starcraft), inspired by
 [thephw/claude-meseeks](https://github.com/thephw/claude-meseeks). For a
 large multi-game sound pack registry, see [peon-ping](https://github.com/PeonPing/peon-ping).
 
@@ -146,10 +148,11 @@ hook file is included in the generated extension, not the source root. Install
 published release assets rather than linking the repository root or a raw Git
 branch. See [Gemini integration](docs/gemini.md).
 
-### Running alongside Agent Navi, Agent Johnny 5, Agent Rocky, or Agent Star Wars
+### Running alongside the sibling projects
 
-All five plugins respond to the same events. Enable one per host unless you
-want a fairy, a robot, a peon, an Eridian, and two droids talking over each other. For example,
+Agent Navi, Agent Johnny 5, Agent Rocky, Agent Star Wars, and Agent StarCraft
+respond to the same events. Enable one per host unless you want a fairy, a robot,
+a peon, an Eridian, two droids, and an SCV talking over each other. For example,
 `claude plugin disable johnny5@agent-johnny5` for Claude Code, or
 `enabled = false` under `[plugins."johnny5@agent-johnny5"]` in
 `~/.codex/config.toml` for Codex.
@@ -498,7 +501,7 @@ the project workflow.
 - *Warcraft III: Reign of Chaos* (2002): Blizzard Entertainment. Warcraft is a trademark of Blizzard Entertainment.
 - Clip sources: warcraft.wiki.gg file pages and The Sounds Resource *Warcraft III* archives.
 - Peon and Peasant pet artwork: Michael J. Mitchell / mitchtech, made with Codex image generation, CC BY 4.0 ([Peon](pets/peon/LICENSE.txt), [Peasant](pets/peasant/LICENSE.txt)). No game sprites were extracted.
-- Sibling projects: [Agent Navi](https://github.com/mitchtech/agent-navi), [Agent Johnny 5](https://github.com/mitchtech/agent-johnny5), [Agent Rocky](https://github.com/mitchtech/agent-rocky), and [Agent Star Wars](https://github.com/mitchtech/agent-starwars).
+- Sibling projects: [Agent Navi](https://github.com/mitchtech/agent-navi), [Agent Johnny 5](https://github.com/mitchtech/agent-johnny5), [Agent Rocky](https://github.com/mitchtech/agent-rocky), [Agent Star Wars](https://github.com/mitchtech/agent-starwars), and [Agent StarCraft](https://github.com/mitchtech/agent-starcraft).
 - Original plugin inspiration: [thephw/claude-meseeks](https://github.com/thephw/claude-meseeks). The peon-in-your-terminal idea owes a nod to [peon-ping](https://github.com/PeonPing/peon-ping).
 
 Code and configuration: [MIT](LICENSE). Contributor rights in the pet artwork:
