@@ -15,7 +15,8 @@ description: >-
   Agent Warcraft notifications.
   DO NOT TRIGGER when: the user wants operating system volume controls, unrelated
   notification settings, Agent Navi controls (use navi-control), Agent Johnny 5
-  controls (use johnny5-control), pet artwork, or pet selection through the host picker.
+  controls (use johnny5-control), Agent StarCraft controls (use starcraft-control),
+  pet artwork, or pet selection through the host picker.
 ---
 
 # Agent Warcraft sound controls
