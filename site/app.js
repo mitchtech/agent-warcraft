@@ -28,7 +28,8 @@ LOOKS.forEach((name, direction) => { STATES[`look-${direction}`] = [9 + Math.flo
 // Which animation the portrait acts out for each cue, mirroring the state Codex would show.
 const MOODS = {
   session_started: 'waving', prompt_submitted: 'working', annoyed: 'failure', approval_required: 'waiting', input_required: 'waiting',
-  ready_for_input: 'waving', turn_completed: 'jumping', out_of_gold: 'failure', gold_low: 'review', out_of_lumber: 'failure', error: 'failure',
+  ready_for_input: 'waving', turn_completed: 'jumping', out_of_gold: 'failure', gold_low: 'review', out_of_lumber: 'failure', out_of_food: 'review',
+  error: 'failure',
   tool_failed: 'failure', subagent_started: 'moving-right', context_compacting: 'review', session_ended: 'moving-left', 'easter-egg': 'jumping',
 };
 const mood = event => (event.includes('destructive') ? 'failure' : MOODS[event.split(' ')[0]] || 'idle');

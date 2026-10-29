@@ -1,4 +1,4 @@
-# Budget alarms and the gold meter
+# Budget alarms and the gold and food meters
 
 Agent Warcraft has two ways to tell you that usage is running out: hook events
 when a turn has already failed, and an optional status-line meter that warns you
@@ -26,18 +26,21 @@ Claude Code's usage-limit notifications map as follows:
 Codex and Gemini CLI do not report API failures to hooks. Wrappers around them
 can call `agent-warcraft play out_of_gold` themselves.
 
-## The gold meter
+## The gold and food meters
 
 `agent-warcraft statusline` reads the JSON that Claude Code sends to a status
 line command on stdin. It prints one line and exits.
 
 ```text
-⛏ 62% gold (5h)
-⛏ 18% gold (7d) low
-⛏ $1.25 gold low
+⛏ 62% gold (5h) · 42/100 food
+⛏ 18% gold (7d) low · 71/100 food
+⛏ $1.25 gold low · 88/100 food low
 ⛏ 0% gold (spend) out
+⛏ 30/100 food
 ⛏
 ```
+
+### Gold
 
 Gold is whatever is left of your **tightest** limit, chosen from these sources:
 
@@ -50,19 +53,31 @@ Gold is whatever is left of your **tightest** limit, chosen from these sources:
   is Claude Code's client-side estimate at list price. It resets when `/clear`
   starts a new session, so treat it as a per-session budget.
 
-A bare `⛏` means no limit is reported yet, which is normal for API-key sessions
-without a budget. The same bare line appears if the input or configuration
-can't be read: the meter never fails the status line.
+### Food
+
+Food is your context window against Warcraft III's 100 food cap: 71/100 means
+71% of the window is in use. It reads `context_window.used_percentage`, which
+Claude Code computes from input tokens, and falls back to `total_input_tokens /
+context_window_size` when the percentage is missing. Both can be absent early
+in a session, in which case the food part is left out.
+
+A bare `⛏` means neither meter has data yet, which is normal before the first
+response in an API-key session without a budget. The same bare line appears if
+the input or configuration can't be read: the meters never fail the status line.
 
 ### Cues
 
 - Crossing `gold.lowPercent` used (default 80) plays `gold_low`: "Our gold mine
   is running low."
 - Reaching 100% plays `out_of_gold`.
+- Crossing `food.lowPercent` of the context window (default 85) plays
+  `out_of_food`: "Build more burrows!" / "Build more farms."
 
 Each cue plays once per session per rise. When usage falls back, as when a
-5-hour window resets, the meter re-arms, and the next crossing plays again.
-Mute either with `agent-warcraft mute gold_low` or `agent-warcraft mute out_of_gold`.
+5-hour window resets or the context compacts, the meter re-arms, and the next
+crossing plays again. At most one cue plays per update; a gold alarm takes
+priority over food. Mute any of them by name, for example
+`agent-warcraft mute gold_low` or `agent-warcraft mute out_of_food`.
 
 ### Setup
 
@@ -92,13 +107,14 @@ printf '%s  %s\n' "$mine" "$gold"
 ### Settings
 
 ```json
-{ "gold": { "budgetUsd": 20, "lowPercent": 75 } }
+{ "gold": { "budgetUsd": 20, "lowPercent": 75 }, "food": { "lowPercent": 90 } }
 ```
 
 | Setting | Default | Meaning |
 |---|---|---|
 | `gold.budgetUsd` | `null` | Per-session dollar budget, or `null` to use rate limits only |
 | `gold.lowPercent` | `80` | Percent used at which `gold_low` plays; between 0 and 100 |
+| `food.lowPercent` | `85` | Percent of the context window at which `out_of_food` plays; between 0 and 100 |
 
-The meter stores one gold level per session under a hashed name in the state
-directory. Nothing about your usage or cost is written anywhere else.
+The meters store one gold level and one food level per session under hashed
+names in the state directory. Nothing about your usage or cost is written anywhere else.

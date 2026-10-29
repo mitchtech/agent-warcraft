@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-import { configuration, dangerous, DEFAULTS, enlist, escalate, gold, goldCue, locations, normalize, playback, player, reserve, status, updateConfiguration } from '../scripts/warcraft.mjs';
+import { configuration, dangerous, DEFAULTS, enlist, escalate, food, gold, locations, meterCue, normalize, playback, player, reserve, side, status, updateConfiguration } from '../scripts/warcraft.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SCRIPT = join(ROOT, 'scripts', 'warcraft.mjs');
@@ -60,7 +60,7 @@ test('config preserves defaults, merges event overrides, and resolves user audio
 
 test('invalid config and invalid sound names are rejected by diagnostics', t => {
   const f = fixture(t);
-  for (const value of [[], { unknown: true }, { muted: 'yes' }, { cooldownMs: -1 }, { events: null }, { events: { unknown: {} } }, { events: { session_started: { clips: [] } } }, { events: { session_started: { clips: ['../outside'] } } }, { events: { session_started: { enabled: 'yes' } } }, { events: { approval_required: { dangerClips: ['nope'] } } }, { easterEgg: null }, { easterEgg: { chance: 2 } }, { easterEgg: { chance: -0.1 } }, { easterEgg: { clips: [] } }, { easterEgg: { rate: 0.5 } }, { faction: 'orcs' }, { gold: null }, { gold: { budgetUsd: 0 } }, { gold: { lowPercent: 100 } }, { gold: { cap: 1 } }, JSON.parse('{"events":{"__proto__":{"enabled":true}}}')]) {
+  for (const value of [[], { unknown: true }, { muted: 'yes' }, { cooldownMs: -1 }, { events: null }, { events: { unknown: {} } }, { events: { session_started: { clips: [] } } }, { events: { session_started: { clips: ['../outside'] } } }, { events: { session_started: { enabled: 'yes' } } }, { events: { approval_required: { dangerClips: ['nope'] } } }, { faction: 'orcs' }, { food: null }, { food: { lowPercent: 0 } }, { food: { lowPercent: 100 } }, { food: { cap: 1 } }, { easterEgg: null }, { easterEgg: { chance: 2 } }, { easterEgg: { chance: -0.1 } }, { easterEgg: { clips: [] } }, { easterEgg: { rate: 0.5 } }, { faction: 'orcs' }, { gold: null }, { gold: { budgetUsd: 0 } }, { gold: { lowPercent: 100 } }, { gold: { cap: 1 } }, JSON.parse('{"events":{"__proto__":{"enabled":true}}}')]) {
     writeFileSync(f.env.AGENT_WARCRAFT_CONFIG, JSON.stringify(value));
     assert.throws(f.settings);
   }
@@ -431,7 +431,7 @@ test('StopFailure types, quota notifications, subagent starts, and tool failures
   assert.equal(normalize({ hook_event_name: 'PostToolUseFailure', tool_name: 'Bash', is_interrupt: true }, 'claude'), null);
   assert.equal(normalize({ hook_event_name: 'PostToolUseFailure', tool_name: 'Bash' }, 'codex'), null);
   assert.equal(normalize({ hook_event_name: 'AfterTool', tool_response: { error: 'x' } }, 'gemini'), null);
-  for (const event of ['out_of_gold', 'out_of_lumber', 'gold_low', 'annoyed', 'turn_completed']) assert.equal(DEFAULTS.events[event].enabled, true, event);
+  for (const event of ['out_of_gold', 'out_of_lumber', 'out_of_food', 'gold_low', 'annoyed', 'turn_completed']) assert.equal(DEFAULTS.events[event].enabled, true, event);
   for (const event of ['tool_failed', 'subagent_started']) assert.equal(DEFAULTS.events[event].enabled, false, event);
 });
 
@@ -483,15 +483,15 @@ test('gold meter reads the tightest limit and cues each rise once per session', 
   const config = structuredClone(DEFAULTS);
   assert.equal(gold({}, config), null);
   assert.equal(gold({ cost: { total_cost_usd: 3 } }, config), null);
-  assert.deepEqual(gold({ rate_limits: { five_hour: { used_percentage: 50 } } }, config), { label: '5h', percent: 50, level: 0, text: '⛏ 50% gold (5h)' });
+  assert.deepEqual(gold({ rate_limits: { five_hour: { used_percentage: 50 } } }, config), { kind: 'gold', label: '5h', percent: 50, level: 0, text: '50% gold (5h)' });
   const low = gold({ rate_limits: { five_hour: { used_percentage: 20 }, seven_day: { used_percentage: 85.4 } } }, config);
-  assert.equal(low.text, '⛏ 15% gold (7d) low');
+  assert.equal(low.text, '15% gold (7d) low');
   config.gold.budgetUsd = 10;
-  assert.equal(gold({ cost: { total_cost_usd: 9 }, rate_limits: { five_hour: { used_percentage: 40 } } }, config).text, '⛏ $1.00 gold low');
-  assert.equal(gold({ cost: { total_cost_usd: 12 } }, config).text, '⛏ $0.00 gold out');
+  assert.equal(gold({ cost: { total_cost_usd: 9 }, rate_limits: { five_hour: { used_percentage: 40 } } }, config).text, '$1.00 gold low');
+  assert.equal(gold({ cost: { total_cost_usd: 12 } }, config).text, '$0.00 gold out');
   const f = fixture(t);
   const { paths } = f.settings();
-  const at = level => goldCue({ level }, 'session', paths);
+  const at = level => meterCue({ kind: 'gold', level }, 'session', paths);
   assert.equal(at(0), null);
   assert.equal(at(1), 'gold_low');
   assert.equal(at(1), null);
@@ -499,7 +499,7 @@ test('gold meter reads the tightest limit and cues each rise once per session', 
   assert.equal(at(2), null);
   assert.equal(at(0), null);
   assert.equal(at(2), 'out_of_gold');
-  assert.equal(goldCue({ level: 1 }, 'other', paths), 'gold_low');
+  assert.equal(meterCue({ kind: 'gold', level: 1 }, 'other', paths), 'gold_low');
 });
 
 test('statusline always prints one line and exits cleanly, even on bad input', t => {
@@ -509,6 +509,9 @@ test('statusline always prints one line and exits cleanly, even on bad input', t
   const ok = run(JSON.stringify({ session_id: 's', rate_limits: { five_hour: { used_percentage: 90 } } }));
   assert.equal(ok.status, 0);
   assert.equal(ok.stdout, '⛏ 10% gold (5h) low\n');
+  const both = run(JSON.stringify({ session_id: 's', rate_limits: { five_hour: { used_percentage: 20 } }, context_window: { used_percentage: 42.4 } }));
+  assert.equal(both.stdout, '⛏ 80% gold (5h) · 42/100 food\n');
+  assert.equal(run(JSON.stringify({ context_window: { used_percentage: 91 } })).stdout, '⛏ 91/100 food low\n');
   for (const input of ['', 'bad json', '[]', '{}']) {
     const result = run(input);
     assert.equal(result.status, 0);
@@ -517,4 +520,65 @@ test('statusline always prints one line and exits cleanly, even on bad input', t
   }
   writeFileSync(f.env.AGENT_WARCRAFT_CONFIG, '{');
   assert.equal(run(JSON.stringify({ rate_limits: { five_hour: { used_percentage: 90 } } })).stdout, '⛏\n');
+});
+
+test('food meter shows context use against the 100 cap and cues once until the context drops', t => {
+  const config = structuredClone(DEFAULTS);
+  assert.equal(food({}, config), null);
+  assert.equal(food({ context_window: { used_percentage: null } }, config), null);
+  assert.deepEqual(food({ context_window: { used_percentage: 42 } }, config), { kind: 'food', percent: 42, level: 0, text: '42/100 food' });
+  assert.equal(food({ context_window: { total_input_tokens: 180000, context_window_size: 200000 } }, config).text, '90/100 food low');
+  assert.equal(food({ context_window: { used_percentage: 130 } }, config).text, '100/100 food low');
+  config.food.lowPercent = 95;
+  assert.equal(food({ context_window: { used_percentage: 90 } }, config).level, 0);
+  const f = fixture(t);
+  const { paths } = f.settings();
+  const at = level => meterCue({ kind: 'food', level }, 'session', paths);
+  assert.equal(at(0), null);
+  assert.equal(at(1), 'out_of_food');
+  assert.equal(at(1), null);
+  assert.equal(at(0), null);
+  assert.equal(at(1), 'out_of_food');
+  // Gold and food keep separate levels for the same session.
+  assert.equal(meterCue({ kind: 'gold', level: 1 }, 'session', paths), 'gold_low');
+  writeFileSync(f.env.AGENT_WARCRAFT_CONFIG, JSON.stringify({ food: { lowPercent: 70 } }));
+  assert.equal(f.settings().config.food.lowPercent, 70);
+});
+
+test('random faction keeps one side per session and plays only that side', t => {
+  assert.equal(side('horde', 'any'), 'horde');
+  assert.equal(side('duo', 'any'), 'duo');
+  const sessions = Array.from({ length: 40 }, (_, index) => `session-${index}`);
+  const picks = sessions.map(session => side('random', session));
+  assert.deepEqual(sessions.map(session => side('random', session)), picks);
+  assert.ok(picks.includes('horde') && picks.includes('alliance'));
+  assert.deepEqual(enlist(['orc-work-complete', 'human-jobs-done'], 'random'), ['orc-work-complete', 'human-jobs-done']);
+  const f = fixture(t);
+  updateConfiguration('faction', 'random', f.env);
+  const settings = f.settings();
+  for (const session of sessions.slice(0, 6)) {
+    const played = [];
+    const options = { random: Math.random, player: audio => ['fake', audio], run: (command, args) => { played.push(args[0].split(/[\\/]/).at(-1)); return { status: 0 }; } };
+    for (const event of ['session_started', 'turn_completed', 'out_of_gold']) playback({ agent: 'generic', session, event }, settings, options);
+    const prefix = { horde: 'orc-', alliance: 'human-' }[side('random', session)];
+    assert.ok(played.every(name => name.startsWith(prefix)), `${session} ${played}`);
+  }
+});
+
+test('duo mode gives the Peon the work chatter and the Alliance the reports and alarms', t => {
+  const list = ['orc-work-complete', 'human-jobs-done'];
+  assert.deepEqual(enlist(list, 'duo', 'prompt_submitted'), ['orc-work-complete']);
+  assert.deepEqual(enlist(list, 'duo', 'turn_completed'), ['human-jobs-done']);
+  assert.deepEqual(enlist(list, 'duo'), list);
+  // Every default event has a duo assignment.
+  for (const event of Object.keys(DEFAULTS.events)) assert.notDeepEqual(enlist(list, 'duo', event), list, event);
+  const f = fixture(t);
+  updateConfiguration('faction', 'duo', f.env);
+  const played = [];
+  const options = { random: () => 0.5, player: audio => ['fake', audio], run: (command, args) => { played.push(args[0].split(/[\\/]/).at(-1)); return { status: 0 }; } };
+  for (const event of ['session_started', 'turn_completed', 'out_of_gold', 'out_of_food']) playback({ agent: 'generic', session: 's', event }, f.settings(), options);
+  assert.deepEqual(played, ['orc-ready.wav', 'human-jobs-done.wav', 'human-more-gold.wav', 'human-build-more-farms.wav']);
+  const run = args => spawnSync(process.execPath, [SCRIPT, ...args], { env: f.env, encoding: 'utf8', timeout: 3000 });
+  assert.match(run(['status']).stdout, /Faction: duo[\s\S]*turn_completed: human-jobs-done/);
+  assert.match(run(['list']).stdout, /factions: horde, alliance, both, random, duo/);
 });

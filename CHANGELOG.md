@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 - 2026-10-28
+
+A food meter, a Random faction, and duo mode.
+
+- Add a food meter to `agent-warcraft statusline`: the context window shown against Warcraft III's 100 food cap (`⛏ 18% gold (5h) · 42/100 food`). Crossing `food.lowPercent` (85% by default) plays the new `out_of_food` cue once, "Build more burrows!" or "Build more farms.", and re-arms when the context drops, as after a compaction.
+- Add two advisor lines, `orc-build-more-burrows` and `human-build-more-farms`, with provenance in `audio/sources.json` and transcripts verified.
+- Add `agent-warcraft faction random`, which keeps one faction for a whole session, and `agent-warcraft faction duo`, where the Peon handles the work chatter and the Alliance answers approvals, announces "Job's done!", and raises the usage alarms.
+- Add [sound notes](docs/sounds.md) explaining each event's lines and the faction modes, and [community listing drafts](docs/promotion/listings.md) to the promotion kit.
+- Show the food meter, the `out_of_food` row, and the new faction modes on the site.
+
 ## 0.3.1 - 2026-10-28
 
 - Link the sibling projects Agent Rocky, Agent Star Wars, and Agent StarCraft from the README, site footer, install notes, and promotion kit, and exclude their control skills from `warcraft-control`.

@@ -50,6 +50,7 @@ limiter, adds 10-20 ms fades, and writes 16-bit mono PCM WAV at 32 kHz.
 | `orc-need-more-gold.wav` | Horde | We need more gold! | 1.37 s | The Sounds Resource (`GruntNoGold1.wav`) |
 | `orc-need-more-lumber.wav` | Horde | We need more lumber. | 1.47 s | The Sounds Resource (`GruntNoLumber1.wav`) |
 | `orc-gold-mine-low.wav` | Horde | Our gold mine is running low. | 1.56 s | The Sounds Resource (`GruntGoldMineLow1.wav`) |
+| `orc-build-more-burrows.wav` | Horde | Build more burrows! | 1.55 s | The Sounds Resource (`GruntNoFood1.wav`) |
 | `orc-under-attack.wav` | Horde | We're under attack! | 1.34 s | The Sounds Resource (`GruntUnitAttack1.wav`) |
 | `orc-town-under-attack.wav` | Horde | Our town is under attack! | 1.82 s | The Sounds Resource (`GruntTownAttack1.wav`) |
 | `orc-inventory-full.wav` | Horde | Inventory is full. | 1.41 s | The Sounds Resource (`GruntInventoryFull1.wav`) |
@@ -78,6 +79,7 @@ limiter, adds 10-20 ms fades, and writes 16-bit mono PCM WAV at 32 kHz.
 | `human-more-gold.wav` | Alliance | More gold is required. | 1.31 s | The Sounds Resource (`KnightNoGold1.wav`) |
 | `human-more-lumber.wav` | Alliance | More lumber is required. | 1.59 s | The Sounds Resource (`KnightNoLumber1.wav`) |
 | `human-gold-mine-low.wav` | Alliance | Our gold mine is running low. | 1.64 s | The Sounds Resource (`KnightGoldMineLow1.wav`) |
+| `human-build-more-farms.wav` | Alliance | Build more farms. | 1.43 s | The Sounds Resource (`KnightNoFood1.wav`) |
 | `human-forces-under-attack.wav` | Alliance | Our forces are under attack! | 1.56 s | The Sounds Resource (`KnightUnitAttack1.wav`) |
 | `human-town-under-siege.wav` | Alliance | Our town is under siege. | 1.91 s | The Sounds Resource (`KnightTownAttack1.wav`) |
 | `human-inventory-full.wav` | Alliance | Inventory is full. | 1.28 s | The Sounds Resource (`KnightInventoryFull1.wav`) |

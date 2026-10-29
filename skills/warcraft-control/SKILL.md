@@ -5,12 +5,14 @@ description: >-
   Inspect and control Agent Warcraft peon sound notifications without changing pet selection.
   TRIGGER when: the user says "mute the peon", "unmute the peon", "peon status",
   "Agent Warcraft status", "switch to Alliance", "switch to Horde", "Horde mode",
-  "Alliance mode", "use both factions", "use the peasant", "stop the work work",
+  "Alliance mode", "use both factions", "use the peasant", "random faction",
+  "pick a faction per session", "duo mode", "peon and peasant together", "stop the work work",
   "zug zug off", "turn off prompt sounds", "turn off job's done", "turn off work complete",
   "enable approval sounds", "peon attention mode", "turn off easter eggs",
   "stop the annoyed lines", "stop me busy leave me alone", "enable subagent sounds",
   "enable tool failure sounds", "enable compaction sounds", "turn on session end sounds",
   "gold alarm", "out of gold sound", "set a gold budget", "statusline gold meter",
+  "food meter", "context window meter", "build more farms", "build more burrows",
   "preview a peon sound", "play we need more gold", or asks to inspect or adjust
   Agent Warcraft notifications.
   DO NOT TRIGGER when: the user wants operating system volume controls, unrelated
@@ -28,7 +30,9 @@ path, rather than assuming a global `agent-warcraft` executable is installed.
 
 - Inspect: `status`, `status --json`, `list`, or `config --effective`.
 - Mute/unmute: `mute EVENT|easter-egg|all` or `unmute EVENT|easter-egg|all`.
-- Faction: `faction horde`, `faction alliance`, or `faction both`.
+- Faction: `faction horde`, `faction alliance`, `faction both`, `faction random`
+  (one faction per session), or `faction duo` (Peon for work chatter, Alliance
+  for reports and alarms).
 - Presets: `preset attention` or `preset default`.
 - Requested sound preview: `preview CLIP`.
 
@@ -46,6 +50,7 @@ into the corresponding event:
 | Rate limit, billing, or budget exhausted ("We need more gold!") | `out_of_gold` |
 | Status-line low-gold warning | `gold_low` |
 | Output token limit ("We need more lumber") | `out_of_lumber` |
+| Status-line context window warning ("Build more farms") | `out_of_food` |
 | Other API errors | `error` |
 | Failed tool calls ("Can't build there") | `tool_failed` |
 | Subagents starting ("Zug zug") | `subagent_started` |
@@ -54,13 +59,15 @@ into the corresponding event:
 | Rare war cries ("For the Horde!", "For Lordaeron!") | `easter-egg` |
 
 The Horde is the orc peon and advisor; the Alliance is the human peasant,
-footman, and knight. "Use the peasant" means `faction alliance`. The destructive
+footman, and knight. "Use the peasant" means `faction alliance`; "surprise me"
+or "switch each session" means `faction random`; "both, but split by event"
+means `faction duo`. The destructive
 alarm ("We're under attack!") is part of `approval_required`; it cannot be muted
 separately without muting approvals. Ask only when the requested event is unclear.
 
-The gold meter is a status-line command, not a hook. When asked to set it up or
-to set a budget, explain the `gold.budgetUsd` and `gold.lowPercent` settings in
-the config file and the `statusline` command documented in `docs/budget.md`, and
+The gold and food meters are one status-line command, not a hook. When asked to
+set them up or to set a budget, explain the `gold.budgetUsd`, `gold.lowPercent`,
+and `food.lowPercent` settings in the config file and the `statusline` command documented in `docs/budget.md`, and
 show the user the line to add. Do not edit the host's settings or status line yourself.
 
 Change preferences only when the user requests that change. Inspection and
