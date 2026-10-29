@@ -51,7 +51,8 @@ settings.
 
 ## Already using another Agent plugin?
 
-Agent Navi, Agent Johnny 5, Agent Rocky, and Agent Warcraft answer the same events. Enable one per host. For example,
+Agent Navi, Agent Johnny 5, Agent Rocky, Agent Star Wars, Agent StarCraft, and
+Agent Warcraft answer the same events. Enable one per host. For example,
 `claude plugin disable johnny5@agent-johnny5` for Claude Code, or
 `enabled = false` under `[plugins."johnny5@agent-johnny5"]` in
 `~/.codex/config.toml` for Codex.
