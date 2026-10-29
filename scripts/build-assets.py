@@ -263,6 +263,13 @@ head = cell(0, 0).crop((40, 4, 152, 116)).resize((150, 150), Image.LANCZOS)
 touch.alpha_composite(head, (15, 18))
 touch.convert("RGB").save(OUT / "touch-icon.png")
 
+# The plugin listing icon: the touch icon's framed Peon head at the 512 px the Claude plugin validator asks for.
+listing = stone(512, 512)
+draw = ImageDraw.Draw(listing, "RGBA")
+draw.rounded_rectangle((17, 17, 494, 494), radius=51, fill=PORTRAIT + (255,), outline=TRIM, width=11)
+listing.alpha_composite(cell(0, 0).crop((40, 4, 152, 116)).resize((427, 427), Image.LANCZOS), (43, 51))
+listing.convert("RGB").save(OUT / "icon.png")
+
 
 def frames_of(path):
     with Image.open(path) as image:
