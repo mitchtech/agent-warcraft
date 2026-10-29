@@ -1,6 +1,6 @@
 {
   "name": "agent-warcraft",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Warcraft peon sound notifications for coding agents and native Peon and Peasant Codex pets: Work complete!",
   "type": "module",
   "bin": {
@@ -28,6 +28,7 @@
     "hooks",
     "docs",
     "CHANGELOG.md",
+    "assets/previews/icon.png",
     "assets/previews/banner.png",
     "assets/previews/pet-idle.gif",
     "assets/previews/pet-working.gif",
