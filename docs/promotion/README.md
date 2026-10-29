@@ -32,7 +32,7 @@ deferred.
 
 Primary audience: developers running local Claude Code or Codex sessions who
 want audible cues, and who remember WC3. Secondary audiences: Agent Navi,
-Agent Johnny 5, and Agent Rocky users who want a different voice, and people who already know
+Agent Johnny 5, Agent Rocky, Agent Star Wars, and Agent StarCraft users who want a different voice, and people who already know
 peon-ping and want the usage alarms or the Alliance. Gemini support is a
 supporting fact, not another campaign.
 
