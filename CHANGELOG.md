@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1 - 2026-10-28
+
+- Link the sibling projects Agent Rocky, Agent Star Wars, and Agent StarCraft from the README, site footer, and install notes, and exclude their control skills from `warcraft-control`.
+
 ## 0.3.0 - 2026-10-22
 
 Meet the Peasant: the Alliance counterpart to the Peon, as a second native Codex pet.
