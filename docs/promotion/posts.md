@@ -111,7 +111,7 @@ https://github.com/mitchtech/agent-warcraft#factions
 Trying Agent Warcraft? Add the marketplace, install the plugin, then restart.
 
 Codex also requires hook trust review. Remote sessions play audio on the
-machine running the hook. Already running Agent Navi or Johnny 5? Enable one per host.
+machine running the hook. Already running Agent Navi, Johnny 5, or Rocky? Enable one per host.
 
 https://github.com/mitchtech/agent-warcraft#install
 
