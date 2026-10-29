@@ -14,16 +14,24 @@ const ROOT = resolve(dirname(SCRIPT), '..');
 const CLIPS = [
   'orc-ready', 'orc-something-need-doing', 'orc-yes', 'orc-hmm', 'orc-what-you-want', 'orc-i-can-do-that', 'orc-be-happy-to',
   'orc-work-work', 'orc-okie-dokie', 'orc-whaaat', 'orc-me-busy', 'orc-no-time-for-play', 'orc-not-that-kind-of-orc',
-  'orc-work-complete', 'orc-need-more-gold', 'orc-need-more-lumber', 'orc-gold-mine-low', 'orc-under-attack', 'orc-town-under-attack',
+  'orc-work-complete', 'orc-need-more-gold', 'orc-need-more-lumber', 'orc-gold-mine-low', 'orc-build-more-burrows', 'orc-under-attack', 'orc-town-under-attack',
   'orc-inventory-full', 'orc-hero-slain', 'orc-cant-build-there', 'orc-zug-zug', 'orc-dabu', 'orc-loktar', 'orc-death',
   'orc-for-the-horde', 'orc-my-life-for-the-horde', 'orc-why-not',
   'human-ready', 'human-yes-milord', 'human-what', 'human-more-work', 'human-righto', 'human-yes-me-lord', 'human-alright',
   'human-off-i-go', 'human-didnt-vote', 'human-witch', 'human-repressed', 'human-horse-kicked', 'human-jobs-done',
-  'human-more-gold', 'human-more-lumber', 'human-gold-mine-low', 'human-forces-under-attack', 'human-town-under-siege',
+  'human-more-gold', 'human-more-lumber', 'human-gold-mine-low', 'human-build-more-farms',
+  'human-forces-under-attack', 'human-town-under-siege',
   'human-inventory-full', 'human-hero-fallen', 'human-cant-build-there', 'human-aye-my-lord', 'human-on-my-way',
   'human-of-course', 'human-for-lordaeron', 'human-ready-for-action', 'human-groan',
 ];
 const FACTIONS = { horde: 'orc-', alliance: 'human-' };
+const FACTION_CHOICES = ['horde', 'alliance', 'both', 'random', 'duo'];
+// Duo mode: the Peon handles the work chatter; the Alliance reports results and raises the alarms.
+const DUO = {
+  session_started: 'horde', prompt_submitted: 'horde', annoyed: 'horde', approval_required: 'alliance', input_required: 'alliance',
+  ready_for_input: 'alliance', turn_completed: 'alliance', out_of_gold: 'alliance', gold_low: 'alliance', out_of_lumber: 'alliance',
+  out_of_food: 'alliance', error: 'alliance', tool_failed: 'horde', subagent_started: 'horde', context_compacting: 'alliance', session_ended: 'horde',
+};
 const CHANGES = new Set(['Bash', 'PowerShell', 'Write', 'Edit', 'NotebookEdit', 'apply_patch', 'run_shell_command', 'write_file', 'replace']);
 // Destructive shell and SQL patterns. Only the resulting boolean leaves normalize(); commands are never stored.
 const DANGER = [
@@ -50,6 +58,7 @@ export const DEFAULTS = {
   cooldownMs: 1000,
   faction: 'horde',
   gold: { budgetUsd: null, lowPercent: 80 },
+  food: { lowPercent: 85 },
   easterEgg: { chance: 0.02, clips: ['orc-for-the-horde', 'orc-my-life-for-the-horde', 'orc-why-not', 'human-for-lordaeron', 'human-ready-for-action'] },
   events: {
     session_started: { enabled: true, clips: ['orc-ready', 'human-ready'] },
@@ -65,6 +74,7 @@ export const DEFAULTS = {
     out_of_gold: { enabled: true, clips: ['orc-need-more-gold', 'human-more-gold'] },
     gold_low: { enabled: true, clips: ['orc-gold-mine-low', 'human-gold-mine-low'] },
     out_of_lumber: { enabled: true, clips: ['orc-need-more-lumber', 'human-more-lumber'] },
+    out_of_food: { enabled: true, clips: ['orc-build-more-burrows', 'human-build-more-farms'] },
     error: { enabled: false, clips: ['orc-hero-slain', 'human-hero-fallen'] },
     tool_failed: { enabled: false, clips: ['orc-cant-build-there', 'human-cant-build-there'] },
     subagent_started: { enabled: false, clips: ['orc-zug-zug', 'orc-dabu', 'orc-loktar', 'human-aye-my-lord', 'human-on-my-way', 'human-of-course'] },
@@ -72,7 +82,7 @@ export const DEFAULTS = {
     session_ended: { enabled: false, clips: ['orc-death', 'human-groan'] },
   },
 };
-const ATTENTION = ['approval_required', 'input_required', 'ready_for_input', 'out_of_gold', 'gold_low', 'out_of_lumber'];
+const ATTENTION = ['approval_required', 'input_required', 'ready_for_input', 'out_of_gold', 'gold_low', 'out_of_lumber', 'out_of_food'];
 
 export function dangerous(command) {
   return typeof command === 'string' && DANGER.some(pattern => pattern.test(command));
@@ -105,12 +115,18 @@ export function configuration(env = process.env) {
     if (Object.hasOwn(overrides, key)) config[key] = overrides[key];
   }
   if (typeof config.muted !== 'boolean' || (config.audioDir !== null && typeof config.audioDir !== 'string') || !Number.isFinite(config.cooldownMs) || config.cooldownMs < 0) throw new Error('Invalid configuration value');
-  if (!['horde', 'alliance', 'both'].includes(config.faction)) throw new Error('faction must be horde, alliance, or both');
+  if (!FACTION_CHOICES.includes(config.faction)) throw new Error('faction must be horde, alliance, both, random, or duo');
   if (Object.hasOwn(overrides, 'gold')) {
     if (!object(overrides.gold) || Object.keys(overrides.gold).some(key => !Object.hasOwn(config.gold, key))) throw new Error('Invalid gold settings');
     Object.assign(config.gold, overrides.gold);
     const { budgetUsd, lowPercent } = config.gold;
     if ((budgetUsd !== null && (!Number.isFinite(budgetUsd) || budgetUsd <= 0)) || !Number.isFinite(lowPercent) || lowPercent <= 0 || lowPercent >= 100) throw new Error('Invalid gold settings');
+  }
+  if (Object.hasOwn(overrides, 'food')) {
+    if (!object(overrides.food) || Object.keys(overrides.food).some(key => !Object.hasOwn(config.food, key))) throw new Error('Invalid food settings');
+    Object.assign(config.food, overrides.food);
+    const { lowPercent } = config.food;
+    if (!Number.isFinite(lowPercent) || lowPercent <= 0 || lowPercent >= 100) throw new Error('Invalid food settings');
   }
   if (Object.hasOwn(overrides, 'easterEgg')) {
     if (!object(overrides.easterEgg) || Object.keys(overrides.easterEgg).some(key => !Object.hasOwn(config.easterEgg, key))) throw new Error('Invalid easterEgg settings');
@@ -158,7 +174,7 @@ export function updateConfiguration(command, target, env = process.env) {
       value.events[event].enabled = target === 'attention' ? ATTENTION.includes(event) : rule.enabled;
     }
   } else if (command === 'faction') {
-    if (!['horde', 'alliance', 'both'].includes(target)) throw new Error('Factions: horde, alliance, both');
+    if (!FACTION_CHOICES.includes(target)) throw new Error(`Factions: ${FACTION_CHOICES.join(', ')}`);
     value.faction = target;
   } else {
     if (!['mute', 'unmute'].includes(command)) throw new Error('Unknown configuration action');
@@ -190,19 +206,29 @@ function printStatus(settings) {
 
 function printRules(config) {
   console.log(`Faction: ${config.faction}`);
-  for (const [event, rule] of Object.entries(config.events)) console.log(`${event}: ${rule.enabled ? enlist(rule.clips, config.faction).join('/') : 'off'}`);
+  for (const [event, rule] of Object.entries(config.events)) console.log(`${event}: ${rule.enabled ? enlist(rule.clips, config.faction, event).join('/') : 'off'}`);
   console.log(`easter-egg: ${eggs(config)}`);
   console.log(`gold: ${config.gold.budgetUsd ? `$${config.gold.budgetUsd} budget` : 'rate limits'}, low at ${config.gold.lowPercent}%`);
+  console.log(`food: low at ${config.food.lowPercent}% of the context window`);
 }
 
 function eggs(config) {
   return config.easterEgg.chance ? `${+(config.easterEgg.chance * 100).toFixed(2)}% ${enlist(config.easterEgg.clips, config.faction).join('/')}` : 'off';
 }
 
-// Keep the selected faction's clips. A custom list with none of them plays as written rather than going silent.
-export function enlist(list, faction) {
-  if (faction === 'both') return list;
-  const own = list.filter(clip => clip.startsWith(FACTIONS[faction]));
+// Random keeps one faction for a whole session, as a Random player keeps one race for a whole game.
+export function side(faction, session = 'default') {
+  if (faction !== 'random') return faction;
+  return createHash('sha256').update(String(session)).digest()[0] % 2 ? 'alliance' : 'horde';
+}
+
+// Keep the selected faction's clips; duo picks the faction assigned to the event. Both, random (before a session
+// picks a side), and events without a duo assignment keep every clip. A custom list with none of the chosen
+// faction's clips plays as written rather than going silent.
+export function enlist(list, faction, event) {
+  const voice = faction === 'duo' ? DUO[event] : faction;
+  if (!Object.hasOwn(FACTIONS, voice)) return list;
+  const own = list.filter(clip => clip.startsWith(FACTIONS[voice]));
   return own.length ? own : list;
 }
 
@@ -342,15 +368,29 @@ export function gold(input, config) {
   const level = tightest.percent >= 100 ? 2 : tightest.percent >= config.gold.lowPercent ? 1 : 0;
   const left = tightest.label === 'budget'
     ? `$${Math.max(0, config.gold.budgetUsd - cost).toFixed(2)}` : `${Math.max(0, Math.round(100 - tightest.percent))}%`;
-  return { ...tightest, level, text: `⛏ ${left} gold${tightest.label === 'budget' ? '' : ` (${tightest.label})`}${['', ' low', ' out'][level]}` };
+  return { kind: 'gold', ...tightest, level, text: `${left} gold${tightest.label === 'budget' ? '' : ` (${tightest.label})`}${['', ' low', ' out'][level]}` };
 }
 
-// Cue each rise in gold level once per session. Falling back below a level, as when a window resets, re-arms it.
-export function goldCue(meter, session, paths) {
-  const state = record(paths, 'statusline', session, 'gold');
+// Context window use, shown as food against Warcraft III's 100 cap. Claude Code counts input tokens only.
+export function food(input, config) {
+  const window = input?.context_window;
+  let percent = window?.used_percentage;
+  if (!Number.isFinite(percent) && Number.isFinite(window?.total_input_tokens) && window?.context_window_size > 0) {
+    percent = window.total_input_tokens / window.context_window_size * 100;
+  }
+  if (!Number.isFinite(percent)) return null;
+  const level = percent >= config.food.lowPercent ? 1 : 0;
+  return { kind: 'food', percent, level, text: `${Math.min(100, Math.max(0, Math.round(percent)))}/100 food${level ? ' low' : ''}` };
+}
+
+const METER_CUES = { gold: ['', 'gold_low', 'out_of_gold'], food: ['', 'out_of_food'] };
+
+// Cue each rise in a meter's level once per session. Falling back below a level, as when a window resets or the context compacts, re-arms it.
+export function meterCue(meter, session, paths) {
+  const state = record(paths, 'statusline', session, meter.kind);
   const previous = Number.isInteger(state.value.level) ? state.value.level : 0;
   if (meter.level !== previous) state.save({ level: meter.level });
-  return meter.level > previous ? ['', 'gold_low', 'out_of_gold'][meter.level] : null;
+  return meter.level > previous ? METER_CUES[meter.kind][meter.level] : null;
 }
 
 export function playback(event, settings, options = {}) {
@@ -361,7 +401,8 @@ export function playback(event, settings, options = {}) {
   const egg = config.easterEgg;
   const choices = enlist(event.danger && rule.dangerClips ? rule.dangerClips
     : event.change && rule.changeClips ? rule.changeClips
-      : EASTER_EGG_EVENTS.has(event.event) && !event.danger && !event.change && random() < egg.chance ? egg.clips : rule.clips, config.faction);
+      : EASTER_EGG_EVENTS.has(event.event) && !event.danger && !event.change && random() < egg.chance ? egg.clips : rule.clips,
+  side(config.faction, event.session), event.event);
   const clip = options.clip || choices[Math.floor(random() * choices.length)];
   if (!CLIPS.includes(clip)) throw new Error('Unknown clip');
   const audio = join(config.audioDir, `${clip}.wav`);
@@ -437,7 +478,7 @@ export async function main(argv = process.argv.slice(2)) {
       return 0;
     }
     if (['mute', 'unmute', 'preset', 'faction'].includes(command)) {
-      const usage = { preset: 'default|attention', faction: 'horde|alliance|both' }[command] || 'EVENT|easter-egg|all';
+      const usage = { preset: 'default|attention', faction: FACTION_CHOICES.join('|') }[command] || 'EVENT|easter-egg|all';
       if (args.length !== 1) throw new Error(`Usage: agent-warcraft ${command} ${usage}`);
       updateConfiguration(command, args[0]);
       printStatus(status());
@@ -445,7 +486,7 @@ export async function main(argv = process.argv.slice(2)) {
     }
     if (command === 'list') {
       const { values } = parseArgs({ args, options: { json: { type: 'boolean' } } });
-      const catalog = { clips: CLIPS, events: Object.keys(DEFAULTS.events), presets: ['default', 'attention'], factions: ['horde', 'alliance', 'both'] };
+      const catalog = { clips: CLIPS, events: Object.keys(DEFAULTS.events), presets: ['default', 'attention'], factions: FACTION_CHOICES };
       console.log(values.json ? JSON.stringify(catalog, null, 2) : Object.entries(catalog).map(([key, items]) => `${key}: ${items.join(', ')}`).join('\n'));
       return 0;
     }
@@ -484,11 +525,12 @@ export async function main(argv = process.argv.slice(2)) {
       try {
         const payload = JSON.parse(input);
         const { config, paths } = configuration();
-        const meter = gold(payload, config);
-        if (meter) {
-          text = meter.text;
+        const meters = [gold(payload, config), food(payload, config)].filter(Boolean);
+        if (meters.length) {
+          text = `⛏ ${meters.map(meter => meter.text).join(' · ')}`;
           const session = typeof payload.session_id === 'string' ? payload.session_id : 'default';
-          const cue = goldCue(meter, session, paths);
+          // At most one cue per update; the gold alarm outranks food.
+          const cue = meters.map(meter => meterCue(meter, session, paths)).find(Boolean);
           if (cue && !config.muted && config.events[cue].enabled) schedule({ event: cue, agent: 'claude', session, change: false, danger: false, fallback: false });
         }
       } catch {}
@@ -516,7 +558,7 @@ export async function main(argv = process.argv.slice(2)) {
       return 0;
     }
     if (command && !['--help', '-h'].includes(command)) throw new Error(`Unknown command: ${command}`);
-    console.log('Agent Warcraft\n\nagent-warcraft hook --agent claude|codex|gemini\nagent-warcraft play EVENT [--session ID] [--tool TOOL] [--command CMD]\nagent-warcraft preview CLIP\nagent-warcraft pet install [peon|peasant] [--replace]\nagent-warcraft pet status [peon|peasant] [--json]\nagent-warcraft pet uninstall [peon|peasant]\nagent-warcraft doctor [--pet [peon|peasant]]\nagent-warcraft config [--effective]\nagent-warcraft status [--json]\nagent-warcraft mute EVENT|easter-egg|all\nagent-warcraft unmute EVENT|easter-egg|all\nagent-warcraft preset default|attention\nagent-warcraft faction horde|alliance|both\nagent-warcraft statusline  (reads Claude Code status line JSON on stdin)\nagent-warcraft list [--json]');
+    console.log('Agent Warcraft\n\nagent-warcraft hook --agent claude|codex|gemini\nagent-warcraft play EVENT [--session ID] [--tool TOOL] [--command CMD]\nagent-warcraft preview CLIP\nagent-warcraft pet install [peon|peasant] [--replace]\nagent-warcraft pet status [peon|peasant] [--json]\nagent-warcraft pet uninstall [peon|peasant]\nagent-warcraft doctor [--pet [peon|peasant]]\nagent-warcraft config [--effective]\nagent-warcraft status [--json]\nagent-warcraft mute EVENT|easter-egg|all\nagent-warcraft unmute EVENT|easter-egg|all\nagent-warcraft preset default|attention\nagent-warcraft faction horde|alliance|both|random|duo\nagent-warcraft statusline  (reads Claude Code status line JSON on stdin)\nagent-warcraft list [--json]');
     return 0;
   } catch (error) {
     if (!quiet) console.error(`Agent Warcraft: ${error.message}`);

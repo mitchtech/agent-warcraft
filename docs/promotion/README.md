@@ -15,6 +15,8 @@ and the faction setting are the substance.
 4. Select the appropriate [media and capture script](demos.md).
 5. Record publications and voluntary feedback in [campaign.csv](campaign.csv).
    Keep personal feedback details in a private copy, not a public PR.
+6. Submit to curated lists and plugin directories from the
+   [community listing drafts](listings.md), one at a time.
 
 This kit prepares promotion; it does not publish posts, contact people, schedule
 messages, or submit the project to directories. Michael reviews and publishes

@@ -44,7 +44,7 @@ Linux, and Windows.
 
 The audio got the same treatment as Johnny 5's. A build script records each
 source URL and hash, the archive member where one applies, and the output hash,
-and matches loudness across all 56 clips. I transcribed every result to confirm
+and matches loudness across all 58 clips. I transcribed every result to confirm
 the words survived the trim. Speech-to-text heard "Something need doing?" as
 "Something you're doing?", which says more about orc grammar than the trim.
 

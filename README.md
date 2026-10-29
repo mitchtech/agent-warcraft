@@ -88,7 +88,7 @@ large multi-game sound pack registry, see [peon-ping](https://github.com/PeonPin
 | Choice | Install | Requirements |
 |---|---|---|
 | Sounds | [Agent plugin](#install) or standalone CLI | Node.js 22+ and local audio |
-| Gold meter | [Status line command](#gold-meter-and-usage-alarms) | Claude Code status line |
+| Gold and food meters | [Status line command](#gold-meter-and-usage-alarms) | Claude Code status line |
 | Codex pets | [Pet installer or manual ZIP](#codex-pets) | A host with compatible custom pets |
 
 Installing the sound plugin never installs or selects a pet, and never changes
@@ -248,6 +248,7 @@ Each event lists the Horde line first, then the Alliance line.
 | `out_of_gold` | Rate limit, billing error, account on hold, or budget spent | "We need more gold!" / "More gold is required." | On for Claude |
 | `gold_low` | The gold meter crosses its threshold | "Our gold mine is running low." | On with the meter |
 | `out_of_lumber` | A reply hits the output token limit | "We need more lumber." / "More lumber is required." | On for Claude |
+| `out_of_food` | The food meter (context window) crosses its threshold | "Build more burrows!" / "Build more farms." | On with the meter |
 | `error` | Claude Code stops on any other API error | "Our hero has been slain!" / "Our hero has fallen." | Off |
 | `tool_failed` | A tool call fails | "Can't build there." / "I can't build there." | Off |
 | `subagent_started` | A subagent starts work | "Zug zug." "Dabu." "Lok'tar." / "Aye, my lord." "On my way." "Of course." | Off |
@@ -257,6 +258,9 @@ Each event lists the Horde line first, then the Alliance line.
 
 `turn_completed` is on by default here, unlike the siblings: "Work complete" is
 the line people install this for. `agent-warcraft preset attention` turns it off.
+
+[Sound notes](docs/sounds.md) explain why each event plays what it plays, how
+the faction modes divide the lines, and which other lines are worth trying.
 
 **Destructive commands** are recognized from the approval request's command:
 `rm` with recursive and force flags, `git push --force` or `-f` (not
@@ -282,7 +286,15 @@ are distinct; event availability depends on the host. See
 agent-warcraft faction horde      # orc peon and advisor (default)
 agent-warcraft faction alliance   # human peasant, footman, and knight
 agent-warcraft faction both       # mix every line
+agent-warcraft faction random     # one faction per session, like a Random player
+agent-warcraft faction duo        # the Peon works, the Alliance reports
 ```
+
+`random` keeps the same faction for a whole session and picks again for the
+next. `duo` splits each event between the factions: the Peon handles the work
+chatter (session start, prompts, annoyed lines, subagents, tool failures, and
+session end), while the Alliance answers approvals and questions, announces
+"Job's done!", and raises the gold, lumber, and food alarms.
 
 Every default cue has lines for both factions, so switching never silences an
 event. Custom clip lists you write in the configuration are filtered the same
@@ -307,8 +319,13 @@ plugin, so it needs the [standalone command](#standalone-command)
 ```
 
 ```text
-⛏ 18% gold (5h) low
+⛏ 18% gold (5h) low · 42/100 food
 ```
+
+The food meter shows how much of the context window is in use, against
+Warcraft III's 100 food cap. When it crosses `food.lowPercent` (85% by default)
+it plays "Build more burrows!" or "Build more farms." (`out_of_food`) once,
+until the context drops back below the threshold, as after a compaction.
 
 The meter reads Claude Code's 5-hour, 7-day, and spend-limit percentages when
 your plan reports them. Set `gold.budgetUsd` to also count a per-session dollar
@@ -339,7 +356,7 @@ Changes persist immediately and apply to the next hook, without restarting.
 Global mute/unmute preserves individual event preferences.
 
 - The **attention** preset keeps the approval, question, ready, and usage
-  alarms (`out_of_gold`, `gold_low`, `out_of_lumber`). It turns off session,
+  alarms (`out_of_gold`, `gold_low`, `out_of_lumber`, `out_of_food`). It turns off session,
   prompt, annoyed, completion, error, tool-failure, subagent, compaction, and
   session-end cues.
 - The **default** preset restores event enablement. It leaves your custom
@@ -348,7 +365,7 @@ Global mute/unmute preserves individual event preferences.
 
 The bundled `warcraft-control` skill also handles requests such as "mute the
 peon", "switch to Alliance", "turn off the annoyed lines", or "set up the gold
-meter" inside supported agents. It uses the bundled CLI, so no global npm
+meter", "Random faction", or "duo mode" inside supported agents. It uses the bundled CLI, so no global npm
 installation is needed. `status --json` and `list --json` provide structured
 output. Status shows when `AGENT_WARCRAFT_MUTE` overrides the saved global mute
 setting.
@@ -369,6 +386,7 @@ Create the parent directory and save the settings you want to override:
   "cooldownMs": 1000,
   "faction": "both",
   "gold": { "budgetUsd": 20, "lowPercent": 75 },
+  "food": { "lowPercent": 90 },
   "easterEgg": { "chance": 0.05, "clips": ["orc-zug-zug"] },
   "events": {
     "session_started": { "clips": ["orc-ready"] },
@@ -394,6 +412,9 @@ How clip settings work:
 - `easterEgg.chance` is a probability from 0 to 1.
 - `gold.budgetUsd` is `null` (rate limits only) or a positive dollar amount.
   `gold.lowPercent` is between 0 and 100.
+- `food.lowPercent` is the context window use, between 0 and 100, that plays
+  `out_of_food`.
+- `faction` is `horde`, `alliance`, `both`, `random`, or `duo`.
 - Each event accepts `enabled: false` to mute it independently.
 
 `agent-warcraft config` prints the complete default configuration without
@@ -418,7 +439,7 @@ Repeats and overlaps are handled like this:
   alert can still play.
 
 State contains hashed event and session identifiers with timestamps or gold
-levels only. Inactive records are cleaned up after a day, when another sound plays.
+and food levels only. Inactive records are cleaned up after a day, when another sound plays.
 
 ## Other agents
 
@@ -480,8 +501,8 @@ npm run site
 Tests simulate players. They cover:
 
 - host payloads and destructive-command detection
-- faction filtering, the annoyed window, and usage alarms
-- the gold meter and its once-per-session cues
+- faction filtering, random and duo modes, the annoyed window, and usage alarms
+- the gold and food meters and their once-per-session cues
 - easter eggs, configuration, deduplication, and overlap
 - failures, paths with spaces, and packaging
 

@@ -215,6 +215,19 @@
       "output": "bf4aae97c64d7cc84fb74838266020c3276034d372816748e090465e37472d60"
     },
     {
+      "id": "orc-build-more-burrows",
+      "line": "Build more burrows!",
+      "faction": "horde",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Orc/GruntNoFood1.wav"
+        }
+      ],
+      "output": "589093f44dce84d738c2e0fbdbf135ae93643d1d84308065cdc24e318c34056a"
+    },
+    {
       "id": "orc-under-attack",
       "line": "We're under attack!",
       "faction": "horde",
@@ -558,6 +571,19 @@
         }
       ],
       "output": "84ec79a1c70cb73710be793c86fb97e208ce6c7f99641f4a912902cd3155f6d3"
+    },
+    {
+      "id": "human-build-more-farms",
+      "line": "Build more farms.",
+      "faction": "alliance",
+      "sources": [
+        {
+          "url": "https://sounds.spriters-resource.com/media/assets/422/425499.zip",
+          "sha256": "18966c1fad94f254f00e7839b0931cf871f706bae7491f7cf588bb9ee6b1be63",
+          "member": "Interface/Warning/Human/KnightNoFood1.wav"
+        }
+      ],
+      "output": "0c63986be7dd49d9f5f4db14e7a835b90b246b9336d00e7e9ccbc93de9278e7d"
     },
     {
       "id": "human-forces-under-attack",
