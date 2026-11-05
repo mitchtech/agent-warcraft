@@ -109,7 +109,7 @@ occupied cells, the 15 transparent cells, and transparent-pixel RGB cleanup.
 `python3 scripts/package-pet.py` builds a reproducible four-file pet ZIP;
 release packaging includes it and the web atlas automatically.
 `python3 scripts/build-assets.py` renders the README and site animation previews
-from the atlas, and `docs/promotion/build-media.py` renders the captioned pet
+from the atlas, and `scripts/build-media.py` renders the captioned pet
 preview video.
 
 The creation workflow reviewed all nine animation states and sixteen gaze
