@@ -157,14 +157,21 @@ test('hook failures never block; Codex Stop emits only neutral JSON', t => {
 
 test('CLI diagnostics report problems, generic events respect mute, and previews validate names', t => {
   const f = fixture(t);
-  const run = args => spawnSync(process.execPath, [SCRIPT, ...args], { env: { ...f.env, AGENT_WARCRAFT_MUTE: '1', AGENT_WARCRAFT_AUDIO_DIR: join(f.root, 'missing') }, encoding: 'utf8', timeout: 3000 });
+  const run = args => {
+    // doctor probes native player availability; allow for loaded Windows runners.
+    const result = spawnSync(process.execPath, [SCRIPT, ...args], { env: { ...f.env, AGENT_WARCRAFT_MUTE: '1', AGENT_WARCRAFT_AUDIO_DIR: join(f.root, 'missing') }, encoding: 'utf8', timeout: 15000 });
+    assert.ifError(result.error);
+    assert.equal(result.signal, null, result.stderr);
+    return result;
+  };
   assert.deepEqual(JSON.parse(run(['config']).stdout), DEFAULTS);
   assert.equal(run(['play', 'approval_required', '--tool', 'Bash', '--session', 'one']).status, 0);
   assert.equal(run(['play', 'unknown']).status, 1);
   assert.equal(run(['preview', 'unknown']).status, 1);
   assert.match(run(['preview', 'orc-ready']).stderr, /Missing audio/);
-  assert.match(run(['doctor']).stdout, /missing orc-ready/);
-  assert.equal(run(['doctor']).status, 1);
+  const doctor = run(['doctor']);
+  assert.match(doctor.stdout, /missing orc-ready/);
+  assert.equal(doctor.status, 1);
 });
 
 test('npm console entry works through a symlink', { skip: process.platform === 'win32' }, t => {
