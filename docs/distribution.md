@@ -16,8 +16,9 @@ changelog, and run the contributor checks. After its PR merges into `main`, tag
 the merged commit and push the tag:
 
 ```bash
-git tag v0.2.0
-git push origin v0.2.0
+release_tag="v$(node -p "require('./package.json').version")"
+git tag "$release_tag"
+git push origin "$release_tag"
 ```
 
 The release workflow checks Node 22/24 on macOS, Linux, and Windows, including
@@ -89,8 +90,9 @@ No analytics, third-party fonts, or runtime telemetry are loaded; `site/fonts`
 holds the OFL-licensed faces.
 
 The Pages workflow checks out the latest published release tag, validates, and
-builds before deployment. Before the first release it publishes the pushed
-commit. It runs after successful releases, on main updates, or manually.
+builds before deployment. A failed release lookup stops deployment; only
+published release tags are deployed. It runs after successful releases, on
+main updates, or manually.
 The repository homepage points to `https://mitchtech.github.io/agent-warcraft/`.
 Its social card is also available at
 `https://mitchtech.github.io/agent-warcraft/previews/social.png`.
@@ -140,3 +142,15 @@ both characters before packaging. Preserve the source PNG in
 `assets/original/peasant` and update `assets/peasant-pet-revision.json` when
 replacing Peasant artwork. `agent-warcraft pet install peasant` installs it from the
 package; the [Peasant guide](peasant.md) also describes manual installation.
+
+## Automated maintenance
+
+PR checks run the Node 22/24 matrix on Linux, macOS, and Windows, including
+preview pixel verification and a full release package build. New commits
+cancel superseded checks on the same PR. Release publication still requires
+matching manifest/tag versions and a commit merged into `main`.
+
+Dependabot checks Python build dependencies and GitHub Actions weekly, with
+one grouped PR per ecosystem. Security updates remain enabled independently.
+Actions use immutable commit pins with version comments so Dependabot can
+update them. Review required checks before merging dependency updates.
